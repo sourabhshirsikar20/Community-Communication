@@ -35,8 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
-.config/git clone
+.config/
 
 ### MacOS ###
-
 .DS_Store
