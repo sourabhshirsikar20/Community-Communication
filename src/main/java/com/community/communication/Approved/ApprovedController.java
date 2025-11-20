@@ -18,7 +18,6 @@ public class ApprovedController {
         ModelAndView mav = new ModelAndView("Approved.html");
         List<Block> entries = ApproverRepository.getUnapprovedBlocks();
         System.out.println(entries);
-        System.out.println(entries.indexOf(0));
         mav.addObject("entries", entries);
         return mav;
     }
