@@ -1,4 +1,4 @@
-package com.community.communication;
+package com.community.communication.Approved;
 
 import java.util.List;
 

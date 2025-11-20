@@ -1,4 +1,4 @@
-package com.community.communication;
+package com.community.communication.Approved;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
