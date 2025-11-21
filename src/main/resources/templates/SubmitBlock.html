@@ -9,6 +9,9 @@
 <body>
   <div class="container">
     <h2>Submit New Block</h2>
+    <div th:if="${successMessage}" class="success-message">
+      <span th:text="${successMessage}"></span>
+    </div>
     <form id="submit-block-form" action="/SubmitBlock" method="POST" name="block-form" th:object="${block}">
       <label>Block Name:<input th:field="*{name}" type="text" maxlength="128" placeholder="Block name"></label>
       <div class="form-error" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Block name Error</div>

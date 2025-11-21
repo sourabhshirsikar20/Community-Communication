@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.community.communication.Approved.ApproverRepository;
 import com.community.communication.Approved.Block;
@@ -23,10 +24,14 @@ public class SubmitController {
   private ApproverRepository approverRepository;
 
   @GetMapping("/SubmitBlock")
-  public ModelAndView SubmitBlockPage(){
-    Block empty_block = new Block();
+  public ModelAndView SubmitBlockPage(Model model){
     ModelAndView mav = new ModelAndView("SubmitBlock");
-    mav.addObject("block", empty_block);
+    if (model.containsAttribute("successMessage")) {
+        mav.addObject("successMessage", model.getAttribute("successMessage"));
+    }
+    if (!model.containsAttribute("block")) {
+        mav.addObject("block", new Block());
+    }
     return mav;
   }
 
@@ -35,7 +40,7 @@ public class SubmitController {
   }
 
   @PostMapping("/SubmitBlock")
-  public ModelAndView submitForm(@Valid @ModelAttribute("block") Block block, BindingResult bindingResult, Model model){
+  public ModelAndView submitForm(@Valid @ModelAttribute("block") Block block, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
     if (bindingResult.hasErrors()) {
       ModelAndView modelAndView = new ModelAndView("SubmitBlock", model.asMap());
       return modelAndView;
@@ -51,7 +56,8 @@ public class SubmitController {
     // add to database
     approverRepository.addNewBlock(block);
 
-    ModelAndView modelAndView = new ModelAndView("redirect:/SubmitBlockSuccess");
+    redirectAttributes.addFlashAttribute("successMessage", "Block submitted successfully");
+    ModelAndView modelAndView = new ModelAndView("redirect:/SubmitBlock");
     return modelAndView;
   }
 }

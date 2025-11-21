@@ -142,6 +142,12 @@ tbody tr:hover {
 
 /* /SubmitBlock page */
 
+.success-message {
+    color:  #99eeaa;
+    padding: 1em  0;
+    font-weight: bold;
+}
+
 #submit-block-form {
     display: flex;
     flex-direction: column;
