@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InfoTest</title>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Main</th>
+            <th>Links</th>
+            <th>Info</th>
+            <th>Promo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Info: ${Info}">
+            <td th:text="${Info.MainText}"></td>
+            <td th:text="${Info.Links}"></td>
+            <td th:text="${Info.Info}"></td>
+            <td th:text="${Info.Promo}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
