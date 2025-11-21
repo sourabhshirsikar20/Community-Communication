@@ -56,7 +56,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
                 links_text, 
                 info_text, 
                 promo_text
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?)
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
         """;
                 
         jdbc.update(sql, 
