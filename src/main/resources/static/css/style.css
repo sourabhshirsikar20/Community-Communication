@@ -1,15 +1,3 @@
-/* --- CSS VARIABLES --- */
-:root {
-    --primary-color: #1D2F6F;       /* Deep Navy */
-    --secondary-color: #F5A623;     /* Amber Gold */
-    --bg-color: #F4F7F6;            /* Light Grey-Blue Background */
-    --text-color: #333333;          /* Dark Grey Text */
-    --white: #FFFFFF;
-    --success-green: #28a745;
-    --hover-bg: #E6E9F0;
-}
-
-/* --- RESET & BASE STYLES --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -18,8 +6,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: #F4F7F6;
+    color: #333333;
     line-height: 1.6;
     padding: 2rem;
 }
@@ -28,16 +16,16 @@ body {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    background: var(--white);
+    background: #FFFFFF;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(29, 47, 111, 0.15);
 }
 
 h2 {
-    color: var(--primary-color);
+    color: #1D2F6F;
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--secondary-color);
+    border-bottom: 2px solid #F5A623;
     display: inline-block;
     padding-bottom: 5px;
 }
@@ -56,14 +44,14 @@ h2 {
 .details_pane {
     background-color: #f8f9fa; 
     border: 1px solid #e1e4e8;
-    border-left: 5px solid var(--secondary-color); 
+    border-left: 5px solid #F5A623; 
     padding: 1.5rem;
     border-radius: 6px;
     width: 100%;
 }
 
 .details_pane h3 {
-    color: var(--primary-color);
+    color: #1D2F6F;
     margin-top: 0;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
@@ -83,13 +71,13 @@ h2 {
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--white);
+    background-color: #FFFFFF;
     min-width: 600px;
 }
 
 thead {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: #1D2F6F;
+    color: #FFFFFF;
 }
 
 th, td {
@@ -110,19 +98,19 @@ tbody tr {
 }
 
 tbody tr:hover {
-    background-color: var(--hover-bg);
+    background-color: #E6E9F0;
 }
 
 
 .entry_names {
-    color: var(--primary-color);
+    color: #1D2F6F;
     font-weight: 600;
     cursor: pointer;
     transition: color 0.2s ease;
 }
 
 .entry_names:hover {
-    color: var(--secondary-color);
+    color: #F5A623;
     text-decoration: underline;
 }
 
@@ -143,13 +131,13 @@ tbody tr:hover {
 }
 
 #approve_button {
-    color: var(--success-green);
-    border-color: var(--success-green);
+    color: #28a745;
+    border-color: #28a745;
 }
 
 #approve_button:hover {
-    background-color: var(--success-green);
-    color: var(--white);
+    background-color: #28a745;
+    color: #FFFFFF;
 }
 
 

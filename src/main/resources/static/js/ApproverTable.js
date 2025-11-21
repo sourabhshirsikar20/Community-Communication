@@ -1,7 +1,7 @@
 function enableTableInteractions(allEntries) {
     
-    const displayBox = document.getElementById('info-display');
-    const clickableItems = document.querySelectorAll('.clickable-name');
+    const displayBox = document.getElementById('info_display');
+    const clickableItems = document.querySelectorAll('.entry_names');
 
     clickableItems.forEach(item => {
         item.addEventListener('click', function() {
