@@ -1,5 +1,7 @@
 package com.community.communication.SubmitBlock;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,13 +30,27 @@ public class SubmitController {
     return mav;
   }
 
+  private String SanitiseString(String input) {
+    return Jsoup.clean(input, Safelist.basic());
+  }
+
   @PostMapping("/SubmitBlock")
   public ModelAndView submitForm(@Valid @ModelAttribute("block") Block block, BindingResult bindingResult, Model model){
     if (bindingResult.hasErrors()) {
       ModelAndView modelAndView = new ModelAndView("SubmitBlock", model.asMap());
       return modelAndView;
     }
+
+    // sanitise input
+    block.setName(SanitiseString(block.getName()));
+    block.setMainText(SanitiseString(block.getMainText()));
+    block.setLinksText(SanitiseString(block.getLinksText()));
+    block.setInfoText(SanitiseString(block.getInfoText()));
+    block.setPromoText(SanitiseString(block.getPromoText()));
+
+    // add to database
     approverRepository.addNewBlock(block);
+
     ModelAndView modelAndView = new ModelAndView("redirect:/SubmitBlockSuccess");
     return modelAndView;
   }
