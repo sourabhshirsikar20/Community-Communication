@@ -23,7 +23,7 @@ public class SubmitController {
   @GetMapping("/SubmitBlock")
   public ModelAndView SubmitBlockPage(){
     Block empty_block = new Block();
-    ModelAndView mav = new ModelAndView("SubmitBlock.html");
+    ModelAndView mav = new ModelAndView("SubmitBlock");
     mav.addObject("block", empty_block);
     return mav;
   }
@@ -31,12 +31,11 @@ public class SubmitController {
   @PostMapping("/SubmitBlock")
   public ModelAndView submitForm(@Valid @ModelAttribute("block") Block block, BindingResult bindingResult, Model model){
     if (bindingResult.hasErrors()) {
-      ModelAndView modelAndView = new ModelAndView("SubmitBlock.html", model.asMap());
-      System.out.println("Errors");
+      ModelAndView modelAndView = new ModelAndView("SubmitBlock", model.asMap());
       return modelAndView;
     }
-    System.out.println(block);
-    ModelAndView modelAndView = new ModelAndView("redirect:/SubmitBlockSuccess.html");
+    approverRepository.addNewBlock(block);
+    ModelAndView modelAndView = new ModelAndView("redirect:/SubmitBlockSuccess");
     return modelAndView;
   }
 }
