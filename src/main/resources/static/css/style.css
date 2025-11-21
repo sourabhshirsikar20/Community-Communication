@@ -1,0 +1,160 @@
+/* --- CSS VARIABLES --- */
+:root {
+    --primary-color: #1D2F6F;       /* Deep Navy */
+    --secondary-color: #F5A623;     /* Amber Gold */
+    --bg-color: #F4F7F6;            /* Light Grey-Blue Background */
+    --text-color: #333333;          /* Dark Grey Text */
+    --white: #FFFFFF;
+    --success-green: #28a745;
+    --hover-bg: #E6E9F0;
+}
+
+/* --- RESET & BASE STYLES --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 2rem;
+}
+
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(29, 47, 111, 0.15);
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+#info_display:empty {
+    display: none;
+}
+
+#info_display {
+    width: 100%;
+    margin-bottom: 20px; 
+    display: block;
+}
+
+
+.details_pane {
+    background-color: #f8f9fa; 
+    border: 1px solid #e1e4e8;
+    border-left: 5px solid var(--secondary-color); 
+    padding: 1.5rem;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.details_pane h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.details_pane p {
+    color: #555;
+    font-size: 1rem;
+}
+
+.table_wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e1e4e8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+    min-width: 600px;
+}
+
+thead {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: var(--hover-bg);
+}
+
+
+.entry_names {
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.entry_names:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+
+#approve_button {
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+#approve_button {
+    color: var(--success-green);
+    border-color: var(--success-green);
+}
+
+#approve_button:hover {
+    background-color: var(--success-green);
+    color: var(--white);
+}
+
+
+@media (max-width: 768px) {
+    body { padding: 10px; }
+    .container { padding: 15px; }
+    th, td { padding: 12px 10px; }
+}
