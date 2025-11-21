@@ -1,5 +1,6 @@
 package com.community.communication.Approved;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import lombok.Data;
 public class Block {
     int id;
     String address;
+    @NotEmpty(message = "Blocks must have a name")
     String name;
     int roofOption;
     String roofColour;
@@ -15,9 +17,13 @@ public class Block {
     String baseColour;
     int foregroundOption;
     String foregroundColour;
+    @NotEmpty(message = "Main text may not be empty")
     String mainText;
+    @NotEmpty(message = "Link text may not be empty")
     String linksText;
+    @NotEmpty(message = "Please provide contact information")
     String infoText;
+    @NotEmpty(message = "Promo text may not be empty")
     String promoText;
     boolean approved;
 

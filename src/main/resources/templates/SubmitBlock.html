@@ -11,31 +11,31 @@
     <h2>Submit New Block</h2>
     <form id="submit-block-form" action="/SubmitBlock" method="POST" name="block-form" th:object="${block}">
       <label>Block Name:<input th:field="*{name}" type="text" maxlength="128" placeholder="Block name"></label>
-      <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Block name Error</div>
+      <div class="form-error" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Block name Error</div>
 
       <label>
         Main Text:
         <textarea th:field="*{mainText}" type="text" rows="10" cols="52" maxlength="512" placeholder="Add description here ..."></textarea>
       </label>
-      <div th:errors="*{mainText}" th:if="${#fields.hasErrors('mainText')}">Main Text Error</div>
+      <div class="form-error" th:errors="*{mainText}" th:if="${#fields.hasErrors('mainText')}">Main Text Error</div>
 
       <label>
         Links Text:
         <textarea th:field="*{linksText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add links here ..."></textarea>
       </label>
-      <div th:errors="*{linksText}" th:if="${#fields.hasErrors('linksText')}">Main Text Error</div>
+      <div class="form-error" th:errors="*{linksText}" th:if="${#fields.hasErrors('linksText')}">Main Text Error</div>
 
       <label>
         Info Text:
         <textarea th:field="*{infoText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add contact information here ..."></textarea>
       </label>
-      <div th:errors="*{infoText}" th:if="${#fields.hasErrors('infoText')}">Main Text Error</div>
+      <div class="form-error" th:errors="*{infoText}" th:if="${#fields.hasErrors('infoText')}">Main Text Error</div>
 
       <label>
         Promo Text:
         <textarea th:field="*{promoText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add promo information here ..."></textarea>
       </label>
-      <div th:errors="*{promoText}" th:if="${#fields.hasErrors('promoText')}">Main Text Error</div>
+      <div class="form-error" th:errors="*{promoText}" th:if="${#fields.hasErrors('promoText')}">Main Text Error</div>
 
       <button class="submit-button"><h3>Submit for approval</h3></button>
     </form>

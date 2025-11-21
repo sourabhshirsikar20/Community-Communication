@@ -155,6 +155,12 @@ tbody tr:hover {
     gap: 0.5em;
 }
 
+.form-error {
+    margin-top: -1.5em;
+    color: #ff6666;
+    font-style:italic;
+}
+
 .submit-button {
     width: 33%;
     border: 3px solid #99eeaa;;
