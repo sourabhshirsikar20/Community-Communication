@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Block {
+    int id;
     String address;
     String name;
     int roofOption;

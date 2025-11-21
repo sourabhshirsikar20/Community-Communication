@@ -19,6 +19,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
 
     private void setBlockMapper() {
         blockMapper = (rs, i) -> new Block(
+            rs.getInt("id"),
             rs.getString("address"),
             rs.getString("name"),
             rs.getInt("roof_option"),
