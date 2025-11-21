@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F4F7F6;
+    color: #333333;
+    line-height: 1.6;
+    padding: 2rem;
+}
+
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(29, 47, 111, 0.15);
+}
+
+h2 {
+    color: #1D2F6F;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #F5A623;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+#info_display:empty {
+    display: none;
+}
+
+#info_display {
+    width: 100%;
+    margin-bottom: 20px; 
+    display: block;
+}
+
+
+.details_pane {
+    background-color: #f8f9fa; 
+    border: 1px solid #e1e4e8;
+    border-left: 5px solid #F5A623; 
+    padding: 1.5rem;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.details_pane h3 {
+    color: #1D2F6F;
+    margin-top: 0;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.details_pane p {
+    color: #555;
+    font-size: 1rem;
+}
+
+.table_wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e1e4e8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    min-width: 600px;
+}
+
+thead {
+    background-color: #1D2F6F;
+    color: #FFFFFF;
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: #E6E9F0;
+}
+
+
+.entry_names {
+    color: #1D2F6F;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.entry_names:hover {
+    color: #F5A623;
+    text-decoration: underline;
+}
+
+
+#approve_button {
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+#approve_button {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+#approve_button:hover {
+    background-color: #28a745;
+    color: #FFFFFF;
+}
+
+
+@media (max-width: 768px) {
+    body { padding: 10px; }
+    .container { padding: 15px; }
+    th, td { padding: 12px 10px; }
+}

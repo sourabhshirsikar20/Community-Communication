@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unapproved Data Blocks</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div id="info_display"></div>
+    <div class="table_wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Approve?</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="entry: ${entries}">
+                    <td> 
+                        <span   class="entry_names" 
+                                th:data-id="${entry.id}" 
+                                th:text="${entry.name}">
+                        </span>
+                    </td>
+
+                    <td>
+                        <form method="post" th:action="@{/approveBlock}">
+                    
+                            <input type="hidden" name="id" th:value="${entry.id}" />
+                            <button type="submit" id = "approve_button">
+                                ✓
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+    
+    <script th:src="@{/js/ApproverTable.js}"></script>
+    <script th:inline="javascript">
+        const entriesFromJava = /*[[${entries}]]*/ [];
+        enableTableInteractions(entriesFromJava);
+    </script>
+</body>
+</html>
