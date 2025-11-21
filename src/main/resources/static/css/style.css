@@ -140,6 +140,22 @@ tbody tr:hover {
     color: #FFFFFF;
 }
 
+/* /SubmitBlock page */
+
+#submit-block-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+#submit-block-form label {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: 0.5em;
+}
+
+/* Responsive design */
 
 @media (max-width: 768px) {
     body { padding: 10px; }
