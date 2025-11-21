@@ -31,10 +31,10 @@ public class Block {
         baseColour = "#d8c286";
         foregroundOption = 0;
         foregroundColour = "#a4aeb4";
-        mainText = "Add block description here ...";
-        linksText = "Add block links here ...";
-        infoText = "Add block contact information here ...";
-        promoText = "Add block promo information here ...";
+        mainText = "";
+        linksText = "";
+        infoText = "";
+        promoText = "";
         approved = false;
     }
 }
