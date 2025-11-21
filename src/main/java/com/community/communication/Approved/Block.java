@@ -21,7 +21,7 @@ public class Block {
     String promoText;
     boolean approved;
 
-    Block() {
+    public Block() {
         id = -1;
         address = "";
         name = "";

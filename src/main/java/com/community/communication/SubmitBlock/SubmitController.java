@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.community.communication.Approved.ApproverRepository;
+import com.community.communication.Approved.Block;
 
 @Controller
 public class SubmitController {
@@ -15,7 +16,9 @@ public class SubmitController {
 
   @GetMapping("/SubmitBlock")
   public ModelAndView SubmitBlockPage(){
-      ModelAndView mav = new ModelAndView("SubmitBlock.html");
-      return mav;
+    Block empty_block = new Block();
+    ModelAndView mav = new ModelAndView("SubmitBlock.html");
+    mav.addObject("block", empty_block);
+    return mav;
   }
 }
