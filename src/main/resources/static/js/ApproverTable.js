@@ -20,7 +20,15 @@ function enableTableInteractions(allEntries) {
                 displayBox.innerHTML = `
                     <div class="details_pane">
                         <h3>${selectedBlock.name}</h3>
-                        <p>${selectedBlock.mainText || "No details found."}</p>
+                        <p>${selectedBlock.mainText}</p>
+                        <p> <b> File location </b> </p>
+                        <p>${selectedBlock.address}</p>
+                        <p> <b> Links and information </b> </p>
+                        <p>${selectedBlock.linksText}</p>
+                        <p>${selectedBlock.infoText}</p>
+                        <p> <b> Current Promos </b> </p>
+                        <p>${selectedBlock.promoText}</p>
+                        
                     </div>
                 `;
             } else {

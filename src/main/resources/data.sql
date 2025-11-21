@@ -24,7 +24,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
   ) values (
-    '00', 'Sarah Resturant',
+    '01', 'Sarah Resturant',
     0, '#be1313ff',
     0, '#3f3417ff',
     0, '#80472dff',
