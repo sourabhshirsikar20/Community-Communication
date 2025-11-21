@@ -38,10 +38,14 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
 
     @Override
     public List<Block> getUnapprovedBlocks() {
-        String sql = "select * from communities where approved = '0'";
+        String sql = "SELECT * FROM communities WHERE approved = '0'";
         return jdbc.query(sql, blockMapper);
     }
     
+    public void approve(int id) {
+        String sql = "UPDATE communities SET approved = 1 WHERE id = ?";
+        jdbc.update(sql,id);
+    }
 
     
 }

@@ -14,17 +14,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="entry: ${entries}">
-                <td> 
-                    <span   class="clickable-name" 
-                            style="cursor: pointer; color: blue;" 
-                            th:data-id="${entry.id}" 
-                            th:text="${entry.name}">
-                    </span>
-                </td>
+                <tr th:each="entry: ${entries}">
+                    <td> 
+                        <span   class="clickable-name" 
+                                style="cursor: pointer; color: blue;" 
+                                th:data-id="${entry.id}" 
+                                th:text="${entry.name}">
+                        </span>
+                    </td>
 
-                <td><button type="button">✓</button></td>
-            </tr>
+                    <td>
+                        <form method="post" th:action="@{/approveBlock}">
+                    
+                            <input type="hidden" name="id" th:value="${entry.id}" />
+                            <button type="submit" style="color: green; font-weight: bold; border: none; background: none; cursor: pointer;">
+                                ✓
+                            </button>
+                        </form>
+                    </td>
+                </tr>
             </tbody>
             <div id="info-display"></div>
         </table>
