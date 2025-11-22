@@ -36,6 +36,17 @@ insert into communities (
 delete from organisationinfo;
 insert into organisationinfo(
 MainText, Links, Info, Promo
-) values (
-'Example Main Text', 'www.google.com', 'ExtraInfo', 'Promo'
-);
+) values
+('Example Main Text', 'www.google.com', 'ExtraInfo', 'Promo');
+insert into organisationinfo(
+MainText, Links, Info, Promo
+) values
+('Example Main Text 2', 'www.google.com', 'ExtraInfo', 'Promo');
+insert into organisationinfo(
+MainText, Links, Info, Promo
+) values
+('Example Main Text 3', 'www.google.com', 'ExtraInfo', 'Promo');
+insert into organisationinfo(
+MainText, Links, Info, Promo
+) values
+('Example Main Text 4', 'www.google.com', 'ExtraInfo', 'Promo');

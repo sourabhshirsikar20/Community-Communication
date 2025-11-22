@@ -6,24 +6,10 @@
 </head>
 <body>
 <div>
-    <table>
-        <thead>
-        <tr>
-            <th>Main</th>
-            <th>Links</th>
-            <th>Info</th>
-            <th>Promo</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="Info: ${Info}">
-            <td th:text="${Info.MainText}"></td>
-            <td th:text="${Info.Links}"></td>
-            <td th:text="${Info.Info}"></td>
-            <td th:text="${Info.Promo}"></td>
-        </tr>
-        </tbody>
-    </table>
+<p>Main : <span th:text="${Info.MainText}"> </span></p>
+<p>Links : <span th:text="${Info.Links}"> </span></p>
+<p>Info : <span th:text="${Info.Info}"> </span></p>
+<p>Promo : <span th:text="${Info.Promo}"> </span></p>
 
 </div>
 </body>

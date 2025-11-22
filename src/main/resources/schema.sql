@@ -22,6 +22,7 @@ approved BIT NOT NULL DEFAULT 0
 drop table if exists organisationinfo;
 
 create table if not exists organisationinfo (
+ Id int primary key auto_increment,
  MainText varchar(256),
  Links varchar(256),
  Info varchar(256),

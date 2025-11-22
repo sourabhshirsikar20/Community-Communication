@@ -4,8 +4,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepository {
     private JdbcTemplate Jdbc;
@@ -18,6 +16,7 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
 
     public void setOrganisationInfoMapper(){
         organisationInfoMapper = (rs,i) -> new OrganisationInfo(
+                rs.getInt("Id"),
             rs.getString("MainText"),
             rs.getString("Links"),
             rs.getString("Info"),
@@ -25,10 +24,9 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
         );
     }
 
-    public List<OrganisationInfo> getAllInfo(){
-        String SQL = "SELECT * FROM organisationinfo";
-        return Jdbc.query(SQL, organisationInfoMapper);
+    public OrganisationInfo getInfo(int Id){
+        String SQL = "SELECT * FROM organisationinfo WHERE Id = ?";
+        return Jdbc.queryForObject(SQL, organisationInfoMapper, Id);
     }
-
 
 }
