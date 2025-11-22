@@ -41,12 +41,12 @@ MainText, Links, Info, Promo
 insert into organisationinfo(
 MainText, Links, Info, Promo
 ) values
-('Example Main Text 2', 'www.google.com', 'ExtraInfo', 'Promo');
+('Example Main Text 2', 'www.youtube.com', 'ExtraInfo', 'Promo');
 insert into organisationinfo(
 MainText, Links, Info, Promo
 ) values
-('Example Main Text 3', 'www.google.com', 'ExtraInfo', 'Promo');
+('Example Main Text 3', 'www.facebook.com', 'ExtraInfo', 'Promo');
 insert into organisationinfo(
 MainText, Links, Info, Promo
 ) values
-('Example Main Text 4', 'www.google.com', 'ExtraInfo', 'Promo');
+('Example Main Text 4', 'www.reddit.com', 'ExtraInfo', 'Promo');

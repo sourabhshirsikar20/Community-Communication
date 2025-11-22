@@ -3,14 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>InfoTest</title>
+    <style>
+        body {
+          margin: 0;
+          padding: 32px;
+          background-color: white;
+        }
+        .grid {
+          display: grid;
+          grid-template-columns: 1fr 360px;
+          gap: 20px;
+        }
+        .box {
+          background: rgb(255, 255, 255);
+          border-radius: 14px;
+          padding: 20px;
+          box-shadow: 0 6px 18px rgb(133, 133, 133);
+        }
+        .side {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .button-link {
+          display: inline-block;
+          padding: 10px 16px;
+          background-color: rgb(57, 190, 235);
+          color: white;
+          border-radius: 8px;
+          text-align: center;
+        }
+        .button-link:hover {
+          background-color: rgb(29, 98, 202);
+        }
+        .promo-box {
+          background: rgb(243, 200, 81);
+          padding: 20px;
+          border-radius: 14px;
+          box-shadow: 0 6px 18px rgb(133, 133, 133);
+        }
+        @media (max-width: 880px) {
+          body {
+            padding: 16px;
+          }
+          .grid {
+            grid-template-columns: 1fr;
+          }
+          .box, .promo-box {
+            padding: 16px;
+          }
+          .right-stack {
+            gap: 12px;
+          }
+          h2, h3 {
+            font-size: 18px;
+          }
+        }
+    </style>
 </head>
 <body>
-<div>
-<p>Main : <span th:text="${Info.MainText}"> </span></p>
-<p>Links : <span th:text="${Info.Links}"> </span></p>
-<p>Info : <span th:text="${Info.Info}"> </span></p>
-<p>Promo : <span th:text="${Info.Promo}"> </span></p>
+<div class="grid">
+    <div class="box">
+        <h2>About the Organisation</h2>
+        <p th:text="${Info.MainText}"></p>
+    </div>
 
+    <div class="side">
+        <div class="box">
+            <h3>Visit Us</h3>
+            <a th:href="'https://' + ${Info.Links}" class="button-link">Press Here</a>
+        </div>
+
+        <div class="box">
+            <h3>More Information</h3>
+            <div th:text="${Info.Info}"></div>
+        </div>
+
+        <div class="promo-box">
+            <h3>Promotions Here</h3>
+            <p th:text="${Info.Promo}"></p>
+        </div>
+    </div>
 </div>
 </body>
 </html>
