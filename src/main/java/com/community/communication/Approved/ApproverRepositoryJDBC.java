@@ -41,6 +41,35 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
         String sql = "SELECT * FROM communities WHERE approved = '0'";
         return jdbc.query(sql, blockMapper);
     }
+
+    @Override
+    public void addNewBlock(Block block) {
+        // id is autoincrementing, so not included
+        // approved has a default false value, so not included
+        String sql = """
+            INSERT INTO communities (
+                name, address,
+                roof_option, roof_colour, 
+                base_option, base_colour, 
+                foreground_option, foreground_colour, 
+                main_text, 
+                links_text, 
+                info_text, 
+                promo_text
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+        """;
+                
+        jdbc.update(sql, 
+            block.getName(), block.getAddress(),
+            block.getRoofOption(), block.getRoofColour(),
+            block.getBaseOption(), block.getBaseColour(),
+            block.getForegroundOption(), block.getForegroundColour(),
+            block.getMainText(),
+            block.getLinksText(),
+            block.getInfoText(),
+            block.getPromoText()
+        );
+    }
     
     public void approve(int id) {
         String sql = "UPDATE communities SET approved = 1 WHERE id = ?";

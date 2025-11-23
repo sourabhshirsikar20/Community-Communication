@@ -140,6 +140,49 @@ tbody tr:hover {
     color: #FFFFFF;
 }
 
+/* /SubmitBlock page */
+
+.success-message {
+    color:  #99eeaa;
+    padding: 1em  0;
+    font-weight: bold;
+}
+
+#submit-block-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+#submit-block-form label {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: 0.5em;
+}
+
+.form-error {
+    margin-top: -1.5em;
+    color: #ff6666;
+    font-style:italic;
+}
+
+.submit-button {
+    width: 33%;
+    border: 3px solid #99eeaa;;
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 0 4px 15px rgba(29, 47, 111, 0.15);
+    transition: 0.25s ease;
+    cursor: pointer;
+    color: #333333;
+}
+
+.submit-button:hover {
+    background-color: #99eeaa;
+}
+
+/* Responsive design */
 
 @media (max-width: 768px) {
     body { padding: 10px; }
