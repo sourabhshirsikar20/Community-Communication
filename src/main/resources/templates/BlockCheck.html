@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check</title>
+</head>
+<body>
+<form>
+    <label>Enter Address:</label>
+    <input type="text" name="Address">
+    <button type="submit">Check</button>
+</form>
+<div th:if="${Address!=null}">
+    <p th:text="${Address}"></p>
+    <p th:if="${Exists}">Yes</p>
+    <p th:if="${!Exists}">Not Found Can Add</p>
+</div>
+</body>
+</html>

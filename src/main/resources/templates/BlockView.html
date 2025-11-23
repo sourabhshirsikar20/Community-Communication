@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Block</title>
+</head>
+<body>
+<form action="/Block/View" method="get">
+    <label>Address:</label>
+    <input type="text" name="Address" th:value="${Address}">
+    <button type="submit">Search</button>
+</form>
+<div th:if="${Block!=null}">
+<h1>Block Details</h1>
+<p>Address: <span th:text="${Block.Address}"></span></p>
+<p>Test: <span th:text="${Block.Test}"></span></p>
+</div>
+<div th:if="${Block == null} and ${Address !=null}">
+    <p>Not Found</p>
+</div>
+<a href="/Block/Add">Add</a>
+<a href="/Block/Check">Check</a>
+</body>
+</html>

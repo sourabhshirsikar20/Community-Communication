@@ -33,3 +33,10 @@ insert into communities (
     '-info text-',
     '-promo text-'
   );
+
+
+  insert into block (Address, Test) values ('00','Test 1');
+  insert into block (Address, Test) values ('01','Test 2');
+  insert into block (Address, Test) values ('02','Test 3');
+  insert into block (Address, Test) values ('0200','Test 3.1');
+  insert into block (Address, Test) values ('03','Test 4');

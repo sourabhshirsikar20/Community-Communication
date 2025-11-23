@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add</title>
+</head>
+<body>
+<form action="/Block/Add" method="post">
+    <label>Address:</label>
+    <input type="text" name="Address">
+    <br>
+    <label>Test:</label>
+    <input type="text" name="Test">
+    <button type="submit">Add</button>
+</form>
+<div th:if="${Str!=null}">
+    <p th:text="${Str}"></p>
+</div>
+<a href="/Block/Check">Check</a>
+<a href="/Block/View">View</a>
+</body>
+</html>
