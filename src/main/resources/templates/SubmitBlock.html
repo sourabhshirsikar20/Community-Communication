@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,36 +12,143 @@
     <div th:if="${successMessage}" class="success-message">
       <span th:text="${successMessage}"></span>
     </div>
-    <form id="submit-block-form" action="/SubmitBlock" method="POST" name="block-form" th:object="${block}">
-      <label>Block Name:<input th:field="*{name}" type="text" maxlength="128" placeholder="Block name"></label>
-      <div class="form-error" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Block name Error</div>
 
-      <label>
-        Main Text:
-        <textarea th:field="*{mainText}" type="text" rows="10" cols="52" maxlength="512" placeholder="Add description here ..."></textarea>
-      </label>
-      <div class="form-error" th:errors="*{mainText}" th:if="${#fields.hasErrors('mainText')}">Main Text Error</div>
+    <form id="submit-block-form" action="/SubmitBlock" method="POST" th:object="${block}">
+      <div class="form-container">
+        
+        <!-- LEFT COLUMN: Form Fields -->
+        <div class="left-column">
+          
+          <!-- Block Name -->
+          <label>Block Name:
+            <input th:field="*{name}" 
+                   id="blockName"
+                   type="text" 
+                   maxlength="128" 
+                   placeholder="Block name"
+                   onkeyup="updatePreview()">
+          </label>
+          <div class="form-error" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Block name Error</div>
 
-      <label>
-        Links Text:
-        <textarea th:field="*{linksText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add links here ..."></textarea>
-      </label>
-      <div class="form-error" th:errors="*{linksText}" th:if="${#fields.hasErrors('linksText')}">Main Text Error</div>
+          <!-- TEMPLATE DESIGNER SECTION -->
+          <div class="template-section">
+            <h3>Design Your Block Template</h3>
+            
+            <!-- Roof Layer -->
+            <div class="form-group">
+              <label class="template-label">Roof Template</label>
+              <div class="template-row">
+                <div>
+                  <select th:field="*{roofOption}" id="roofOption" onchange="updatePreview()">
+                    <option value="1">Roof Template 1</option>
+                    <option value="2">Roof Template 2</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="color-label">Color:</label>
+                  <div class="color-picker-wrapper">
+                    <input type="color" 
+                           th:field="*{roofColour}" 
+                           id="roofColour"
+                           onchange="updatePreview()">
+                    <span class="color-value" id="roofColourValue" th:text="*{roofColour}"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <label>
-        Info Text:
-        <textarea th:field="*{infoText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add contact information here ..."></textarea>
-      </label>
-      <div class="form-error" th:errors="*{infoText}" th:if="${#fields.hasErrors('infoText')}">Main Text Error</div>
+            <!-- Base Layer -->
+            <div class="form-group">
+              <label class="template-label">Base Template</label>
+              <div class="template-row">
+                <div>
+                  <select th:field="*{baseOption}" id="baseOption" onchange="updatePreview()">
+                    <option value="1">Base Template 1</option>
+                    <option value="2">Base Template 2</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="color-label">Color:</label>
+                  <div class="color-picker-wrapper">
+                    <input type="color" 
+                           th:field="*{baseColour}" 
+                           id="baseColour"
+                           onchange="updatePreview()">
+                    <span class="color-value" id="baseColourValue" th:text="*{baseColour}"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <label>
-        Promo Text:
-        <textarea th:field="*{promoText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add promo information here ..."></textarea>
-      </label>
-      <div class="form-error" th:errors="*{promoText}" th:if="${#fields.hasErrors('promoText')}">Main Text Error</div>
+            <!-- Foreground Layer -->
+            <div class="form-group">
+              <label class="template-label">Foreground Template</label>
+              <div class="template-row">
+                <div>
+                  <select th:field="*{foregroundOption}" id="foregroundOption" onchange="updatePreview()">
+                    <option value="1">Foreground Template 1</option>
+                    <option value="2">Foreground Template 2</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="color-label">Color:</label>
+                  <div class="color-picker-wrapper">
+                    <input type="color" 
+                           th:field="*{foregroundColour}" 
+                           id="foregroundColour"
+                           onchange="updatePreview()">
+                    <span class="color-value" id="foregroundColourValue" th:text="*{foregroundColour}"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <button class="submit-button"><h3>Submit for approval</h3></button>
+          <!-- Main Text -->
+          <label>
+            Main Text:
+            <textarea th:field="*{mainText}" type="text" rows="10" cols="52" maxlength="512" placeholder="Add description here ..."></textarea>
+          </label>
+          <div class="form-error" th:errors="*{mainText}" th:if="${#fields.hasErrors('mainText')}">Main Text Error</div>
+
+          <!-- Links Text -->
+          <label>
+            Links Text:
+            <textarea th:field="*{linksText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add links here ..."></textarea>
+          </label>
+          <div class="form-error" th:errors="*{linksText}" th:if="${#fields.hasErrors('linksText')}">Links Text Error</div>
+
+          <!-- Info Text -->
+          <label>
+            Info Text:
+            <textarea th:field="*{infoText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add contact information here ..."></textarea>
+          </label>
+          <div class="form-error" th:errors="*{infoText}" th:if="${#fields.hasErrors('infoText')}">Info Text Error</div>
+
+          <!-- Promo Text -->
+          <label>
+            Promo Text:
+            <textarea th:field="*{promoText}" type="text" rows="5" cols="52" maxlength="256" placeholder="Add promo information here ..."></textarea>
+          </label>
+          <div class="form-error" th:errors="*{promoText}" th:if="${#fields.hasErrors('promoText')}">Promo Text Error</div>
+
+          <!-- Submit Button -->
+          <button class="submit-button" type="submit"><h3>Submit for approval</h3></button>
+        </div>
+
+        <!-- RIGHT COLUMN: Live Preview -->
+        <div class="right-column">
+          <div class="preview-container">
+            <h3>Live Preview</h3>
+            <div class="preview-box">
+              <div id="preview-base" class="preview-layer"></div>
+              <div id="preview-roof" class="preview-layer"></div>
+              <div id="preview-foreground" class="preview-layer"></div>
+            </div>
+          </div>
+        </div>
     </form>
   </div>
+  <script src="js/preview.js"></script>
 </body>
 </html>
