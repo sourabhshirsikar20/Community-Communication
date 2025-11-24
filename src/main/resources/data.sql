@@ -1,9 +1,8 @@
 delete from communities;
-
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
   ) values (
@@ -18,9 +17,9 @@ insert into communities (
   );
 
   insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
   ) values (
@@ -33,3 +32,4 @@ insert into communities (
     '-info text-',
     '-promo text-'
   );
+
