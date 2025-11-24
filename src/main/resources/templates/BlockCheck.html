@@ -11,8 +11,8 @@
     <button type="submit">Check</button>
 </form>
 <div th:if="${Address!=null}">
-    <p th:text="${Address}"></p>
     <div th:if="${Exists}">Yes, In DB</div>
+    <div th:if="${!Exists}">Not, In DB</div>
 </div>
 </body>
 </html>

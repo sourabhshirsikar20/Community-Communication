@@ -1,5 +1,6 @@
 package com.community.communication.OrganiseBlock;
 
+import com.community.communication.Approved.Block;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ public class BlockController {
     public ModelAndView ViewBlock(@RequestParam(value = "Address", required = false) String Address){
         ModelAndView mav = new ModelAndView("BlockView");
         if(Address != null && !Address.isEmpty() && blockRepository.Check(Address)){
-            Blocks block = blockRepository.ByAddress(Address);
+            Block block = blockRepository.ByAddress(Address);
             mav.addObject("Block", block);
         }
         mav.addObject("Address", Address);

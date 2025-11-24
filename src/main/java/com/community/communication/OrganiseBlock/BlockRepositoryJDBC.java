@@ -1,5 +1,6 @@
 package com.community.communication.OrganiseBlock;
 
+import com.community.communication.Approved.Block;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,13 +9,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BlockRepositoryJDBC implements BlockRepository{
     private JdbcTemplate Jdbc;
-    private RowMapper<Blocks> rowMapper;
+    private RowMapper<Block> rowMapper;
     public BlockRepositoryJDBC(JdbcTemplate Jdbc){
         this.Jdbc = Jdbc;
         setBlockMapper();
     }
     private void setBlockMapper(){
-        rowMapper = (rs, i) -> new Blocks(
+        rowMapper = (rs, i) -> new Block(
                 rs.getInt("id"),
                 rs.getString("address"),
                 rs.getString("name"),
@@ -31,7 +32,7 @@ public class BlockRepositoryJDBC implements BlockRepository{
                 rs.getBoolean("approved")
         );
     }
-    public Blocks ByAddress(String Address){
+    public Block ByAddress(String Address){
         String SQL = "SELECT * FROM communities WHERE address = ?";
         return Jdbc.queryForObject(SQL, rowMapper, Address);
     }
