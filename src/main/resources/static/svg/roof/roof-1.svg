@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1e3" height="1e3" version="1.1" viewBox="0 0 264.58 264.58" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <clipPath id="clipPath94">
+   <rect width="264.58" height="264.58" ry="0" fill="#0d750f" style="paint-order:stroke fill markers"/>
+  </clipPath>
+ </defs>
+ <g clip-path="url(#clipPath94)" fill="#75260d" stroke="#331a1a">
+  <g transform="translate(19.708 26.458)" stroke-width="4.1584">
+   <rect x="17.079" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="56.767" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="96.454" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="136.14" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="175.83" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="215.52" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="-22.921" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+  </g>
+  <g stroke-width="4.1584">
+   <rect x="17.079" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="56.767" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="96.454" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="136.14" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="175.83" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="215.52" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="255.2" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   <rect x="-22.921" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+  </g>
+  <g transform="translate(19.708 -26.458)">
+   <g stroke-width="4.1584">
+    <rect x="17.079" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+    <rect x="56.767" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+    <rect x="96.454" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+    <rect x="136.14" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+    <rect x="175.83" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+    <rect x="215.52" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+    <rect x="-22.921" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
+   </g>
+   <rect x="-18.534" y="27.633" width="262.23" height="6.1177" stroke-width="2.3489" style="paint-order:stroke fill markers"/>
+  </g>
+ </g>
+</svg>
