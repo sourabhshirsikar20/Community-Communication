@@ -189,3 +189,72 @@ tbody tr:hover {
     .container { padding: 15px; }
     th, td { padding: 12px 10px; }
 }
+.header_Container, .footer_Container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/*Header*/
+
+.header{
+    background: #FFFFFF;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo{
+    width: 120px;
+    height: 40px;
+    background-image: url('');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.header_Nav a {
+    margin: 0 18px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+.header_Nav a:hover {
+    color: #007bff;
+}
+.header_Container{
+    padding: 8px 16px;
+    background: #007bff;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.header_Container:hover{
+    background: #005fcc;
+}
+/*Footer*/
+.footer{
+    background: #1f1f1f;
+    padding: 40px 0 25px;
+    margin-top:50px;
+    color:#ccc;
+}
+
+.footer_Container{
+    display: flex;
+    justify-content: center;
+}
+.copy_Rights {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+    border-top: 1px solid #333;
+    padding-top: 12px;
+}
