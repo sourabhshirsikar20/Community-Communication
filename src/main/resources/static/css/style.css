@@ -189,6 +189,7 @@ tbody tr:hover {
     .container { padding: 15px; }
     th, td { padding: 12px 10px; }
 }
+
 .header_Container, .footer_Container {
     width: 90%;
     max-width: 1200px;
@@ -210,7 +211,7 @@ tbody tr:hover {
 .logo{
     width: 120px;
     height: 40px;
-    background-image: url('');
+    background-image: url('#');
     background-size: contain;
     background-repeat: no-repeat;
 }
