@@ -3,63 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>InfoTest</title>
-    <style>
-        body {
-          margin: 0;
-          padding: 32px;
-          background-color: white;
-        }
-        .grid {
-          display: grid;
-          grid-template-columns: 1fr 360px;
-          gap: 20px;
-        }
-        .box {
-          background: rgb(255, 255, 255);
-          border-radius: 14px;
-          padding: 20px;
-          box-shadow: 0 6px 18px rgb(133, 133, 133);
-        }
-        .side {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-        }
-        .button-link {
-          display: inline-block;
-          padding: 10px 16px;
-          background-color: rgb(57, 190, 235);
-          color: white;
-          border-radius: 8px;
-          text-align: center;
-        }
-        .button-link:hover {
-          background-color: rgb(29, 98, 202);
-        }
-        .promo-box {
-          background: rgb(243, 200, 81);
-          padding: 20px;
-          border-radius: 14px;
-          box-shadow: 0 6px 18px rgb(133, 133, 133);
-        }
-        @media (max-width: 880px) {
-          body {
-            padding: 16px;
-          }
-          .grid {
-            grid-template-columns: 1fr;
-          }
-          .box, .promo-box {
-            padding: 16px;
-          }
-          .right-stack {
-            gap: 12px;
-          }
-          h2, h3 {
-            font-size: 18px;
-          }
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/infostyle.css}">
 </head>
 <body>
 <div class="grid">
