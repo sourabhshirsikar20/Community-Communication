@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div th:replace="fragments/header :: header" />
   <div class="container">
     <h2>Submit New Block</h2>
     <div th:if="${successMessage}" class="success-message">
@@ -43,5 +44,6 @@
       <button class="submit-button"><h3>Submit for approval</h3></button>
     </form>
   </div>
+<div th:replace="fragments/footer :: footer" />
 </body>
 </html>
