@@ -8,9 +8,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text
   ) values (
     '00', 'Corner Shop',
-    0, '#cc7979',
-    0, '#d8c286',
-    0, '#f5dfd5ff',
+    1, '#cc7979',
+    1, '#d8c286',
+    1, '#f5dfd5ff',
     'Your local corner shop, here for all everyday items! ...',
     '-links text-',
     '-info text-',
@@ -25,9 +25,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text
   ) values (
     '01', 'Sarah Resturant',
-    0, '#be1313ff',
-    0, '#3f3417ff',
-    0, '#80472dff',
+    2, '#be1313ff',
+    2, '#ae0fd6ff',
+    2, '#4a2d80ff',
     'A small Restraunt with the best food in town!',
     '-links text-',
     '-info text-',
