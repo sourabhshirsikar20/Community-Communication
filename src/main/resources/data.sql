@@ -33,20 +33,3 @@ insert into communities (
     '-promo text-'
   );
 
-delete from organisationinfo;
-insert into organisationinfo(
-MainText, Links, Info, Promo
-) values
-('Example Main Text', 'www.google.com', 'ExtraInfo', 'Promo');
-insert into organisationinfo(
-MainText, Links, Info, Promo
-) values
-('Example Main Text 2', 'www.youtube.com', 'ExtraInfo', 'Promo');
-insert into organisationinfo(
-MainText, Links, Info, Promo
-) values
-('Example Main Text 3', 'www.facebook.com', 'ExtraInfo', 'Promo');
-insert into organisationinfo(
-MainText, Links, Info, Promo
-) values
-('Example Main Text 4', 'www.reddit.com', 'ExtraInfo', 'Promo');

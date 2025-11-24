@@ -1,5 +1,6 @@
 package com.community.communication.OrganisationInfo;
 
+import com.community.communication.Approved.Block;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ private OrganisationInfoRepository organisationInfoRepository;
 @GetMapping("/OrganisationInfo/{Id}")
 public ModelAndView OrganisationInfoView(@PathVariable int Id){
     ModelAndView mav = new ModelAndView("OrganisationInfo.html");
-    OrganisationInfo Info = organisationInfoRepository.getInfo(Id);
+    Block Info = organisationInfoRepository.getInfo(Id);
     mav.addObject("Info", Info);
     return mav;
 }

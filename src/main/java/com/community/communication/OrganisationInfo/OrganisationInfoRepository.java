@@ -1,5 +1,7 @@
 package com.community.communication.OrganisationInfo;
 
+import com.community.communication.Approved.Block;
+
 public interface OrganisationInfoRepository {
-    OrganisationInfo getInfo(int Id);
+    Block getInfo(int Id);
 }

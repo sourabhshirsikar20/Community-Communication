@@ -1,5 +1,6 @@
 package com.community.communication.OrganisationInfo;
 
+import com.community.communication.Approved.Block;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepository {
     private JdbcTemplate Jdbc;
-    private RowMapper<OrganisationInfo> organisationInfoMapper;
+    private RowMapper<Block> organisationInfoMapper;
 
     public OrganisationInfoRepositoryJDBC(JdbcTemplate IJdbc){
         this.Jdbc = IJdbc;
@@ -15,17 +16,26 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
     }
 
     public void setOrganisationInfoMapper(){
-        organisationInfoMapper = (rs,i) -> new OrganisationInfo(
-                rs.getInt("Id"),
-            rs.getString("MainText"),
-            rs.getString("Links"),
-            rs.getString("Info"),
-            rs.getString("Promo")
+        organisationInfoMapper = (rs,i) -> new Block(
+                rs.getInt("id"),
+                rs.getString("address"),
+                rs.getString("name"),
+                rs.getInt("roof_option"),
+                rs.getString("roof_colour"),
+                rs.getInt("base_option"),
+                rs.getString("base_colour"),
+                rs.getInt("foreground_option"),
+                rs.getString("foreground_colour"),
+                rs.getString("main_text"),
+                rs.getString("links_text"),
+                rs.getString("info_text"),
+                rs.getString("promo_text"),
+                rs.getBoolean("approved")
         );
     }
 
-    public OrganisationInfo getInfo(int Id){
-        String SQL = "SELECT * FROM organisationinfo WHERE Id = ?";
+    public Block getInfo(int Id){
+        String SQL = "SELECT * FROM communities WHERE id = ?";
         return Jdbc.queryForObject(SQL, organisationInfoMapper, Id);
     }
 

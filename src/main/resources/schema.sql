@@ -16,15 +16,3 @@ info_text varchar(256),
 promo_text varchar(256),
 approved BIT NOT NULL DEFAULT 0
 ) engine=InnoDB;
-
--- CREATED A TEST DB FOR COMMUNITY INFO
-
-drop table if exists organisationinfo;
-
-create table if not exists organisationinfo (
- Id int primary key auto_increment,
- MainText varchar(256),
- Links varchar(256),
- Info varchar(256),
- Promo varchar(256)
-)engine=InnoDB;
