@@ -12,13 +12,14 @@
 </form>
 <div th:if="${Block!=null}">
 <h1>Block Details</h1>
-<p>Address: <span th:text="${Block.Address}"></span></p>
-<p>Test: <span th:text="${Block.Test}"></span></p>
+<p>Name: <span th:text="${Block.name}"></span></p>
+<p>Address: <span th:text="${Block.address}"></span></p>
+<p>Text: <span th:text="${Block.mainText}"></span></p>
+<p>Info: <span th:text="${Block.infoText}"></span></p>
 </div>
 <div th:if="${Block == null} and ${Address !=null}">
     <p>Not Found</p>
 </div>
-<a href="/Block/Add">Add</a>
 <a href="/Block/Check">Check</a>
 </body>
 </html>

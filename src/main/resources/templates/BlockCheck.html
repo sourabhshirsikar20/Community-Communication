@@ -13,7 +13,6 @@
 <div th:if="${Address!=null}">
     <p th:text="${Address}"></p>
     <div th:if="${Exists}">Yes, In DB</div>
-    <div th:if="${!Exists}">Not Found Can Add <a href="/Block/Add">Add</a> </div>
 </div>
 </body>
 </html>

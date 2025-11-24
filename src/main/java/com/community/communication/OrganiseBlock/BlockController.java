@@ -22,19 +22,6 @@ public class BlockController {
         mav.addObject("Address", Address);
         return mav;
     }
-    @GetMapping("/Add")
-    public ModelAndView Add(){
-        ModelAndView mavv = new ModelAndView("BlockAdd");
-        return mavv;
-    }
-    @PostMapping("/Add")
-    public ModelAndView Adding(@RequestParam String Address, @RequestParam String Test){
-        Blocks block = new Blocks(Address, Test);
-        blockRepository.Add(block);
-        ModelAndView mav = new ModelAndView("BlockAdd");
-        mav.addObject("Str","Added");
-        return mav;
-    }
     @GetMapping("/Check")
     public ModelAndView CheckB(String Address){
         ModelAndView mav = new ModelAndView("BlockCheck");

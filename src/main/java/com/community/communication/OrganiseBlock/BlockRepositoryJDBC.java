@@ -15,12 +15,24 @@ public class BlockRepositoryJDBC implements BlockRepository{
     }
     private void setBlockMapper(){
         rowMapper = (rs, i) -> new Blocks(
-                rs.getString("Address"),
-                rs.getString("Test")
+                rs.getInt("id"),
+                rs.getString("address"),
+                rs.getString("name"),
+                rs.getInt("roof_option"),
+                rs.getString("roof_colour"),
+                rs.getInt("base_option"),
+                rs.getString("base_colour"),
+                rs.getInt("foreground_option"),
+                rs.getString("foreground_colour"),
+                rs.getString("main_text"),
+                rs.getString("links_text"),
+                rs.getString("info_text"),
+                rs.getString("promo_text"),
+                rs.getBoolean("approved")
         );
     }
     public Blocks ByAddress(String Address){
-        String SQL = "SELECT * FROM block WHERE Address = ?";
+        String SQL = "SELECT * FROM communities WHERE address = ?";
         return Jdbc.queryForObject(SQL, rowMapper, Address);
     }
     public boolean Check(String Address){
@@ -32,9 +44,4 @@ public class BlockRepositoryJDBC implements BlockRepository{
             return false;
         }
     }
-    public void Add(Blocks block){
-        String SQL = "INSERT INTO block (Address,Test) VALUES (?, ?)";
-        Jdbc.update(SQL,block.getAddress(), block.getTest());
-    }
-
 }
