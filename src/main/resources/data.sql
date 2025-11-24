@@ -22,7 +22,7 @@ insert into communities (
   roof_option, roof_colour, 
   base_option, base_colour, 
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text
+  main_text, links_text, info_text, promo_text, approved
   ) values (
     '01', 'Sarah Resturant',
     2, '#be1313ff',
@@ -31,5 +31,6 @@ insert into communities (
     'A small Restraunt with the best food in town!',
     '-links text-',
     '-info text-',
-    '-promo text-'
+    '-promo text-',
+    1
   );

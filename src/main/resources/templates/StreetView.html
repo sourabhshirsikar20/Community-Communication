@@ -6,27 +6,9 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div id="info_display"></div>
-    <div class="table_wrapper">
-        <table>
-            <thead>
-            <tr>
-                <th>block</th>
-                <th>roof</th>
-                <th>base</th>
-                <th>fore</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr th:each="block: ${Approved}">
-                    <td th:text="${block.name}"></td>
-                    <td th:text="${block.roofOption}"></td>
-                    <td th:text="${block.baseOption}"></td>
-                    <td th:text="${block.foregroundOption}"></td>
-                </tr>
-            </tbody>
-            
-        </table>
+    <div class="approved_names"   th:each="block: ${Approved}" 
+            th:data-id="${block.id}"> 
+            <img src="" alt="">
     </div>
 </body>
 </html>

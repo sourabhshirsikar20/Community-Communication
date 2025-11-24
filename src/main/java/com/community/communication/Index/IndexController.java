@@ -18,7 +18,7 @@ public class IndexController {
 
     
     @GetMapping("/Index")
-    public ModelAndView unApprovedList(){
+    public ModelAndView ApprovedList(){
         ModelAndView mav = new ModelAndView("StreetView.html");
         List<Block> Approved = ApproverRepository.getApprovedBlocks();
         System.out.println(Approved);
