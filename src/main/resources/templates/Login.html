@@ -9,7 +9,7 @@
 <body>
   <form id="login-form" method="post" th:action="@{/Login}">
     <div>
-      <h2 th:if="${manager_url}">Manager access is required for page</h2>
+      <h2 th:if="${manager_url}">Manager access is required for this page</h2>
       <h2 th:unless="${manager_url}">Welcome</h2>
       <div id="logout-message" th:if="${param.logout}">You have been logged out</div>
       <div id="login-fields">
