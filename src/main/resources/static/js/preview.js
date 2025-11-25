@@ -14,8 +14,8 @@ const SVG_PATHS = {
         2: '/svg/roof/roof-2.svg'
     },
     foreground: {
-        1: '/svg/roof/roof-1.svg',
-        2: '/svg/roof/roof-2.svg'
+        1: '/svg/foreground/foreground-1.svg',
+        2: '/svg/foreground/foreground-2.svg'
     }
 };
 
@@ -41,8 +41,6 @@ function updatePreview() {
     let roofColour = document.getElementById('roofColour').value;
     let baseColour = document.getElementById('baseColour').value;
     let foregroundColour = document.getElementById('foregroundColour').value;
-
-    document.getElementById('previewName').textContent = blockName;
 
     if (svgs.base[baseOption]) {  
         let container = document.getElementById('preview-base');
@@ -85,10 +83,10 @@ function updatePreview() {
         let svg = container.querySelector('svg');
         
         if (svg) {
-            let fillElement = svg.querySelector('#fill_col');
-            if (fillElement) {
-                fillElement.setAttribute('fill', foregroundColour);
-            }
+            let fillElements = svg.querySelectorAll('#fill_col');
+            fillElements.forEach(function(elem) {
+                elem.setAttribute('fill', foregroundColour);
+            });
         }
     }
 
