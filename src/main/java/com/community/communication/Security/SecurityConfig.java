@@ -1,5 +1,7 @@
 package com.community.communication.Security;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,12 @@ public class SecurityConfig {
     "/svg/**",
     "/SubmitBlock",
   };
+
+  public static boolean IsUrlInWhitelists(String url) {
+    System.out.println(url);
+    return List.of(ENDPOINTS_WHITELIST).contains(url) || 
+           List.of(USER_WHITELIST).contains(url);
+  }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
