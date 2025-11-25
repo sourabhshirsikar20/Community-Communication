@@ -36,20 +36,12 @@ insert into communities (
 
 -- Security
 
-insert into community_users (name, password, enabled) -- password is admin
-values ('owner', '$2a$12$zKMHlbOC7UXOLCdq5ZibC.ANCzcxgpoGbode97Dc2Fi1zakG2fP6O', true);
+insert into logins (login_name, password, enabled) -- password: 'manager'
+values ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu', true);
 
-insert into community_users (name, password, enabled) -- password is admin
-values ('manager', '$2a$12$zKMHlbOC7UXOLCdq5ZibC.ANCzcxgpoGbode97Dc2Fi1zakG2fP6O', true);
+insert into roles (role_id, name) values (1, 'MANAGER');
+insert into roles (role_id, name) values (2, 'login');
 
-insert into community_users (name, password, enabled) -- password is user
-values ('user', '$2a$12$J1s9zHrJiu9VKV8J7FFXJ.U0ArVGE.9h3R94.a0OGx7a7ast0bcYi', true);
-
-insert into community_roles (role, name) values (0, 'OWNER');
-insert into community_roles (role, name) values (1, 'MANAGER');
-insert into community_roles (role, name) values (2, 'USER');
-
-insert into community_security (name, role) values ('owner', 0);
-insert into community_security (name, role) values ('manager', 1);
-insert into community_security (name, role) values ('manager', 2);
-insert into community_security (name, role) values ('user', 2);
+insert into logins_roles (login_name, role_id) values ('manager', 1);
+insert into logins_roles (login_name, role_id) values ('manager', 2);
+insert into logins_roles (login_name, role_id) values ('login', 2);
