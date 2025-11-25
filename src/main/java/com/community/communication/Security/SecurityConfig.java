@@ -34,7 +34,6 @@ public class SecurityConfig {
   };
 
   public static boolean IsUrlInWhitelists(String url) {
-    System.out.println(url);
     return List.of(ENDPOINTS_WHITELIST).contains(url) || 
            List.of(USER_WHITELIST).contains(url);
   }
