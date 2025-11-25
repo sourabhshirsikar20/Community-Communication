@@ -1,3 +1,6 @@
+renderHeader();
+renderFooter();
+
 async function injectSvgs() {
     const containers = document.querySelectorAll('.js-inject-svg');
 
