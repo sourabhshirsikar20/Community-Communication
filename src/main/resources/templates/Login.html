@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <form method="post" th:action="@{/Login}">
+    <div th:if="${param.logout}">You have been logged out</div>
+    <div>
+      <label> Enter as:
+        <input name="username" type="text"/>
+      </label>
+    </div>
+    <div>
+      <label> Access code:
+        <input name="password" type="password" placeholder="access code"/>
+      </label>
+      <div th:if="${param.error}">Invalid access code</div>
+    </div>
+    <div>
+      <input type="submit" value="Enter Site"/>
+    </div>
+  </form>
+</body>
+</html>
