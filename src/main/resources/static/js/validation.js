@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('submit-block-form');
     const fields = [
-        { el: document.getElementById('blockName'), min: 3, msg: 'at least 3 characters' },
-        { el: document.getElementById('mainText'), min: 10, msg: 'at least 10 characters' },
-        { el: document.getElementById('linksText'), min: 0, msg: '' },
-        { el: document.getElementById('infoText'), min: 0, msg: '' },
-        { el: document.getElementById('promoText'), min: 0, msg: '' }
+        { el: document.getElementById('blockName'), min: 3, msg: 'at least 3 characters', required: true },
+        { el: document.getElementById('mainText'), min: 10, msg: 'at least 10 characters', required: true },
+        { el: document.getElementById('linksText'), min: 0, msg: '', required: false },
+        { el: document.getElementById('infoText'), min: 0, msg: '', required: false },
+        { el: document.getElementById('promoText'), min: 0, msg: '', required: false }
     ];
 
-    // Character counter
     function updateCharCount(field, counterId, maxLength) {
         const counter = document.getElementById(counterId);
         if (!counter) return;
@@ -20,22 +19,23 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (len > maxLength * 0.75) parent.classList.add('warning');
     }
 
-    // Real-time validation
     function validateField(fieldObj) {
         const field = fieldObj.el;
         const value = field.value.trim();
         const minLength = fieldObj.min;
         const msg = fieldObj.msg;
+        const required = fieldObj.required;
 
         let isValid = true;
         let errorMsg = '';
 
-        if (minLength > 0 && value.length < minLength) {
+        if (required && value.length < minLength) {
             isValid = false;
             errorMsg = `Must be ${msg}`;
         }
 
         field.classList.remove('error', 'success');
+
         let feedback = field.nextElementSibling;
         if (!feedback || !feedback.classList.contains('feedback')) {
             feedback = document.createElement('div');
@@ -43,16 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
             field.parentNode.insertBefore(feedback, field.nextSibling);
         }
 
-        if (value.length > 0) {
-            if (isValid) {
+        if (required) {
+            if (!isValid) {
+                field.classList.add('error');
+                feedback.textContent = errorMsg;
+            } else if (value.length > 0) {
                 field.classList.add('success');
                 feedback.textContent = '';
             } else {
-                field.classList.add('error');
-                feedback.textContent = errorMsg;
+                feedback.textContent = '';
             }
-        } else {
-            feedback.textContent = '';
         }
 
         return isValid;
@@ -61,20 +61,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Attach events
     fields.forEach(f => {
         if (!f.el) return;
-
-        // Character counters for textareas with maxLength
         if (f.el.tagName === 'TEXTAREA') {
-            const maxLen = f.el.dataset.maxlength || 256;
+            const maxLen = f.el.getAttribute('maxlength') || 256;
             f.el.addEventListener('input', () => updateCharCount(f.el, f.el.id + 'Count', maxLen));
             updateCharCount(f.el, f.el.id + 'Count', maxLen);
         }
 
-        // Real-time validation
         f.el.addEventListener('input', () => validateField(f));
         f.el.addEventListener('blur', () => validateField(f));
     });
 
-    // Form submit
     form.addEventListener('submit', function(e) {
         let allValid = true;
         fields.forEach(f => {

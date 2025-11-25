@@ -24,12 +24,12 @@
                type="text" 
                maxlength="128" 
                placeholder="Enter your block name"
-               onkeyup="updatePreview()"
-               required>
-        <div class="form-error" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Block name is required</div>
+               onkeyup="updatePreview()">
+        <div class="form-error" th:errors="*{name}"></div>
+        <div class="feedback"></div>
       </div>
 
-      <!-- TEMPLATE DESIGNER SECTION (2-COLUMN) -->
+      <!-- TEMPLATE DESIGNER SECTION -->
       <div class="template-section">
         <h3 class="section-title">Design Your Block Template</h3>
         
@@ -119,10 +119,10 @@
                   id="mainText"
                   rows="6" 
                   maxlength="512" 
-                  placeholder="Add description here..."
-                  required></textarea>
+                  placeholder="Add description here..."></textarea>
         <div class="char-count"><span id="mainTextCount">0</span>/512</div>
-        <div class="form-error" th:errors="*{mainText}" th:if="${#fields.hasErrors('mainText')}">Main text is required</div>
+        <div class="form-error" th:errors="*{mainText}"></div>
+        <div class="feedback"></div>
       </div>
 
       <!-- Links Text -->
@@ -134,7 +134,7 @@
                   maxlength="256" 
                   placeholder="Add links here..."></textarea>
         <div class="char-count"><span id="linksTextCount">0</span>/256</div>
-        <div class="form-error" th:errors="*{linksText}" th:if="${#fields.hasErrors('linksText')}">Links text error</div>
+        <div class="feedback"></div>
       </div>
 
       <!-- Info Text -->
@@ -146,7 +146,7 @@
                   maxlength="256" 
                   placeholder="Add contact information here..."></textarea>
         <div class="char-count"><span id="infoTextCount">0</span>/256</div>
-        <div class="form-error" th:errors="*{infoText}" th:if="${#fields.hasErrors('infoText')}">Info text error</div>
+        <div class="feedback"></div>
       </div>
 
       <!-- Promo Text -->
@@ -158,7 +158,7 @@
                   maxlength="256" 
                   placeholder="Add promo information here..."></textarea>
         <div class="char-count"><span id="promoTextCount">0</span>/256</div>
-        <div class="form-error" th:errors="*{promoText}" th:if="${#fields.hasErrors('promoText')}">Promo text error</div>
+        <div class="feedback"></div>
       </div>
 
       <!-- Submit Button -->
@@ -167,6 +167,8 @@
       </div>
     </form>
   </div>
+
+  <!-- JS Files -->
   <script src="js/preview.js"></script>
   <script src="js/validation.js"></script>
 </body>
