@@ -1,14 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Community Street View</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* Layout for the street */
+        .street-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 40px;
+            justify-content: center;
+        }
+
+        /* Container for a single house */
+        .house-block {
+            position: relative;
+            width: 200px;  /* Adjust based on your SVG aspect ratio */
+            height: 200px; 
+            transition: transform 0.2s;
+        }
+
+        .house-block:hover {
+            transform: scale(1.05);
+        }
+
+        /* Layers for Base, Roof, Foreground */
+        .house-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* These properties allow the colour to define the shape */
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            /* Fallback for browsers that don't support mask (shows colored block) */
+            background-color: #ccc; 
+        }
+
+        .house-name {
+            position: absolute;
+            bottom: -30px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #1D2F6F;
+        }
+    </style>
 </head>
 <body>
-    <div class="approved_names"   th:each="block: ${Approved}" 
-            th:data-id="${block.id}"> 
-            <img src="" alt="">
+    <div id="header"></div>
+
+    <div class="street-container">
+        <div class="house-block" th:each="block : ${Approved}" th:data-id="${block.id}">
+            
+            <div class="house-layer"
+                 th:style="'background-color: ' + ${block.baseColour} + '; 
+                           -webkit-mask-image: url(/svg/base/base-' + ${block.baseOption} + '.svg);
+                           mask-image: url(/svg/base/base-' + ${block.baseOption} + '.svg);'">
+            </div>
+
+            <div class="house-layer"
+                 th:style="'background-color: ' + ${block.roofColour} + '; 
+                           -webkit-mask-image: url(/svg/roof/roof-' + ${block.roofOption} + '.svg);
+                           mask-image: url(/svg/roof/roof-' + ${block.roofOption} + '.svg);'">
+            </div>
+
+            <div class="house-layer"
+                 th:style="'background-color: ' + ${block.foregroundColour} + '; 
+                           -webkit-mask-image: url(/svg/foreground/foreground-' + ${block.foregroundOption} + '.svg);
+                           mask-image: url(/svg/foreground/foreground-' + ${block.foregroundOption} + '.svg);'">
+            </div>
+
+            <div class="house-name" th:text="${block.name}">Block Name</div>
+        </div>
     </div>
+
+    <!-- <div id="footer"></div>
+    <script th:src="@{/js/Header_Footer.js}"></script>
+    <script>
+        // Initialize Header and Footer
+        renderHeader();
+        renderFooter();
+    </script> -->
 </body>
 </html>
