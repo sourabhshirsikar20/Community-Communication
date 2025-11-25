@@ -13,8 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import jakarta.annotation.PostConstruct;
-
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +22,10 @@ public class SecurityConfig {
     private DataSource dataSource;
   
   private static final String[] ENDPOINTS_WHITELIST = {
-    "/css/**",
+    "/css/**" // css is needed for the login page, so must be allowed
+  };
+
+  private static final String[] USER_WHITELIST = {
     "/js/**",
     "/svg/**",
     "/SubmitBlock",
@@ -33,10 +34,11 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(request -> request
-      .requestMatchers(ENDPOINTS_WHITELIST).hasRole("USER")
+      .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
+      .requestMatchers(USER_WHITELIST).hasRole("USER")
       .anyRequest().hasRole("MANAGER"))
       .csrf(csrf -> csrf.disable())
-      .formLogin();
+      .formLogin(form -> form.loginPage("/Login"). permitAll());
 
     return http.build();
   }
