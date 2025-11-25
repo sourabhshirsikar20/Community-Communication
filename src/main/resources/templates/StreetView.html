@@ -5,7 +5,7 @@
     <title>Community Street View</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
-        /* Layout for the street */
+        /* Container layout */
         .street-container {
             display: flex;
             flex-wrap: wrap;
@@ -14,11 +14,11 @@
             justify-content: center;
         }
 
-        /* Container for a single house */
+        /* House block wrapper */
         .house-block {
             position: relative;
-            width: 200px;  /* Adjust based on your SVG aspect ratio */
-            height: 200px; 
+            width: 200px; 
+            height: 200px;
             transition: transform 0.2s;
         }
 
@@ -26,31 +26,21 @@
             transform: scale(1.05);
         }
 
-        /* Layers for Base, Roof, Foreground */
+        /* Layers now hold the SVG directly */
         .house-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* These properties allow the colour to define the shape */
-            -webkit-mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            mask-size: contain;
-            mask-repeat: no-repeat;
-            mask-position: center;
-            /* Fallback for browsers that don't support mask (shows colored block) */
-            background-color: #ccc; 
+            pointer-events: none; /* Let clicks pass through if needed */
         }
 
-        .house-name {
-            position: absolute;
-            bottom: -30px;
+        /* Ensure SVGs scale correctly */
+        .house-layer svg {
             width: 100%;
-            text-align: center;
-            font-weight: bold;
-            color: #1D2F6F;
+            height: 100%;
+            display: block;
         }
     </style>
 </head>
@@ -60,34 +50,25 @@
     <div class="street-container">
         <div class="house-block" th:each="block : ${Approved}" th:data-id="${block.id}">
             
-            <div class="house-layer"
-                 th:style="'background-color: ' + ${block.baseColour} + '; 
-                           -webkit-mask-image: url(/svg/base/base-' + ${block.baseOption} + '.svg);
-                           mask-image: url(/svg/base/base-' + ${block.baseOption} + '.svg);'">
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/base/base-' + ${block.baseOption} + '.svg'"
+                 th:data-color="${block.baseColour}"
+                 th:data-text="${block.name}">
             </div>
 
-            <div class="house-layer"
-                 th:style="'background-color: ' + ${block.roofColour} + '; 
-                           -webkit-mask-image: url(/svg/roof/roof-' + ${block.roofOption} + '.svg);
-                           mask-image: url(/svg/roof/roof-' + ${block.roofOption} + '.svg);'">
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/roof/roof-' + ${block.roofOption} + '.svg'"
+                 th:data-color="${block.roofColour}">
             </div>
 
-            <div class="house-layer"
-                 th:style="'background-color: ' + ${block.foregroundColour} + '; 
-                           -webkit-mask-image: url(/svg/foreground/foreground-' + ${block.foregroundOption} + '.svg);
-                           mask-image: url(/svg/foreground/foreground-' + ${block.foregroundOption} + '.svg);'">
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/foreground/foreground-' + ${block.foregroundOption} + '.svg'"
+                 th:data-color="${block.foregroundColour}">
             </div>
 
-            <div class="house-name" th:text="${block.name}">Block Name</div>
         </div>
     </div>
 
-    <!-- <div id="footer"></div>
-    <script th:src="@{/js/Header_Footer.js}"></script>
-    <script>
-        // Initialize Header and Footer
-        renderHeader();
-        renderFooter();
-    </script> -->
+    <script th:src="@{/js/StreetView.js}"></script>
 </body>
 </html>
