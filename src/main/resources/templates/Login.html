@@ -7,20 +7,24 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <form method="post" th:action="@{/Login}">
-    <div th:if="${param.logout}">You have been logged out</div>
+  <form id="login-form" method="post" th:action="@{/Login}">
     <div>
-      <label> Enter as:
-        <input name="username" type="text"/>
-      </label>
-    </div>
-    <div>
-      <label> Access code:
-        <input name="password" type="password" placeholder="access code"/>
-      </label>
-      <div th:if="${param.error}">Invalid access code</div>
-    </div>
-    <div>
+      <h2>Welcome!</h2>
+      <div id="logout-message" th:if="${param.logout}">You have been logged out</div>
+      <div id="login-fields">
+        <label> 
+          <p>Enter as:</p>
+          <select name="username">
+            <option value="user">User</option>
+            <option value="manager">Local Manager</option>
+          </select>
+        </label>
+        <label>
+          <p>Access code:</p>
+          <input name="password" type="password"/>
+        </label>
+      </div>
+      <div class="form-error" th:if="${param.error}">Invalid access code</div>
       <input type="submit" value="Enter Site"/>
     </div>
   </form>

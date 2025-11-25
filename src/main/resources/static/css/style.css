@@ -182,6 +182,44 @@ tbody tr:hover {
     background-color: #99eeaa;
 }
 
+/* /Login page */
+
+#login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form>div {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border-radius: 2em;
+    box-shadow: 0 2px 5px grey;
+}
+
+#login-fields {
+    display: flex;
+    gap: 1em;
+}
+
+#login-form select,
+#login-form input {
+    padding: 1em;
+    border: none;
+    background-color: #00000010;
+    border-radius: 1em;
+}
+
+#login-form select:hover,
+#login-form input:hover {
+    background-color: #00000020;
+}
+
 /* Responsive design */
 
 @media (max-width: 768px) {
