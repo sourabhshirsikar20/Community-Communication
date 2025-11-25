@@ -76,5 +76,10 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
         jdbc.update(sql,id);
     }
 
+    public List<Block> getApprovedBlocks() {
+        String sql = "SELECT * FROM communities WHERE approved = '1'";
+        return jdbc.query(sql, blockMapper);
+    }
+
     
 }
