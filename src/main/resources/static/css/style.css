@@ -189,7 +189,6 @@ tbody tr:hover {
     .container { padding: 15px; }
     th, td { padding: 12px 10px; }
 }
-
 .header_Container, .footer_Container {
     width: 90%;
     max-width: 1200px;
@@ -198,21 +197,33 @@ tbody tr:hover {
     align-items: center;
     justify-content: space-between;
 }
+
 /*Header*/
 
 .header{
     background: #FFFFFF;
     padding: 20px 0;
     border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
+    padding-bottom: 18px;
 }
 .logo{
     width: 120px;
     height: 40px;
-    background-image: url('#');
+    background-image: url('/img/logo.svg');
     background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.Community_name{
+    width: 300px;
+    height: 70px;
+    background-image: url('/img/Community_name.svg');
+    background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
 }
 .header_Nav a {
@@ -226,19 +237,27 @@ tbody tr:hover {
 .header_Nav a:hover {
     color: #007bff;
 }
-.header_Container{
-    padding: 8px 16px;
+.LO_Button {
     background: #007bff;
     color: white;
+    padding: 10px 20px;
     border-radius: 8px;
-    font-size: 16px;
     text-decoration: none;
     transition: 0.3s;
-    cursor: pointer;
 }
-.header_Container:hover{
+.LO_Button:hover{
     background: #005fcc;
 }
+
+.header_Container{
+    background: #FFFFFF;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
 /*Footer*/
 .footer{
     background: #1f1f1f;
