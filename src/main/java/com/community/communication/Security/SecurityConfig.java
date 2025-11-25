@@ -33,7 +33,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(request -> request
-      .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
+      .requestMatchers(ENDPOINTS_WHITELIST).hasRole("USER")
       .anyRequest().hasRole("MANAGER"))
       .csrf(csrf -> csrf.disable())
       .formLogin();
@@ -50,8 +50,8 @@ public class SecurityConfig {
   UserDetailsService userDetailsService() {
     JdbcDaoImpl jdbcUserDetails = new JdbcDaoImpl();
     jdbcUserDetails.setDataSource(dataSource);
-    jdbcUserDetails.setUsersByUsernameQuery("select username, password, enabled from users where username=?");
-    jdbcUserDetails.setAuthoritiesByUsernameQuery("select username, authority from user_authorities where username=?");
+    jdbcUserDetails.setUsersByUsernameQuery("select login_name as username, password, enabled from logins where login_name = ?");
+    jdbcUserDetails.setAuthoritiesByUsernameQuery("select login_name as username, authority from login_authorities where login_name = ?");
     return jdbcUserDetails;
   }
 }
