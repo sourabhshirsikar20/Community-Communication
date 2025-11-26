@@ -46,7 +46,6 @@ function updatePreview() {
         let container = document.getElementById('preview-base');
         
         container.innerHTML = svgs.base[baseOption];
-        console.log('Base SVG set:', svgs.base[baseOption]);
         
         let svg = container.querySelector('svg');
         
