@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+<div th:if="${Block!=null}">
+<form action="/Block/Update" method="post">
+    <input type="hidden" name="Address" th:value="${Block.address}">
+    <label>Name:</label>
+    <input type="text" name="Name" th:value="${Block.name}">
+    <br>
+    <label>Roof Option:</label>
+    <input type="text" name="RoofOption" th:value="${Block.roofOption}">
+    <br>
+    <label>Roof Colour:</label>
+    <input type="text" name="RoofColour" th:value="${Block.roofColour}">
+    <br>
+    <label>Base Option:</label>
+    <input type="text" name="BaseOption" th:value="${Block.baseOption}">
+    <br>
+    <label>Base Colour:</label>
+    <input type="text" name="BaseColour" th:value="${Block.baseColour}">
+    <br>
+    <label>Foreground Option:</label>
+    <input type="text" name="ForegroundOption" th:value="${Block.foregroundOption}">
+    <br>
+    <label>Foreground Colour:</label>
+    <input type="text" name="ForegroundColour" th:value="${Block.foregroundColour}">
+    <br>
+    <label>Main Text:</label>
+    <input type="text" name="MainText" th:value="${Block.mainText}">
+    <br>
+    <label>Links Text:</label>
+    <input type="text" name="LinksText" th:value="${Block.linksText}">
+    <br>
+    <label>Info Text:</label>
+    <input type="text" name="InfoText" th:value="${Block.infoText}">
+    <br>
+    <label>Promo Text:</label>
+    <input type="text" name="PromoText" th:value="${Block.promoText}">
+    <br>
+    <button type="submit">Update</button>
+</form>
+</div>
+<div th:if="${Str!=null}">
+    <p th:text="${Str}"></p>
+</div>
+<a href="/Block/Check">Check</a>
+<a href="/Block/View">View</a>
+</body>
+</html>

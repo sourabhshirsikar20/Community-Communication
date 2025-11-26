@@ -45,4 +45,27 @@ public class BlockRepositoryJDBC implements BlockRepository{
             return false;
         }
     }
+    public void Add(Block block){
+        String SQL = "INSERT INTO communities (address, name, roof_option, roof_colour, base_option, base_colour, foreground_option, foreground_colour, main_text, links_text, info_text, promo_text) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        Jdbc.update(SQL, block.getAddress(), block.getName(),
+                block.getRoofOption(), block.getRoofColour(),
+                block.getBaseOption(), block.getBaseColour(),
+                block.getForegroundOption(), block.getForegroundColour(),
+                block.getMainText(),
+                block.getLinksText(),
+                block.getInfoText(),
+                block.getPromoText());
+    }
+    public void Update(Block block){
+        String SQL = "UPDATE communities SET name=?, roof_option=?, roof_colour=?, base_option=?, base_colour=?, foreground_option=?, foreground_colour=?, main_text=?, links_text=?, info_text=?, promo_text=? WHERE address=?";
+        Jdbc.update(SQL, block.getName(),
+                block.getRoofOption(), block.getRoofColour(),
+                block.getBaseOption(), block.getBaseColour(),
+                block.getForegroundOption(), block.getForegroundColour(),
+                block.getMainText(),
+                block.getLinksText(),
+                block.getInfoText(),
+                block.getPromoText(),
+                block.getAddress());
+    }
 }

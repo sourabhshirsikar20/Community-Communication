@@ -16,20 +16,88 @@ public class BlockController {
     @GetMapping("/View")
     public ModelAndView ViewBlock(@RequestParam(value = "Address", required = false) String Address){
         ModelAndView mav = new ModelAndView("BlockView");
-        if(Address != null && !Address.isEmpty() && blockRepository.Check(Address)){
-            Block block = blockRepository.ByAddress(Address);
-            mav.addObject("Block", block);
+        boolean Exists = false;
+        if(Address != null && !Address.isEmpty()){
+            Exists = blockRepository.Check(Address);
+            if(Exists) {
+                Block block = blockRepository.ByAddress(Address);
+                mav.addObject("Block", block);
+            }
         }
+        mav.addObject("Exists", Exists);
         mav.addObject("Address", Address);
         return mav;
     }
     @GetMapping("/Check")
-    public ModelAndView CheckB(String Address){
+    public ModelAndView CheckB(@RequestParam(value = "Address", required = false) String Address){
         ModelAndView mav = new ModelAndView("BlockCheck");
         if(Address!=null && !Address.isEmpty()){
             boolean Exists = blockRepository.Check(Address);
             mav.addObject("Address", Address);
             mav.addObject("Exists", Exists);
+        }
+        return mav;
+    }
+    @GetMapping("/Add")
+    public ModelAndView Add(){
+        ModelAndView mav= new ModelAndView("BlockAdd");
+        return mav;
+    }
+    @PostMapping("/Add")
+    public ModelAndView Adding(@RequestParam String Address,@RequestParam String Name,@RequestParam int RoofOption,@RequestParam String RoofColour,@RequestParam int BaseOption,@RequestParam String BaseColour,@RequestParam int ForegroundOption,@RequestParam String ForegroundColour,@RequestParam String MainText,@RequestParam String LinksText,@RequestParam String InfoText,@RequestParam String PromoText){
+        Block block = new Block();
+        block.setAddress(Address);
+        block.setName(Name);
+        block.setRoofOption(RoofOption);
+        block.setRoofColour(RoofColour);
+        block.setBaseColour(BaseColour);
+        block.setForegroundOption(ForegroundOption);
+        block.setForegroundColour(ForegroundColour);
+        block.setMainText(MainText);
+        block.setLinksText(LinksText);
+        block.setInfoText(InfoText);
+        block.setPromoText(PromoText);
+        blockRepository.Add(block);
+        ModelAndView mav= new ModelAndView("BlockAdd");
+        mav.addObject("Str", "Added");
+        return mav;
+    }
+    @GetMapping("/Update/{Address}")
+    public ModelAndView Update(@PathVariable String Address){
+        ModelAndView mav = new ModelAndView("BlockUpdate");
+        Block block = null;
+        if(Address!=null && !Address.isEmpty() && blockRepository.Check(Address)){
+            block = blockRepository.ByAddress(Address);
+        }
+        else{
+            mav.addObject("Str","Does Not Exists Cannot Update!");
+        }
+        mav.addObject("Block", block);
+        return mav;
+    }
+    @PostMapping("/Update")
+    public ModelAndView Updating(@RequestParam String Address,@RequestParam String Name,@RequestParam int RoofOption,@RequestParam String RoofColour,@RequestParam int BaseOption,@RequestParam String BaseColour,@RequestParam int ForegroundOption,@RequestParam String ForegroundColour,@RequestParam String MainText,@RequestParam String LinksText,@RequestParam String InfoText,@RequestParam String PromoText){
+        ModelAndView mav = new ModelAndView("BlockUpdate");
+        if(blockRepository.Check(Address)){
+            Block block = new Block();
+            block.setAddress(Address);
+            block.setName(Name);
+            block.setRoofOption(RoofOption);
+            block.setRoofColour(RoofColour);
+            block.setBaseColour(BaseColour);
+            block.setForegroundOption(ForegroundOption);
+            block.setForegroundColour(ForegroundColour);
+            block.setMainText(MainText);
+            block.setLinksText(LinksText);
+            block.setInfoText(InfoText);
+            block.setPromoText(PromoText);
+            blockRepository.Update(block);
+            mav.addObject("Str", "Updated Successfully");
+            mav.addObject("Block", block);
+        }
+        else{
+            mav.addObject("Str","Cannot Update Does not Exists");
+            mav.addObject("Block", null);
         }
         return mav;
     }

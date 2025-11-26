@@ -5,4 +5,6 @@ import com.community.communication.Approved.Block;
 public interface BlockRepository {
 Block ByAddress(String Address);
 boolean Check(String Address);
+void Add(Block block);
+void Update(Block block);
 }
