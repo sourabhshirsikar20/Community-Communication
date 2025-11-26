@@ -15,7 +15,7 @@ links_text varchar(256),
 info_text varchar(256),
 promo_text varchar(256),
 approved BIT NOT NULL DEFAULT 0
-);
+)engine=InnoDB;
 
 drop table if exists pages;
 
