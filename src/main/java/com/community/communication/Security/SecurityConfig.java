@@ -1,6 +1,6 @@
 package com.community.communication.Security;
 
-import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
@@ -31,11 +31,28 @@ public class SecurityConfig {
     "/js/**",
     "/svg/**",
     "/SubmitBlock",
+    "/Index",
+    "/OrganisationInfo",
+    "/OrganisationInfo/**"
   };
 
   public static boolean IsUrlInWhitelists(String url) {
-    return List.of(ENDPOINTS_WHITELIST).contains(url) || 
-           List.of(USER_WHITELIST).contains(url);
+    for (String pattern : ENDPOINTS_WHITELIST) {
+      if (matchPattern(url, pattern))
+        return true;
+    }
+    for (String pattern : USER_WHITELIST) {
+      if (matchPattern(url, pattern))
+        return true;
+    }
+
+    return false;
+  }
+
+  // Converts url patterns to regex and checks if matches
+  private static boolean matchPattern(String url, String pattern) {
+    String regex = Pattern.quote(pattern).replace("\\*\\*", ".*").replace("\\*", "[^/]*");
+    return url.matches(regex);
   }
 
   @Bean
