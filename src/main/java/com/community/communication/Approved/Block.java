@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Safelist;
 
 @Data
 @AllArgsConstructor
@@ -25,13 +23,13 @@ public class Block {
     @NotEmpty(message = "Main text may not be empty")
     @Size(max = 512, message = "Main text cannot exceed 512 characters")
     String mainText;
-    @NotEmpty(message = "Link text may not be empty")
+    //@NotEmpty(message = "Link text may not be empty")
     @Size(max = 256, message = "Link text cannot exceed 256 characters")
     String linksText;
-    @NotEmpty(message = "Please provide contact information")
+    //@NotEmpty(message = "Please provide contact information")
     @Size(max = 256, message = "Contact Information cannot exceed 256 characters")
     String infoText;
-    @NotEmpty(message = "Promo text may not be empty")
+    //@NotEmpty(message = "Promo text may not be empty")
     @Size(max = 256, message = "Promo text cannot exceed 256 characters")
     String promoText;
     boolean approved;
