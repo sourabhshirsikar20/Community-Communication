@@ -25,7 +25,7 @@ function loadSVG(type, number) {
     fetch(path)
         .then(response => response.text())
         .then(svgText => {
-            svgs[type][number - 1] = svgText;
+            svgs[type][number] = svgText;
             updatePreview();
         })
         .catch(error => console.error('Error loading', path, error));
@@ -46,7 +46,6 @@ function updatePreview() {
         let container = document.getElementById('preview-base');
         
         container.innerHTML = svgs.base[baseOption];
-        console.log('Base SVG set:', svgs.base[baseOption]);
         
         let svg = container.querySelector('svg');
         
