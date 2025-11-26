@@ -38,11 +38,11 @@ public class Block {
         id = -1;
         address = "";
         name = "";
-        roofOption = 0;
+        roofOption = 1;
         roofColour = "#a42445";
-        baseOption = 0;
+        baseOption = 1;
         baseColour = "#d8c286";
-        foregroundOption = 0;
+        foregroundOption = 1;
         foregroundColour = "#a4aeb4";
         mainText = "";
         linksText = "";
