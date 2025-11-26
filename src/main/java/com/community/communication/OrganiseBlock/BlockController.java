@@ -50,6 +50,7 @@ public class BlockController {
         block.setName(Name);
         block.setRoofOption(RoofOption);
         block.setRoofColour(RoofColour);
+        block.setBaseOption(BaseOption);
         block.setBaseColour(BaseColour);
         block.setForegroundOption(ForegroundOption);
         block.setForegroundColour(ForegroundColour);
@@ -76,14 +77,21 @@ public class BlockController {
         return mav;
     }
     @PostMapping("/Update")
-    public ModelAndView Updating(@RequestParam String Address,@RequestParam String Name,@RequestParam int RoofOption,@RequestParam String RoofColour,@RequestParam int BaseOption,@RequestParam String BaseColour,@RequestParam int ForegroundOption,@RequestParam String ForegroundColour,@RequestParam String MainText,@RequestParam String LinksText,@RequestParam String InfoText,@RequestParam String PromoText){
+    public ModelAndView Updating(@RequestParam int Id, @RequestParam String Address,@RequestParam String Name,@RequestParam int RoofOption,@RequestParam String RoofColour,@RequestParam int BaseOption,@RequestParam String BaseColour,@RequestParam int ForegroundOption,@RequestParam String ForegroundColour,@RequestParam String MainText,@RequestParam String LinksText,@RequestParam String InfoText,@RequestParam String PromoText){
         ModelAndView mav = new ModelAndView("BlockUpdate");
-        if(blockRepository.Check(Address)){
+        Block Exists = blockRepository.ById(Id);
+        if(Exists == null){
+            mav.addObject("Str", "Cannot Update Does not Exists");
+            mav.addObject("Block", null);
+            return mav;
+        }
             Block block = new Block();
+            block.setId(Id);
             block.setAddress(Address);
             block.setName(Name);
             block.setRoofOption(RoofOption);
             block.setRoofColour(RoofColour);
+            block.setBaseOption(BaseOption);
             block.setBaseColour(BaseColour);
             block.setForegroundOption(ForegroundOption);
             block.setForegroundColour(ForegroundColour);
@@ -91,14 +99,14 @@ public class BlockController {
             block.setLinksText(LinksText);
             block.setInfoText(InfoText);
             block.setPromoText(PromoText);
+            if(blockRepository.Check(Address)){
+                mav.addObject("Str", "Cannot Update Into Existing Address");
+                mav.addObject("Block", null);
+                return mav;
+            }
             blockRepository.Update(block);
             mav.addObject("Str", "Updated Successfully");
             mav.addObject("Block", block);
-        }
-        else{
-            mav.addObject("Str","Cannot Update Does not Exists");
-            mav.addObject("Block", null);
-        }
         return mav;
     }
 }

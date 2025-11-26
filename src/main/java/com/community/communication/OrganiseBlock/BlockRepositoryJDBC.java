@@ -36,6 +36,10 @@ public class BlockRepositoryJDBC implements BlockRepository{
         String SQL = "SELECT * FROM communities WHERE address = ?";
         return Jdbc.queryForObject(SQL, rowMapper, Address);
     }
+    public Block ById(int Id){
+        String SQL = "SELECT * FROM communities WHERE id = ?";
+        return Jdbc.queryForObject(SQL, rowMapper, Id);
+    }
     public boolean Check(String Address){
         try {
             ByAddress(Address);
@@ -57,8 +61,8 @@ public class BlockRepositoryJDBC implements BlockRepository{
                 block.getPromoText());
     }
     public void Update(Block block){
-        String SQL = "UPDATE communities SET name=?, roof_option=?, roof_colour=?, base_option=?, base_colour=?, foreground_option=?, foreground_colour=?, main_text=?, links_text=?, info_text=?, promo_text=? WHERE address=?";
-        Jdbc.update(SQL, block.getName(),
+        String SQL = "UPDATE communities SET address=?, name=?, roof_option=?, roof_colour=?, base_option=?, base_colour=?, foreground_option=?, foreground_colour=?, main_text=?, links_text=?, info_text=?, promo_text=? WHERE id=?";
+        Jdbc.update(SQL, block.getAddress(), block.getName(),
                 block.getRoofOption(), block.getRoofColour(),
                 block.getBaseOption(), block.getBaseColour(),
                 block.getForegroundOption(), block.getForegroundColour(),
@@ -66,6 +70,6 @@ public class BlockRepositoryJDBC implements BlockRepository{
                 block.getLinksText(),
                 block.getInfoText(),
                 block.getPromoText(),
-                block.getAddress());
+                block.getId());
     }
 }
