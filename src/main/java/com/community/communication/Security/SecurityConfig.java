@@ -31,6 +31,9 @@ public class SecurityConfig {
     "/js/**",
     "/svg/**",
     "/SubmitBlock",
+    "/Index",
+    "/OrganisationInfo",
+    "/OrganisationInfo/**"
   };
 
   public static boolean IsUrlInWhitelists(String url) {

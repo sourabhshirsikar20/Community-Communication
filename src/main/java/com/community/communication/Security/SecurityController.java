@@ -1,5 +1,8 @@
 package com.community.communication.Security;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
@@ -7,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @Controller
 public class SecurityController {
@@ -33,5 +34,4 @@ public class SecurityController {
 
     return mav;
   }
-
 }
