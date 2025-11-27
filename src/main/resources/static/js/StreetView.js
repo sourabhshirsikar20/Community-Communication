@@ -18,9 +18,10 @@ async function injectSvgs() {
             const doc = parser.parseFromString(svgText, 'image/svg+xml');
             const svgElement = doc.querySelector('svg');
 
-            
-            svgElement.style.fill = color;
-
+            let groups = svgElement.querySelectorAll('#fill_col');
+            groups.forEach(function(g) {
+                g.setAttribute('fill', color);
+            });
 
             if (textToInject) {
 
