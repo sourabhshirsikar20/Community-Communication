@@ -5,7 +5,7 @@
    <rect width="264.58" height="264.58" ry="0" fill="#0d750f" style="paint-order:stroke fill markers"/>
   </clipPath>
  </defs>
- <g clip-path="url(#clipPath94)" fill="#75260d" stroke="#331a1a">
+ <g id="fill_col" clip-path="url(#clipPath94)" fill="#75260d" stroke="#331a1a">
   <g transform="translate(19.708 26.458)" stroke-width="4.1584">
    <rect x="17.079" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
    <rect x="56.767" y="2.0792" width="35.529" height="51.897" ry="17.765" style="paint-order:stroke fill markers"/>
