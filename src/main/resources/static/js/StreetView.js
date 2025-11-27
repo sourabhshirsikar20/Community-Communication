@@ -19,7 +19,12 @@ async function injectSvgs() {
             const svgElement = doc.querySelector('svg');
 
             
-            svgElement.style.fill = color;
+            // svgElement.style.fill = color;
+            let groups = svgElement.querySelectorAll('g');
+            
+            groups.forEach(function(g) {
+                g.setAttribute('fill', color);
+            });
 
 
             if (textToInject) {
