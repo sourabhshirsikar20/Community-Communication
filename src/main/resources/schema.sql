@@ -45,3 +45,4 @@ create view if not exists login_authorities as
     from logins u
       inner join logins_roles ur on u.login_name = ur.login_name
       inner join roles r on ur.role_id = r.role_id;
+
