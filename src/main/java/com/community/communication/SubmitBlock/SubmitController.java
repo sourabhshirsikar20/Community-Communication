@@ -40,24 +40,28 @@ public class SubmitController {
   }
 
   @PostMapping("/SubmitBlock")
-  public ModelAndView submitForm(@Valid @ModelAttribute("block") Block block, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
-    if (bindingResult.hasErrors()) {
-      ModelAndView modelAndView = new ModelAndView("SubmitBlock", model.asMap());
-      return modelAndView;
+    public ModelAndView submitForm(@Valid @ModelAttribute("block") Block block,
+        BindingResult bindingResult,
+        RedirectAttributes redirectAttributes) {
+
+      if (bindingResult.hasErrors()) {
+        ModelAndView mav = new ModelAndView("SubmitBlock");
+        mav.addObject("block", block);
+        mav.addObject(BindingResult.MODEL_KEY_PREFIX + "block", bindingResult); // required for Thymeleaf
+        return mav;
+      }
+
+      // Sanitise input
+      block.setName(SanitiseString(block.getName()));
+      block.setMainText(SanitiseString(block.getMainText()));
+      block.setLinksText(SanitiseString(block.getLinksText()));
+      block.setInfoText(SanitiseString(block.getInfoText()));
+      block.setPromoText(SanitiseString(block.getPromoText()));
+
+      // Save block
+      approverRepository.addNewBlock(block);
+
+      redirectAttributes.addFlashAttribute("successMessage", "Block submitted successfully");
+      return new ModelAndView("redirect:/SubmitBlock");
     }
-
-    // sanitise input
-    block.setName(SanitiseString(block.getName()));
-    block.setMainText(SanitiseString(block.getMainText()));
-    block.setLinksText(SanitiseString(block.getLinksText()));
-    block.setInfoText(SanitiseString(block.getInfoText()));
-    block.setPromoText(SanitiseString(block.getPromoText()));
-
-    // add to database
-    approverRepository.addNewBlock(block);
-
-    redirectAttributes.addFlashAttribute("successMessage", "Block submitted successfully");
-    ModelAndView modelAndView = new ModelAndView("redirect:/SubmitBlock");
-    return modelAndView;
-  }
 }

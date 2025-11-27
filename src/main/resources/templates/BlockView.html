@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Block</title>
+</head>
+<body>
+<form action="/Block/View" method="get" onsubmit="CheckNull(event)">
+    <label>Address:</label>
+    <input type="text" id="Address" name="Address" th:value="${Address}">
+    <button type="submit">Search</button>
+</form>
+<div th:if="${Block!=null}">
+<h1>Block Details</h1>
+<p>Name: <span th:text="${Block.name}"></span></p>
+<p>Address: <span th:text="${Block.address}"></span></p>
+<p>Text: <span th:text="${Block.mainText}"></span></p>
+<p>Info: <span th:text="${Block.infoText}"></span></p>
+</div>
+<div th:if="${Address!=null and Address != ''}">
+    <div th:if="${Exists}">
+        <span>Yes, In DB</span>
+        <a th:href="@{'/Block/Update/' + ${Address}}">Can Update Here</a>
+    </div>
+    <div th:if="${!Exists}">
+        <span>Not, In DB</span>
+        <a href="/Block/Add">Can Add Here</a>
+    </div>
+</div>
+<span id="CheckNull" hidden>Address Can't Be Null</span>
+<script>
+    function CheckNull(event){
+    const Addr = document.getElementById("Address");
+    const ErrMsg = document.getElementById("CheckNull");
+    ErrMsg.hidden = true;
+    if(Addr.value.trim() === ""){
+    event.preventDefault();
+    ErrMsg.hidden = false;
+    }
+    }
+</script>
+</body>
+</html>
