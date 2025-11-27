@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${page.pageName}"></title>
+</head>
+<body>
+
+<h1 th:text="${page.name}"></h1>
+
+<div>
+    <h3>Main Text</h3>
+    <p th:text="${page.mainText}"></p>
+</div>
+
+<div>
+    <h3>Links</h3>
+    <p th:text="${page.linksText}"></p>
+</div>
+
+<div>
+    <h3>Info</h3>
+    <p th:text="${page.infoText}"></p>
+</div>
+
+<div>
+    <h3>Promo</h3>
+    <p th:text="${page.promoText}"></p>
+</div>
+
+</body>
+</html>
