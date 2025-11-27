@@ -6,7 +6,9 @@
   <title>Submit New Block</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="has-navbar">
+
+  <div th:replace="~{NavigationBar :: public-nav}"></div>
   <div class="container">
     <h2 class="form-title">Submit New Block</h2>
     
@@ -169,6 +171,7 @@
   </div>
 
   <!-- JS Files -->
+  <script th:replace="~{NavigationBar :: navbar-js}"></script>
   <script src="js/preview.js"></script>
   <script src="js/validation.js"></script>
 </body>

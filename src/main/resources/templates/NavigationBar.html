@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<!-- PUBLIC NAVIGATION (Default - for all users) -->
+<nav th:fragment="public-nav" class="navbar">
+    <div class="nav-container">
+        <a href="/Index" class="nav-brand">Streete</a>
+        
+        <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item">
+                <a href="/Index" class="nav-link">🏠 Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/SubmitBlock" class="nav-link">📝 Submit Block</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Approver" class="nav-link">✅ Approver</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ORGANISER NAVIGATION -->
+<nav th:fragment="organiser-nav" class="navbar">
+    <div class="nav-container">
+        <a href="/Index" class="nav-brand">Streete</a>
+        
+        <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item">
+                <a href="/Index" class="nav-link">🏠 Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/SubmitBlock" class="nav-link">📝 Submit Block</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">
+                    🏢 Block Management <span class="arrow">▼</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Block/View" class="dropdown-link">👁️ View Block</a></li>
+                    <li><a href="/Block/Check" class="dropdown-link">✓ Check Block</a></li>
+                    <li><a href="/Block/Add" class="dropdown-link">➕ Add Block</a></li>
+                    <li><a href="/Block/Update" class="dropdown-link">✏️ Update Block</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- APPROVER NAVIGATION (Full Access) -->
+<nav th:fragment="approver-nav" class="navbar">
+    <div class="nav-container">
+        <a href="/Index" class="nav-brand">Streete</a>
+        
+        <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item">
+                <a href="/Index" class="nav-link">🏠 Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/SubmitBlock" class="nav-link">📝 Submit Block</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Approver" class="nav-link">✅ Approver</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">
+                    🏢 Block Management <span class="arrow">▼</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Block/View" class="dropdown-link">👁️ View Block</a></li>
+                    <li><a href="/Block/Check" class="dropdown-link">✓ Check Block</a></li>
+                    <li><a href="/Block/Add" class="dropdown-link">➕ Add Block</a></li>
+                    <li><a href="/Block/Update" class="dropdown-link">✏️ Update Block</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- JavaScript for Mobile Menu & Dropdown -->
+<script th:fragment="navbar-js">
+    function toggleMobileMenu() {
+        const navMenu = document.getElementById('navMenu');
+        const navToggle = document.getElementById('navToggle');
+        navMenu.classList.toggle('active');
+        navToggle.classList.toggle('active');
+    }
+
+    function toggleDropdown(event) {
+        event.preventDefault();
+        const dropdown = event.currentTarget.parentElement;
+        
+        // Close other dropdowns
+        document.querySelectorAll('.nav-item.dropdown').forEach(item => {
+            if (item !== dropdown) {
+                item.classList.remove('active');
+            }
+        });
+        
+        dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.dropdown')) {
+            document.querySelectorAll('.nav-item.dropdown').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+    });
+
+    // Close mobile menu when clicking nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                const navMenu = document.getElementById('navMenu');
+                const navToggle = document.getElementById('navToggle');
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
