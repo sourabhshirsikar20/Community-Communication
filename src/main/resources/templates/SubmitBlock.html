@@ -15,7 +15,30 @@
     </div>
 
     <form id="submit-block-form" action="/SubmitBlock" method="POST" th:object="${block}" novalidate>
-      
+
+        <!--PAGE NAME-->
+
+        <div class="form-field">
+            <label for="pageName">Page Name <span class="required">*</span></label>
+            <input name="pageName"
+                   id="pageName"
+                   type="text"
+                   maxlength="128"
+                   placeholder="Enter your page name"
+                   required>
+        </div>
+
+        <!-- SECRET KEY -->
+        <div class="form-field">
+            <label for="secretKey">Access Key <span class="required">*</span></label>
+            <input name="secretKey"
+                   id="secretKey"
+                   type="password"
+                   maxlength="128"
+                   placeholder="Enter your access key"
+                   required>
+        </div>
+
       <!-- Block Name -->
       <div class="form-field">
         <label for="blockName">Block Name <span class="required">*</span></label>
