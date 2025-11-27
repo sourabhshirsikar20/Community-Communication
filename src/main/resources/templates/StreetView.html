@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="has-navbar">
-
+    <div class="main-content">
     <div th:replace="~{NavigationBar :: public-nav}"></div>
     <div id="header"></div>
 
@@ -35,7 +35,8 @@
 
         </a>
     </div>
-
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
     
     <script src="/js/Header_Footer.js"></script>
