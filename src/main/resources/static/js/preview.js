@@ -68,7 +68,7 @@ function updatePreview() {
         let svg = container.querySelector('svg');
         
         if (svg) {
-            let groups = svg.querySelectorAll('g');
+            let groups = svg.querySelectorAll('#fill_col');
             
             groups.forEach(function(g) {
                 g.setAttribute('fill', roofColour);
