@@ -45,3 +45,16 @@ create view if not exists login_authorities as
     from logins u
       inner join logins_roles ur on u.login_name = ur.login_name
       inner join roles r on ur.role_id = r.role_id;
+
+drop table if exists pages;
+
+create table if not exists pages(
+id bigint primary key auto_increment,
+page_name varchar(255) not null unique,
+secret_hash varchar(255) not null,
+name varchar (128),
+main_text TEXT,
+links_text TEXT,
+info_text TEXT,
+promo_text TEXT
+)engine=InnoDB;
