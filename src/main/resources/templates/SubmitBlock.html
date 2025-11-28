@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit New Block</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="has-navbar">
+  <div class="main-content">
+  <div th:replace="~{NavigationBar :: public-nav}"></div>
+  <div class="container">
+    <h2 class="form-title">Submit New Block</h2>
+    
+    <div th:if="${successMessage}" class="success-message">
+      <span th:text="${successMessage}"></span>
+    </div>
+
+    <form id="submit-block-form" action="/SubmitBlock" method="POST" th:object="${block}" novalidate>
+      
+      <!-- Block Name -->
+      <div class="form-field">
+        <label for="blockName">Block Name <span class="required">*</span></label>
+        <input th:field="*{name}" 
+               id="blockName"
+               type="text" 
+               maxlength="128" 
+               placeholder="Enter your block name"
+               onkeyup="updatePreview()">
+        <div class="form-error" th:errors="*{name}"></div>
+        <div class="feedback"></div>
+      </div>
+
+      <!-- TEMPLATE DESIGNER SECTION -->
+      <div class="template-section">
+        <h3 class="section-title">Design Your Block Template</h3>
+        
+        <div class="template-grid">
+          <!-- Left Column: Controls -->
+          <div class="template-controls">
+            
+            <!-- Roof Layer -->
+            <div class="template-group">
+              <label class="template-label">Roof Template</label>
+              <select th:field="*{roofOption}" id="roofOption" onchange="updatePreview()" class="template-select">
+                <option value="1">Roof Template 1</option>
+                <option value="2">Roof Template 2</option>
+              </select>
+              
+              <div class="color-control">
+                <label class="color-label">Roof Color:</label>
+                <div class="color-input-group">
+                  <input type="color" 
+                         th:field="*{roofColour}" 
+                         id="roofColour"
+                         onchange="updatePreview()">
+                  <span class="color-value" id="roofColourValue" th:text="*{roofColour}"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Base Layer -->
+            <div class="template-group">
+              <label class="template-label">Base Template</label>
+              <select th:field="*{baseOption}" id="baseOption" onchange="updatePreview()" class="template-select">
+                <option value="1">Base Template 1</option>
+                <option value="2">Base Template 2</option>
+              </select>
+              
+              <div class="color-control">
+                <label class="color-label">Base Color:</label>
+                <div class="color-input-group">
+                  <input type="color" 
+                         th:field="*{baseColour}" 
+                         id="baseColour"
+                         onchange="updatePreview()">
+                  <span class="color-value" id="baseColourValue" th:text="*{baseColour}"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Foreground Layer -->
+            <div class="template-group">
+              <label class="template-label">Foreground Template</label>
+              <select th:field="*{foregroundOption}" id="foregroundOption" onchange="updatePreview()" class="template-select">
+                <option value="1">Foreground Template 1</option>
+                <option value="2">Foreground Template 2</option>
+              </select>
+              
+              <div class="color-control">
+                <label class="color-label">Foreground Color:</label>
+                <div class="color-input-group">
+                  <input type="color" 
+                         th:field="*{foregroundColour}" 
+                         id="foregroundColour"
+                         onchange="updatePreview()">
+                  <span class="color-value" id="foregroundColourValue" th:text="*{foregroundColour}"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Preview -->
+          <div class="template-preview">
+            <div class="preview-container">
+              <h4 class="preview-title">Live Preview</h4>
+              <div class="preview-box">
+                <div id="preview-base" class="preview-layer"></div>
+                <div id="preview-roof" class="preview-layer"></div>
+                <div id="preview-foreground" class="preview-layer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Text -->
+      <div class="form-field">
+        <label for="mainText">Main Text <span class="required">*</span></label>
+        <textarea th:field="*{mainText}" 
+                  id="mainText"
+                  rows="6" 
+                  maxlength="512" 
+                  placeholder="Add description here..."></textarea>
+        <div class="char-count"><span id="mainTextCount">0</span>/512</div>
+        <div class="form-error" th:errors="*{mainText}"></div>
+        <div class="feedback"></div>
+      </div>
+
+      <!-- Links Text -->
+      <div class="form-field">
+        <label for="linksText">Links Text</label>
+        <textarea th:field="*{linksText}" 
+                  id="linksText"
+                  rows="4" 
+                  maxlength="256" 
+                  placeholder="Add links here..."></textarea>
+        <div class="char-count"><span id="linksTextCount">0</span>/256</div>
+        <div class="feedback"></div>
+      </div>
+
+      <!-- Info Text -->
+      <div class="form-field">
+        <label for="infoText">Info Text</label>
+        <textarea th:field="*{infoText}" 
+                  id="infoText"
+                  rows="4" 
+                  maxlength="256" 
+                  placeholder="Add contact information here..."></textarea>
+        <div class="char-count"><span id="infoTextCount">0</span>/256</div>
+        <div class="feedback"></div>
+      </div>
+
+      <!-- Promo Text -->
+      <div class="form-field">
+        <label for="promoText">Promo Text</label>
+        <textarea th:field="*{promoText}" 
+                  id="promoText"
+                  rows="4" 
+                  maxlength="256" 
+                  placeholder="Add promo information here..."></textarea>
+        <div class="char-count"><span id="promoTextCount">0</span>/256</div>
+        <div class="feedback"></div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button class="submit-button" type="submit">Submit for Approval</button>
+      </div>
+    </form>
+    </div>
+  </div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+  <!-- JS Files -->
+  <script th:replace="~{NavigationBar :: navbar-js}"></script>
+  <script src="js/preview.js"></script>
+  <script src="js/validation.js"></script>
+</body>
+</html>
