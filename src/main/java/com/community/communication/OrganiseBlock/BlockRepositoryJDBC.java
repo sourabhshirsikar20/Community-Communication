@@ -29,6 +29,7 @@ public class BlockRepositoryJDBC implements BlockRepository{
                 rs.getString("links_text"),
                 rs.getString("info_text"),
                 rs.getString("promo_text"),
+                rs.getString("secret_hash"),
                 rs.getBoolean("approved")
         );
     }

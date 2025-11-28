@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Your Block</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Editing your Block ny your Access code</h2>
+
+    <div class="form-error" th:if="${error}" th:text="${error}"></div>
+
+    <form action="/BlockAccess" method="post">
+        <div class="form-field">
+            <label for="address">Block adress</label>
+            <input id="address" name="address"
+                   type="text"
+                   th:value="${address}">
+        </div>
+
+        <div class="form-field">
+            <label for="accessCode">Access Code</label>
+            <input id="accessCode" name="accessCode"
+                   type="password" maxlength="20">
+        </div>
+
+        <button type="submit">Next</button>
+    </form>
+</div>
+</body>
+</html>

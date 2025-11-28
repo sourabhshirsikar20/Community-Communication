@@ -99,6 +99,8 @@ public class BlockController {
             block.setLinksText(LinksText);
             block.setInfoText(InfoText);
             block.setPromoText(PromoText);
+            block.setApproved(Exists.isApproved());
+            block.setSecretHash(Exists.getSecretHash());
             if(blockRepository.Check(Address)){
                 mav.addObject("Str", "Cannot Update Into Existing Address");
                 mav.addObject("Block", null);

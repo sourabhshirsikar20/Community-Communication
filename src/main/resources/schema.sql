@@ -1,60 +1,54 @@
-create database if not exists communities;
-use communities;
+DROP VIEW IF EXISTS login_authorities;
 
-drop table if exists communities;
-drop table if exists logins;
-drop table if exists roles;
-drop table if exists login_roles;
+SET FOREIGN_KEY_CHECKS = 0;
 
-create table if not exists communities (
-id bigint auto_increment primary key,
-address varchar(128),
-name varchar(128),
-roof_option smallint,
-roof_colour varchar(10),
-base_option smallint,
-base_colour varchar(10),
-foreground_option smallint,
-foreground_colour varchar(10),
-main_text varchar(512),
-links_text varchar(256),
-info_text varchar(256),
-promo_text varchar(256),
-approved BIT NOT NULL DEFAULT 0
-) engine=InnoDB;
+DROP TABLE IF EXISTS login_roles;
+DROP TABLE IF EXISTS logins;
+DROP TABLE IF EXISTS roles;
 
-create table if not exists logins (
+DROP TABLE IF EXISTS communities;
+DROP TABLE IF EXISTS pages;
+
+CREATE TABLE communities (
+    id bigint auto_increment primary key,
+    address varchar(128),
+    name varchar(128),
+    roof_option smallint,
+    roof_colour varchar(10),
+    base_option smallint,
+    base_colour varchar(10),
+    foreground_option smallint,
+    foreground_colour varchar(10),
+    main_text varchar(512),
+    links_text varchar(256),
+    info_text varchar(256),
+    promo_text varchar(256),
+    approved BIT NOT NULL DEFAULT 0,
+    access_hash varchar(255)   -- <-- добавили сюда ХЕШ
+);
+
+CREATE TABLE logins (
   login_name varchar(32)  not null primary key,
   password varchar(512) not null,
   enabled  boolean      not null
-) engine=InnoDB;
+);
 
-create table if not exists roles (
+CREATE TABLE roles (
   role_id int(11)     not null auto_increment primary key,
   name    varchar(32) not null
-) engine=InnoDB;
+);
 
-create table if not exists logins_roles (
-  id       bigint      auto_increment primary key,
+CREATE TABLE login_roles (
+  id         bigint      auto_increment primary key,
   login_name varchar(32) not null,
-  role_id  int(11)     not null
-) engine=InnoDB;
+  role_id    int(11)     not null
+);
 
-create view if not exists login_authorities as
-  select u.login_name as login_name, CONCAT("ROLE_", r.name) as authority
-    from logins u
-      inner join logins_roles ur on u.login_name = ur.login_name
-      inner join roles r on ur.role_id = r.role_id;
+CREATE VIEW login_authorities AS
+  SELECT u.login_name AS login_name,
+         CONCAT('ROLE_', r.name) AS authority
+    FROM logins u
+         INNER JOIN login_roles ur ON u.login_name = ur.login_name
+         INNER JOIN roles r        ON ur.role_id   = r.role_id;
 
-drop table if exists pages;
-
-create table if not exists pages(
-id bigint primary key auto_increment,
-page_name varchar(255) not null unique,
-secret_hash varchar(255) not null,
-name varchar (128),
-main_text TEXT,
-links_text TEXT,
-info_text TEXT,
-promo_text TEXT
-)engine=InnoDB;
+SET FOREIGN_KEY_CHECKS = 1;

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Block</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container" th:if="${block != null}">
+    <h2 th:text="'Block Edit: ' + ${block.name}"></h2>
+
+    <div class="form-error" th:if="${error}" th:text="${error}"></div>
+    <div class="success-message" th:if="${success}" th:text="${success}"></div>
+
+    <form action="/BlockAccess/save" method="post">
+        <input type="hidden" name="id" th:value="${block.id}">
+        <input type="hidden" name="accessCode" th:value="${accessCode}">
+
+        <label>Address:
+            <input type="text" name="address" th:value="${block.address}">
+        </label><br>
+
+        <label>Name:
+            <input type="text" name="name" th:value="${block.name}">
+        </label><br>
+
+        <label>Roof Option:
+            <input type="number" name="roofOption" th:value="${block.roofOption}">
+        </label><br>
+
+        <label>Roof Colour:
+            <input type="text" name="roofColour" th:value="${block.roofColour}">
+        </label><br>
+
+        <label>Base Option:
+            <input type="number" name="baseOption" th:value="${block.baseOption}">
+        </label><br>
+
+        <label>Base Colour:
+            <input type="text" name="baseColour" th:value="${block.baseColour}">
+        </label><br>
+
+        <label>Foreground Option:
+            <input type="number" name="foregroundOption" th:value="${block.foregroundOption}">
+        </label><br>
+
+        <label>Foreground Colour:
+            <input type="text" name="foregroundColour" th:value="${block.foregroundColour}">
+        </label><br>
+
+        <label>Main Text:
+            <input type="text" name="mainText" th:value="${block.mainText}">
+        </label><br>
+
+        <label>Links Text:
+            <input type="text" name="linksText" th:value="${block.linksText}">
+        </label><br>
+
+        <label>Info Text:
+            <input type="text" name="infoText" th:value="${block.infoText}">
+        </label><br>
+
+        <label>Promo Text:
+            <input type="text" name="promoText" th:value="${block.promoText}">
+        </label><br>
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>

@@ -32,6 +32,8 @@ public class Block {
     //@NotEmpty(message = "Promo text may not be empty")
     @Size(max = 256, message = "Promo text cannot exceed 256 characters")
     String promoText;
+
+    String secretHash;
     boolean approved;
 
     public Block() {
