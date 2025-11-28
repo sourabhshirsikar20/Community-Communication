@@ -5,7 +5,7 @@ DELETE FROM logins;
 DELETE FROM roles;
 DELETE FROM communities;
 
--- Insert communities (your examples)
+-- Insert communities
 
 insert into communities (
   address, name,
@@ -178,7 +178,7 @@ VALUES ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu
 INSERT INTO logins (login_name, password, enabled)
 VALUES ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
 
--- Role mapping (!!! correct table name !!!)
+-- Role mapping
 INSERT INTO login_roles (login_name, role_id) VALUES ('manager', 1);
 INSERT INTO login_roles (login_name, role_id) VALUES ('manager', 2);
 INSERT INTO login_roles (login_name, role_id) VALUES ('user', 2);
