@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="has-navbar">
+    <div class="main-content">
+    <div th:replace="~{NavigationBar :: public-nav}"></div>
     <div id="header"></div>
 
     <div class="street-container">
@@ -33,6 +35,9 @@
 
         </a>
     </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:replace="~{NavigationBar :: navbar-js}"></script>
     
     <script src="/js/Header_Footer.js"></script>
     <script src="/js/StreetView.js"></script>

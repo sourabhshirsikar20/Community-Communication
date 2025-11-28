@@ -1,0 +1,28 @@
+ <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}" />
+
+<div th:fragment="footer">
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h4>Streete</h4>
+                <p>Your one-stop hub for exploring, managing, and personalising community blocks.</p>
+            </div>
+
+            <div class="footer-links">
+                <a th:href="@{/Index}">Home</a>
+                <a th:href="@{/SubmitBlock}">Submit Block</a>
+            </div>
+
+            <div class="footer-meta">
+                <span>📍Cardiff, United Kingdom</span><br>
+                <span>support@streete.com</span>
+            </div>
+
+        </div>
+
+        <div class="copy-rights">
+            © 2025 Streete. All rights reserved.
+        </div>
+    </footer>
+</div>

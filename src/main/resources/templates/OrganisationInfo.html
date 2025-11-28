@@ -5,7 +5,9 @@
     <title>InfoTest</title>
     <link rel="stylesheet" th:href="@{/css/infostyle.css}">
 </head>
-<body>
+<body class="has-navbar">
+    <div class="main-content">
+    <div th:replace="~{NavigationBar :: public-nav}"></div>
 <div class="grid">
     <div class="box">
         <h2>About the Organisation</h2>
@@ -29,5 +31,8 @@
         </div>
     </div>
 </div>
+</div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:replace="~{NavigationBar :: navbar-js}"></script>
 </body>
 </html>

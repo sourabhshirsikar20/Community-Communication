@@ -25,24 +25,24 @@ CREATE TABLE communities (
     promo_text varchar(256),
     approved BIT NOT NULL DEFAULT 0,
     access_hash varchar(255)   -- <-- добавили сюда ХЕШ
-);
+)engine=InnoDB;
 
 CREATE TABLE logins (
   login_name varchar(32)  not null primary key,
   password varchar(512) not null,
   enabled  boolean      not null
-);
+)engine=InnoDB;
 
 CREATE TABLE roles (
   role_id int(11)     not null auto_increment primary key,
   name    varchar(32) not null
-);
+)engine=InnoDB;
 
 CREATE TABLE login_roles (
   id         bigint      auto_increment primary key,
   login_name varchar(32) not null,
   role_id    int(11)     not null
-);
+)engine=InnoDB;
 
 CREATE VIEW login_authorities AS
   SELECT u.login_name AS login_name,

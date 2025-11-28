@@ -5,7 +5,9 @@
     <title>Unapproved Data Blocks</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+<body class="has-navbar">
+    <div class="main-content">
+    <div th:replace="~{NavigationBar :: approver-nav}"></div>
     <div id="info_display"></div>
     <div class="table_wrapper">
         <table>
@@ -38,7 +40,10 @@
             
         </table>
     </div>
-    
+</div>
+</div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:replace="~{NavigationBar :: navbar-js}"></script>
     <script th:src="@{/js/ApproverTable.js}"></script>
     <script th:inline="javascript">
         const entriesFromJava = /*[[${entries}]]*/ [];
