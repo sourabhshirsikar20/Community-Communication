@@ -5,67 +5,151 @@
     <title>Edit Block</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-<div class="container" th:if="${block != null}">
-    <h2 th:text="'Block Edit: ' + ${block.name}"></h2>
 
-    <div class="form-error" th:if="${error}" th:text="${error}"></div>
-    <div class="success-message" th:if="${success}" th:text="${success}"></div>
+<body class="has-navbar">
 
-    <form action="/BlockAccess/save" method="post">
-        <input type="hidden" name="id" th:value="${block.id}">
-        <input type="hidden" name="accessCode" th:value="${accessCode}">
+<div class="main-content">
 
-        <label>Address:
-            <input type="text" name="address" th:value="${block.address}">
-        </label><br>
+    <div th:replace="~{NavigationBar :: public-nav}"></div>
 
-        <label>Name:
-            <input type="text" name="name" th:value="${block.name}">
-        </label><br>
+    <div class="container">
 
-        <label>Roof Option:
-            <input type="number" name="roofOption" th:value="${block.roofOption}">
-        </label><br>
+        <h2 class="form-title">Edit Block: <span th:text="${block.name}"></span></h2>
 
-        <label>Roof Colour:
-            <input type="text" name="roofColour" th:value="${block.roofColour}">
-        </label><br>
+        <div class="form-error" th:if="${error}" th:text="${error}"></div>
+        <div class="success-message" th:if="${success}" th:text="${success}"></div>
 
-        <label>Base Option:
-            <input type="number" name="baseOption" th:value="${block.baseOption}">
-        </label><br>
+        <form th:action="@{/BlockAccess/save}" method="post" class="form-container" th:object="${block}">
 
-        <label>Base Colour:
-            <input type="text" name="baseColour" th:value="${block.baseColour}">
-        </label><br>
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" name="accessCode" th:value="${accessCode}">
 
-        <label>Foreground Option:
-            <input type="number" name="foregroundOption" th:value="${block.foregroundOption}">
-        </label><br>
+            <div class="form-field">
+                <label>Block Name <span class="required">*</span></label>
+                <input th:field="*{name}" type="text">
+            </div>
 
-        <label>Foreground Colour:
-            <input type="text" name="foregroundColour" th:value="${block.foregroundColour}">
-        </label><br>
+            <!-- TEMPLATE DESIGNER-->
+            <div class="template-section">
+                <h3 class="section-title">Design Your Block Template</h3>
 
-        <label>Main Text:
-            <input type="text" name="mainText" th:value="${block.mainText}">
-        </label><br>
+                <div class="template-grid">
 
-        <label>Links Text:
-            <input type="text" name="linksText" th:value="${block.linksText}">
-        </label><br>
+                    <!--Options-->
+                    <div class="template-controls">
 
-        <label>Info Text:
-            <input type="text" name="infoText" th:value="${block.infoText}">
-        </label><br>
+                        <!-- Roof -->
+                        <div class="template-group">
+                            <label class="template-label">Roof Template</label>
+                            <select th:field="*{roofOption}" id="roofOption" onchange="updatePreview()" class="template-select">
+                                <option value="1">Roof Template 1</option>
+                                <option value="2">Roof Template 2</option>
+                            </select>
 
-        <label>Promo Text:
-            <input type="text" name="promoText" th:value="${block.promoText}">
-        </label><br>
+                            <div class="color-control">
+                                <label>Roof Color:</label>
+                                <div class="color-input-group">
+                                    <input type="color" th:field="*{roofColour}" id="roofColour" onchange="updatePreview()">
+                                    <span id="roofColourValue" class="color-value" th:text="*{roofColour}"></span>
+                                </div>
+                            </div>
+                        </div>
 
-        <button type="submit">Save</button>
-    </form>
+                        <!-- Base -->
+                        <div class="template-group">
+                            <label class="template-label">Base Template</label>
+                            <select th:field="*{baseOption}" id="baseOption" onchange="updatePreview()" class="template-select">
+                                <option value="1">Base Template 1</option>
+                                <option value="2">Base Template 2</option>
+                            </select>
+
+                            <div class="color-control">
+                                <label>Base Color:</label>
+                                <div class="color-input-group">
+                                    <input type="color" th:field="*{baseColour}" id="baseColour" onchange="updatePreview()">
+                                    <span id="baseColourValue" class="color-value" th:text="*{baseColour}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foreground -->
+                        <div class="template-group">
+                            <label class="template-label">Foreground Template</label>
+                            <select th:field="*{foregroundOption}" id="foregroundOption" onchange="updatePreview()" class="template-select">
+                                <option value="1">Foreground Template 1</option>
+                                <option value="2">Foreground Template 2</option>
+                            </select>
+
+                            <div class="color-control">
+                                <label>Foreground Color:</label>
+                                <div class="color-input-group">
+                                    <input type="color" th:field="*{foregroundColour}" id="foregroundColour" onchange="updatePreview()">
+                                    <span id="foregroundColourValue" class="color-value" th:text="*{foregroundColour}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right side — PREVIEW -->
+                    <div class="template-preview">
+                        <div class="preview-container">
+                            <h4 class="preview-title">Live Preview</h4>
+                            <div class="preview-box">
+                                <div id="preview-base" class="preview-layer"></div>
+                                <div id="preview-roof" class="preview-layer"></div>
+                                <div id="preview-foreground" class="preview-layer"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Other text fields -->
+            <div class="form-field">
+                <label>Main text</label>
+                <textarea th:field="*{mainText}" rows="4"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label>Links</label>
+                <textarea th:field="*{linksText}" rows="4"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label>Info</label>
+                <textarea th:field="*{infoText}" rows="4"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label>Promo</label>
+                <textarea th:field="*{promoText}" rows="4"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label>Address</label>
+                <input th:field="*{address}" id="addressField">
+                <span id="addressError" class="form-error"></span>
+            </div>
+
+            <button class="submit-button" type="submit">Save</button>
+
+        </form>
+
+
+    </div>
+
 </div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:replace="~{NavigationBar :: navbar-js}"></script>
+<script src="/js/preview.js"></script>
+<script src="/js/AdressCheck.js"></script>
+<script>
+    updatePreview();
+</script>
+
 </body>
 </html>

@@ -79,9 +79,20 @@ public class BlockAccessController {
                 current.getSecretHash() == null ||
                 !passwordEncoder.matches(accessCode, current.getSecretHash())) {
             mav.addObject("error", "Invalid Access code! Edits will not be saved!");
-            mav.addObject("block", current);
+            mav.addObject("block", current !=null ? current : new Block());
             return mav;
         }
+        try {
+            Block existing = blockRepository.ByAddress(address);
+
+            if (existing != null && existing.getId() != id) {
+                mav.addObject("error", "Address already exists. Changes NOT saved.");
+                mav.addObject("block", current);
+                mav.addObject("accessCode", accessCode);
+                return mav;
+            }
+
+        } catch (EmptyResultDataAccessException ignored) {}
 
         Block updated = new Block();
         updated.setId(id);
@@ -107,5 +118,10 @@ public class BlockAccessController {
         mav.addObject("accessCode", accessCode);
         mav.addObject("success", "Modifications Saved Successfully!.");
         return mav;
+    }
+    @GetMapping("/checkAddress")
+    @ResponseBody
+    public boolean checkAddress(@RequestParam String value) {
+        return blockRepository.Check(value); // true = exists
     }
 }
