@@ -26,6 +26,7 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
                 rs.getString("base_colour"),
                 rs.getInt("foreground_option"),
                 rs.getString("foreground_colour"),
+                rs.getString("font_options"),
                 rs.getString("main_text"),
                 rs.getString("links_text"),
                 rs.getString("info_text"),

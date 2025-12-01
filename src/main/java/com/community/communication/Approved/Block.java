@@ -1,8 +1,7 @@
 package com.community.communication.Approved;
 
+import com.community.communication.SubmitBlock.SubmitBlock;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,8 +10,6 @@ import lombok.Data;
 public class Block {
     int id;
     String address;
-    @NotEmpty(message = "Blocks must have a name")
-    @Size(max = 128, message = "Names cannot exceed 128 characters")
     String name;
     int roofOption;
     String roofColour;
@@ -20,17 +17,10 @@ public class Block {
     String baseColour;
     int foregroundOption;
     String foregroundColour;
-    @NotEmpty(message = "Main text may not be empty")
-    @Size(max = 512, message = "Main text cannot exceed 512 characters")
+    String fontOptions;
     String mainText;
-    //@NotEmpty(message = "Link text may not be empty")
-    @Size(max = 256, message = "Link text cannot exceed 256 characters")
     String linksText;
-    //@NotEmpty(message = "Please provide contact information")
-    @Size(max = 256, message = "Contact Information cannot exceed 256 characters")
     String infoText;
-    //@NotEmpty(message = "Promo text may not be empty")
-    @Size(max = 256, message = "Promo text cannot exceed 256 characters")
     String promoText;
     boolean approved;
 
@@ -44,10 +34,49 @@ public class Block {
         baseColour = "#d8c286";
         foregroundOption = 1;
         foregroundColour = "#a4aeb4";
+        fontOptions = "{serif:false,italic:true,weight:450,width:85}";
         mainText = "";
         linksText = "";
         infoText = "";
         promoText = "";
         approved = false;
+    }
+
+    public Block(SubmitBlock submitBlock) {
+        id = -1;
+        address = submitBlock.getAddress();
+        name = submitBlock.getName();
+        roofOption = submitBlock.getRoofOption();
+        roofColour = submitBlock.getRoofColour();
+        baseOption = submitBlock.getBaseOption();
+        baseColour = submitBlock.getBaseColour();
+        foregroundOption = submitBlock.getForegroundOption();
+        foregroundColour = submitBlock.getForegroundColour();
+        fontOptions = submitBlock.GenerateFontOptions();
+        mainText = submitBlock.getMainText();
+        linksText = submitBlock.getLinksText();
+        infoText = submitBlock.getInfoText();
+        promoText = submitBlock.getPromoText();
+        approved = false;
+    }
+
+    public boolean ExtractFontSerif() {
+        return true;
+    }
+
+    public boolean ExtractFontItalic() {
+        return true;
+    }
+
+    public int ExtractFontWeight() {
+        return -1;
+    }
+
+    public int ExtractFontWidth() {
+        return -1;
+    }
+
+    public int ExtractFontGrade() {
+        return -1;
     }
 }
