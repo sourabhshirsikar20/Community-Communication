@@ -81,5 +81,10 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
         return jdbc.query(sql, blockMapper);
     }
 
+    public List<Block> getSearch(String value) {
+        String sql = "SELECT * FROM communities WHERE approved = '1' AND WHERE name LIKE ?";
+        return jdbc.query(sql, blockMapper,value);
+    }
+
     
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.community.communication.Approved.ApproverRepository;
@@ -24,6 +26,13 @@ public class IndexController {
         System.out.println(Approved);
         mav.addObject("Approved", Approved);
         return mav;
+    }
+    @PostMapping("/submit")
+    public ModelAndView submitSearch(@RequestParam("search_value") String search_value) { 
+        ModelAndView mav = new ModelAndView("StreetView.html");
+        List<Block> Approved = ApproverRepository.getSearch(search_value); 
+        mav.addObject("Approved", Approved);
+        return mav; 
     }
 
     
