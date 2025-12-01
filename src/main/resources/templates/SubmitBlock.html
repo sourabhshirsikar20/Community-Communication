@@ -40,63 +40,52 @@
           <div class="template-controls">
             
             <!-- Roof Layer -->
+            <h4>Roof</h4>
             <div class="template-group">
-              <label class="template-label">Roof Template</label>
               <select th:field="*{roofOption}" id="roofOption" onchange="updatePreview()" class="template-select">
-                <option value="1">Roof Template 1</option>
-                <option value="2">Roof Template 2</option>
+                <option value="1">Template 1</option>
+                <option value="2">Template 2</option>
               </select>
               
-              <div class="color-control">
-                <label class="color-label">Roof Color:</label>
-                <div class="color-input-group">
-                  <input type="color" 
-                         th:field="*{roofColour}" 
-                         id="roofColour"
-                         onchange="updatePreview()">
-                  <span class="color-value" id="roofColourValue" th:text="*{roofColour}"></span>
-                </div>
+              <div class="color-input-group">
+                <input type="color" th:field="*{roofColour}" id="roofColour" onchange="updatePreview()">
+                <span class="color-value" id="roofColourValue" th:text="*{roofColour}"></span>
               </div>
             </div>
 
             <!-- Base Layer -->
+            <h4>Base</h4>
             <div class="template-group">
-              <label class="template-label">Base Template</label>
               <select th:field="*{baseOption}" id="baseOption" onchange="updatePreview()" class="template-select">
-                <option value="1">Base Template 1</option>
-                <option value="2">Base Template 2</option>
+                <option value="1">Template 1</option>
+                <option value="2">Template 2</option>
               </select>
-              
-              <div class="color-control">
-                <label class="color-label">Base Color:</label>
-                <div class="color-input-group">
-                  <input type="color" 
-                         th:field="*{baseColour}" 
-                         id="baseColour"
-                         onchange="updatePreview()">
-                  <span class="color-value" id="baseColourValue" th:text="*{baseColour}"></span>
-                </div>
+              <div class="color-input-group">
+                <input type="color" th:field="*{baseColour}" id="baseColour" onchange="updatePreview()">
+                <span class="color-value" id="baseColourValue" th:text="*{baseColour}"></span>
               </div>
             </div>
 
             <!-- Foreground Layer -->
+            <h4>Foreground</h4>
             <div class="template-group">
-              <label class="template-label">Foreground Template</label>
               <select th:field="*{foregroundOption}" id="foregroundOption" onchange="updatePreview()" class="template-select">
-                <option value="1">Foreground Template 1</option>
-                <option value="2">Foreground Template 2</option>
+                <option value="1">Template 1</option>
+                <option value="2">Template 2</option>
               </select>
-              
-              <div class="color-control">
-                <label class="color-label">Foreground Color:</label>
-                <div class="color-input-group">
-                  <input type="color" 
-                         th:field="*{foregroundColour}" 
-                         id="foregroundColour"
-                         onchange="updatePreview()">
-                  <span class="color-value" id="foregroundColourValue" th:text="*{foregroundColour}"></span>
-                </div>
+              <div class="color-input-group">
+                <input type="color" th:field="*{foregroundColour}" id="foregroundColour" onchange="updatePreview()">
+                <span class="color-value" id="foregroundColourValue" th:text="*{foregroundColour}"></span>
               </div>
+            </div>
+
+            <!-- Text -->
+            <h4>Text Properties</h4>
+            <div class="template-group" id="template-font-group">
+              <label>Italic<input type="checkbox"></label><br>
+              <label>Weight<input type="range" id="fontWeight"></label><br>
+              <label>Width <input type="range" id="fontWidth" ></label><br>
+              <label>Grade <input type="range" id="fontGrade" ></label><br>
             </div>
           </div>
 
