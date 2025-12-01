@@ -5,6 +5,7 @@ drop table if exists communities;
 drop table if exists logins;
 drop table if exists roles;
 drop table if exists login_roles;
+drop view if exists login_authorities;
 
 create table if not exists communities (
 id bigint auto_increment primary key,

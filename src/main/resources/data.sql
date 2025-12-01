@@ -1,4 +1,7 @@
 delete from communities;
+delete from logins;
+delete from roles;
+delete from logins_roles;
 insert into communities (
   address, name,
   roof_option, roof_colour,
@@ -38,9 +41,9 @@ insert into communities (
 /* Google Gemini created examples */
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
@@ -55,9 +58,9 @@ insert into communities (
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
@@ -73,9 +76,9 @@ insert into communities (
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
@@ -91,9 +94,9 @@ insert into communities (
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
@@ -104,13 +107,13 @@ insert into communities (
   'Freshly baked bread, cakes, and pastries every morning.',
   'www.sweettreats.com',
   'Open 6am - 4pm daily',
-  'Half-price croissants after 3pm!'  
+  'Half-price croissants after 3pm!'
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
@@ -127,9 +130,9 @@ insert into communities (
 
 /* Example 8: Primary School */
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
@@ -146,9 +149,9 @@ insert into communities (
 
 /* Example 9: Pet Shop */
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
@@ -164,15 +167,22 @@ insert into communities (
 
 -- Security
 
+insert into logins (login_name, password, enabled) -- password: 'admin'
+values ('admin', '$2a$10$32tB/iVRDfqOKNFkpfVZveQUpkD0uE3uA2zCz10IKe69Pic5piA9y', true);
+
 insert into logins (login_name, password, enabled) -- password: 'manager'
 values ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu', true);
 
 insert into logins (login_name, password, enabled) -- password: 'shops'
 values ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
 
-insert into roles (role_id, name) values (1, 'MANAGER');
-insert into roles (role_id, name) values (2, 'USER');
+insert into roles (role_id, name) values (1, 'ADMIN');
+insert into roles (role_id, name) values (2, 'MANAGER');
+insert into roles (role_id, name) values (3, 'USER');
 
-insert into logins_roles (login_name, role_id) values ('manager', 1);
+insert into logins_roles (login_name, role_id) values ('admin', 1);
+insert into logins_roles (login_name, role_id) values ('admin', 2);
+insert into logins_roles (login_name, role_id) values ('admin', 3);
 insert into logins_roles (login_name, role_id) values ('manager', 2);
-insert into logins_roles (login_name, role_id) values ('user', 2);
+insert into logins_roles (login_name, role_id) values ('manager', 3);
+insert into logins_roles (login_name, role_id) values ('user', 3);
