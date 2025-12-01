@@ -97,16 +97,21 @@ function updatePreview() {
 function UpdateText() {
     const text_element = document.querySelector('#test-text');
 
+    let is_serif  = document.getElementById('fontSerif').checked;
     let is_italic = document.getElementById('fontItalic').checked;
-    let weight = document.getElementById('fontWeight').value;
-    let width  = document.getElementById('fontWidth').value;
-    let grade  = document.getElementById('fontGrade').value;
+    let weight    = document.getElementById('fontWeight').value;
+    let width     = document.getElementById('fontWidth').value;
+    let grade     = document.getElementById('fontGrade').value;
 
-    console.log(is_italic, weight, width, grade);
+    if (is_serif) {
+        text_element.style.fontFamily = '"Roboto serif", serif';
+        text_element.style.fontVariationSettings = `'wght' ${weight}, 'wdth' ${width}, 'GRAD' ${grade}`;
+    }
+    else {
+        text_element.style.fontFamily = '"Roboto", sans-serif';
+        text_element.style.fontVariationSettings = `'wght' ${weight}, 'wdth' ${width}`;
+    }
 
-    let variation_string = `'wght' ${weight}, 'wdth' ${width}, 'GRAD' ${grade}`;
-
-    text_element.style.fontVariationSettings = variation_string;
     text_element.style.fontStyle = is_italic ? 'italic' : 'normal';
 }
 
