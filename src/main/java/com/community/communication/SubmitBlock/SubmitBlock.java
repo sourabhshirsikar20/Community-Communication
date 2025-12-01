@@ -84,9 +84,9 @@ public class SubmitBlock {
 
     public String GenerateFontOptions() {
         return String.format(
-            "{serif:%b,italic:%b,weight:%d,width:%d%s}",
+            "{\"serif\":%b,\"italic\":%b,\"weight\":%d,\"width\":%d%s}",
             fontSerif, fontItalic, fontWeight, fontWidth,
-            fontSerif ?  String.format(",grade:%d", fontGrade) : ""
+            fontSerif ?  String.format(",\"grade\":%d", fontGrade) : ""
         );
     }
 }

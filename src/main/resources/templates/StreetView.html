@@ -20,7 +20,8 @@
             <div class="house-layer js-inject-svg"
                  th:data-url="'/svg/base/base-' + ${block.baseOption} + '.svg'"
                  th:data-color="${block.baseColour}"
-                 th:data-text="${block.name}">
+                 th:data-text="${block.name}"
+                 th:data-fontOptions="${block.fontOptions}">
             </div>
 
             <div class="house-layer js-inject-svg"

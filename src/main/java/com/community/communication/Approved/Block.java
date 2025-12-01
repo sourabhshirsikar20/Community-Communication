@@ -34,7 +34,7 @@ public class Block {
         baseColour = "#d8c286";
         foregroundOption = 1;
         foregroundColour = "#a4aeb4";
-        fontOptions = "{serif:false,italic:true,weight:450,width:85}";
+        fontOptions = "{\"serif\":false,\"italic\":true,\"weight\":450,\"width\":85}";
         mainText = "";
         linksText = "";
         infoText = "";
