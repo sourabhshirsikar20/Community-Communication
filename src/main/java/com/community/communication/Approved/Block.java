@@ -1,5 +1,7 @@
 package com.community.communication.Approved;
 
+import org.json.JSONObject;
+
 import com.community.communication.SubmitBlock.SubmitBlock;
 
 import lombok.AllArgsConstructor;
@@ -64,22 +66,27 @@ public class Block {
     }
 
     public boolean ExtractFontSerif() {
-        return true;
+        JSONObject json = new JSONObject(fontOptions);
+        return json.getBoolean("serif");
     }
 
     public boolean ExtractFontItalic() {
-        return true;
+        JSONObject json = new JSONObject(fontOptions);
+        return json.getBoolean("italic");
     }
 
     public int ExtractFontWeight() {
-        return -1;
+        JSONObject json = new JSONObject(fontOptions);
+        return json.getInt("weight");
     }
 
     public int ExtractFontWidth() {
-        return -1;
+        JSONObject json = new JSONObject(fontOptions);
+        return json.getInt("width");
     }
 
     public int ExtractFontGrade() {
-        return -1;
+        JSONObject json = new JSONObject(fontOptions);
+        return json.getInt("grade");
     }
 }

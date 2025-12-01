@@ -5,6 +5,8 @@
 
 package com.community.communication.SubmitBlock;
 
+import org.json.JSONObject;
+
 import com.community.communication.Approved.Block;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -86,10 +88,16 @@ public class SubmitBlock {
     }
 
     public String GenerateFontOptions() {
-        return String.format(
-            "{\"serif\":%b,\"italic\":%b,\"weight\":%d,\"width\":%d%s}",
-            fontSerif, fontItalic, fontWeight, fontWidth,
-            fontSerif ?  String.format(",\"grade\":%d", fontGrade) : ""
-        );
+        JSONObject json = new JSONObject();
+
+        json.put("serif",  fontSerif);
+        json.put("italic", fontItalic);
+        json.put("weight", fontWeight);
+        json.put("width",  fontWidth);
+
+        if (fontSerif)
+            json.put("grade",  fontGrade);
+
+        return json.toString();
     }
 }
