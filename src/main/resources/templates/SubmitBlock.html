@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Submit New Block</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Font links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wdth,wght,GRAD@0,8..144,50..150,100..900,-50..100;1,8..144,50..150,100..900,-50..100&display=swap" rel="stylesheet">
 </head>
 <body class="has-navbar">
   <div class="main-content">
@@ -83,10 +88,11 @@
             <h4>Text Properties</h4>
             <div class="template-group" id="template-font-group">
               <label>Italic<input type="checkbox" id="fontItalic" onchange="UpdateText()"></label>
-              <label>Weight<input type="range"    id="fontWeight" oninput="UpdateText()" ></label>
-              <label>Width <input type="range"    id="fontWidth"  oninput="UpdateText()" ></label>
-              <label>Grade <input type="range"    id="fontGrade"  oninput="UpdateText()" ></label>
+              <label>Weight<input type="range"    id="fontWeight" oninput="UpdateText()" min="100" max="900"></label>
+              <label>Width <input type="range"    id="fontWidth"  oninput="UpdateText()" min="75" max="100"></label>
+              <label>Grade <input type="range"    id="fontGrade"  oninput="UpdateText()" min="-50" max="100"></label>
             </div>
+            <span id="test-text">Joe's Craft Shop</span>
           </div>
 
           <!-- Right Column: Preview -->

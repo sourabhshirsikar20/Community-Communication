@@ -95,13 +95,19 @@ function updatePreview() {
 }
 
 function UpdateText() {
-    // get property values
+    const text_element = document.querySelector('#test-text');
+
     let is_italic = document.getElementById('fontItalic').checked;
     let weight = document.getElementById('fontWeight').value;
     let width  = document.getElementById('fontWidth').value;
     let grade  = document.getElementById('fontGrade').value;
 
     console.log(is_italic, weight, width, grade);
+
+    let variation_string = `'wght' ${weight}, 'wdth' ${width}, 'GRAD' ${grade}`;
+
+    text_element.style.fontVariationSettings = variation_string;
+    text_element.style.fontStyle = is_italic ? 'italic' : 'normal';
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -111,4 +117,5 @@ window.addEventListener('DOMContentLoaded', () => {
     loadSVG('roof', 2);
     loadSVG('foreground', 1);
     loadSVG('foreground', 2);
+    UpdateText();
 });
