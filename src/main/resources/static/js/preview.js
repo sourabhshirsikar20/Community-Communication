@@ -41,6 +41,7 @@ function updatePreview() {
     let roofColour = document.getElementById('roofColour').value;
     let baseColour = document.getElementById('baseColour').value;
     let foregroundColour = document.getElementById('foregroundColour').value;
+    let textColour = document.getElementById('textColour').value;
 
     if (svgs.base[baseOption]) {  
         let container = document.getElementById('preview-base');
@@ -58,6 +59,7 @@ function updatePreview() {
             let textElement = svg.querySelector('text');
             if (textElement) {
                 textElement.textContent = blockName;
+                textElement.setAttribute('fill', textColour);
             }
         }
     }
@@ -92,6 +94,7 @@ function updatePreview() {
     document.getElementById('roofColourValue').textContent = roofColour.toUpperCase();
     document.getElementById('baseColourValue').textContent = baseColour.toUpperCase();
     document.getElementById('foregroundColourValue').textContent = foregroundColour.toUpperCase();
+    document.getElementById('textColourValue').textContent = textColour.toUpperCase();
 }
 
 function UpdateText() {

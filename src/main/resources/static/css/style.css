@@ -432,13 +432,13 @@ tbody tr:hover {
     display: block;
 }
 
-#test-text {
-  font-family: "Roboto serif", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 200;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 80;
+.preview-layer svg text {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings: "wdth" 80;
+    letter-spacing: 0.1em;
 }
 
 

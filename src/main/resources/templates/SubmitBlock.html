@@ -31,7 +31,7 @@
                type="text" 
                maxlength="128" 
                placeholder="Enter your block name"
-               onkeyup="updatePreview()">
+               onkeyup="updatePreview(); UpdateText()">
         <div class="form-error" th:errors="*{name}"></div>
         <div class="feedback"></div>
       </div>
@@ -92,6 +92,10 @@
               <label>Weight<input type="range"    id="fontWeight" oninput= "UpdateText()" min="100" max="900"></label>
               <label>Width <input type="range"    id="fontWidth"  oninput= "UpdateText()" min="75" max="100"></label>
               <label>Grade <input type="range"    id="fontGrade"  oninput= "UpdateText()" min="-50" max="100"></label>
+            </div>
+            <div class="color-input-group">
+              <input type="color" id="textColour" onchange="updatePreview()">
+              <span class="color-value" id="textColourValue"></span>
             </div>
           </div>
 
