@@ -18,6 +18,7 @@ public class Block {
     int foregroundOption;
     String foregroundColour;
     String fontOptions;
+    String fontColour;
     String mainText;
     String linksText;
     String infoText;
@@ -31,10 +32,11 @@ public class Block {
         roofOption = 1;
         roofColour = "#a42445";
         baseOption = 1;
-        baseColour = "#d8c286";
+        baseColour = "#b88c7aff";
         foregroundOption = 1;
         foregroundColour = "#a4aeb4";
         fontOptions = "{\"serif\":false,\"italic\":true,\"weight\":450,\"width\":85}";
+        fontColour = "#e9b36cff";
         mainText = "";
         linksText = "";
         infoText = "";
@@ -53,6 +55,7 @@ public class Block {
         foregroundOption = submitBlock.getForegroundOption();
         foregroundColour = submitBlock.getForegroundColour();
         fontOptions = submitBlock.GenerateFontOptions();
+        fontColour = submitBlock.getFontColour();
         mainText = submitBlock.getMainText();
         linksText = submitBlock.getLinksText();
         infoText = submitBlock.getInfoText();

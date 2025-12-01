@@ -94,8 +94,8 @@
               <label>Grade <input type="range"    id="fontGrade"  th:field="*{fontGrade}"  th:value="*{fontGrade}"  oninput= "UpdateText()" min="-50" max="100"></label>
             </div>
             <div class="color-input-group">
-              <input type="color" id="textColour" onchange="updatePreview(); UpdateText()">
-              <span class="color-value" id="textColourValue"></span>
+              <input type="color" th:field="*{fontColour}" id="textColour" onchange="updatePreview(); UpdateText()">
+              <span class="color-value" id="textColourValue" th:text="*{fontColour}"></span>
             </div>
           </div>
 

@@ -55,6 +55,8 @@ async function injectSvgs() {
                 const existingText = svgElement.querySelector('text');
                 if (existingText) {
                     existingText.textContent = textToInject;
+                    existingText.setAttribute('fill', container.getAttribute('data-fontColour'));
+
                     // set font options
                     let fontOptions = container.getAttribute('data-fontOptions');
                     if (fontOptions) {

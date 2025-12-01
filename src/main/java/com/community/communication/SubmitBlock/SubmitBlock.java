@@ -30,6 +30,7 @@ public class SubmitBlock {
     int     fontWidth;
     int     fontWeight;
     int     fontGrade;
+    String  fontColour;
     @NotEmpty(message = "Main text may not be empty")
     @Size(max = 512, message = "Main text cannot exceed 512 characters")
     String mainText;
@@ -55,6 +56,7 @@ public class SubmitBlock {
         fontWeight = 450;
         fontWidth  = 85;
         fontGrade  = 0;
+        fontColour = "#99604aff";
 
         mainText = "";
         linksText = "";
@@ -76,6 +78,7 @@ public class SubmitBlock {
         fontWeight  = block.ExtractFontWeight();
         fontWidth   = block.ExtractFontWidth();
         fontGrade   = block.ExtractFontGrade();
+        fontColour  = block.getFontColour();
         mainText    = block.getMainText();
         linksText   = block.getLinksText();
         infoText    = block.getInfoText();
