@@ -9,6 +9,13 @@
 <nav th:fragment="public-nav" class="navbar">
     <div class="nav-container">
         <a href="/Index" class="nav-brand">Streete</a>
+        <form method="post" th:action="@{/search}">
+            <label for="search_value">Search</label>
+            <input type="text" id ="search_value" name="search_value">
+            <button type="submit" id = "search_button">
+                🔍
+            </button>
+        </form>
         
         <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
             <span></span>
@@ -67,6 +74,12 @@
 <nav th:fragment="approver-nav" class="navbar">
     <div class="nav-container">
         <a href="/Index" class="nav-brand">Streete</a>
+        <form method="post" th:action="@{/search}">
+            <input type="text" name="search_value">
+            <button type="submit" id = "search_button">
+                ✓
+            </button>
+        </form>
         
         <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
             <span></span>
