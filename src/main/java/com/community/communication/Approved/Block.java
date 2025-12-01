@@ -1,5 +1,6 @@
 package com.community.communication.Approved;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.community.communication.SubmitBlock.SubmitBlock;
@@ -86,7 +87,11 @@ public class Block {
     }
 
     public int ExtractFontGrade() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getInt("grade");
+        try {
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getInt("grade");
+        } catch (JSONException e) {
+            return 0; // grade not found, return neutral value
+        }
     }
 }
