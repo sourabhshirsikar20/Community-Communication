@@ -347,7 +347,7 @@ tbody tr:hover {
 .template-select {
     width: 100%;
     padding: 0.65rem;
-    border: 2px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
     border-radius: 6px;
     font-size: 0.95rem;
     background-color: white;
@@ -356,13 +356,7 @@ tbody tr:hover {
 }
 
 .template-select:hover {
-    border-color: #1D2F6F;
-}
-
-.template-select:focus {
-    outline: none;
-    border-color: #1D2F6F;
-    box-shadow: 0 0 0 3px rgba(29, 47, 111, 0.1);
+    border-color: #47527a;
 }
 
 .color-input-group {

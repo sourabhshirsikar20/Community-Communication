@@ -94,6 +94,16 @@ function updatePreview() {
     document.getElementById('foregroundColourValue').textContent = foregroundColour.toUpperCase();
 }
 
+function UpdateText() {
+    // get property values
+    let is_italic = document.getElementById('fontItalic').checked;
+    let weight = document.getElementById('fontWeight').value;
+    let width  = document.getElementById('fontWidth').value;
+    let grade  = document.getElementById('fontGrade').value;
+
+    console.log(is_italic, weight, width, grade);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     loadSVG('base', 1);
     loadSVG('base', 2);

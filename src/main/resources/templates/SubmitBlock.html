@@ -82,10 +82,10 @@
             <!-- Text -->
             <h4>Text Properties</h4>
             <div class="template-group" id="template-font-group">
-              <label>Italic<input type="checkbox"></label><br>
-              <label>Weight<input type="range" id="fontWeight"></label><br>
-              <label>Width <input type="range" id="fontWidth" ></label><br>
-              <label>Grade <input type="range" id="fontGrade" ></label><br>
+              <label>Italic<input type="checkbox" id="fontItalic" onchange="UpdateText()"></label>
+              <label>Weight<input type="range"    id="fontWeight" oninput="UpdateText()" ></label>
+              <label>Width <input type="range"    id="fontWidth"  oninput="UpdateText()" ></label>
+              <label>Grade <input type="range"    id="fontGrade"  oninput="UpdateText()" ></label>
             </div>
           </div>
 
