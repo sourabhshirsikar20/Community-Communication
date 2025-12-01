@@ -27,7 +27,7 @@ public class IndexController {
         mav.addObject("Approved", Approved);
         return mav;
     }
-    @PostMapping("/submit")
+    @GetMapping("/search")
     public ModelAndView submitSearch(@RequestParam("search_value") String search_value) { 
         ModelAndView mav = new ModelAndView("StreetView.html");
         List<Block> Approved = ApproverRepository.getSearch(search_value); 
