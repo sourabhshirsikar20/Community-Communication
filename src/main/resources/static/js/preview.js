@@ -95,7 +95,7 @@ function updatePreview() {
 }
 
 function UpdateText() {
-    const text_element = document.querySelector('#test-text');
+    let text_element = document.getElementById('preview-base').querySelector('text');
 
     let is_serif  = document.getElementById('fontSerif').checked;
     let is_italic = document.getElementById('fontItalic').checked;
