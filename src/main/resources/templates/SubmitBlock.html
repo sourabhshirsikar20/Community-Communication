@@ -94,7 +94,7 @@
               <label>Grade <input type="range"    id="fontGrade"  oninput= "UpdateText()" min="-50" max="100"></label>
             </div>
             <div class="color-input-group">
-              <input type="color" id="textColour" onchange="updatePreview()">
+              <input type="color" id="textColour" onchange="updatePreview(); UpdateText()">
               <span class="color-value" id="textColourValue"></span>
             </div>
           </div>
