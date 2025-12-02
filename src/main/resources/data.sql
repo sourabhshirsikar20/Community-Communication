@@ -6,7 +6,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
   ) values (
-    '00', 'Corner Shop',
+    '01', 'Corner Shop',
     1, '#cc7979',
     1, '#d8c286',
     1, '#f5dfd5ff',
@@ -23,7 +23,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
   ) values (
-    '01', 'Sarah Resturant',
+    '02', 'Sarah Resturant',
     2, '#be1313ff',
     2, '#ae0fd6ff',
     2, '#4a2d80ff',
@@ -44,7 +44,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
-  '02', 'The Old Library',
+  '03', 'The Old Library',
   1, '#5D4037',       /* Dark Brown Roof */
   1, '#F5F5DC',       /* Beige Base */
   1, '#8D6E63',       /* Brown Foreground */
@@ -61,7 +61,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '03', 'Tech Startups',
+  '04', 'Tech Startups',
   1, '#263238',       /* Dark Grey Roof */
   2, '#ECEFF1',       /* Light Grey Base */
   2, '#37474F',       /* Slate Foreground */
@@ -79,7 +79,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '04', 'Green Gardens',
+  '05', 'Green Gardens',
   2, '#33691E',       /* Dark Green Roof */
   1, '#8D6E63',       /* Earthy Base */
   1, '#558B2F',       /* Light Green Foreground */
@@ -97,7 +97,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
-  '05', 'Sweet Treats Bakery',
+  '06', 'Sweet Treats Bakery',
   2, '#E6B8B7',       /* Pinkish Roof */
   1, '#FFF8E1',       /* Cream Base */
   2, '#D7CCC8',       /* Light Brown Foreground */
@@ -115,7 +115,7 @@ insert into communities (
   font_options, font_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '06', 'PowerLift Gym',
+  '07', 'PowerLift Gym',
   1, '#424242',       /* Dark Grey Roof */
   2, '#B0BEC5',       /* Steel Blue/Grey Base */
   1, '#263238',       /* Charcoal Foreground */
@@ -135,7 +135,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '07', 'Sunnydale Primary',
+  '08', 'Sunnydale Primary',
   2, '#B71C1C',       /* Red Brick Roof */
   2, '#FFCC80',       /* Orange/Brick Base */
   2, '#3E2723',       /* Dark Brown Foreground */
@@ -154,7 +154,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
-  '08', 'Paws & Claws',
+  '09', 'Paws & Claws',
   1, '#0288D1',       /* Bright Blue Roof */
   1, '#E1F5FE',       /* Light Blue Base */
   1, '#0277BD',       /* Deep Blue Foreground */
@@ -178,3 +178,11 @@ insert into roles (role_id, name) values (2, 'USER');
 insert into logins_roles (login_name, role_id) values ('manager', 1);
 insert into logins_roles (login_name, role_id) values ('manager', 2);
 insert into logins_roles (login_name, role_id) values ('user', 2);
+
+-- Streets
+
+insert into streets (name, address, description) 
+values ('Main Street', NULL, '');
+
+insert into streets (name, address, description) 
+values ('Food & Drink', '00', 'A home for all retaurants, takeaways, cafes, and more.');

@@ -5,6 +5,9 @@ drop table if exists communities;
 drop table if exists logins;
 drop table if exists roles;
 drop table if exists login_roles;
+drop table if exists streets;
+
+-- Block data
 
 create table if not exists communities (
 id bigint auto_increment primary key,
@@ -24,6 +27,8 @@ info_text varchar(256),
 promo_text varchar(256),
 approved BIT NOT NULL DEFAULT 0
 ) engine=InnoDB;
+
+-- Security data
 
 create table if not exists logins (
   login_name varchar(32)  not null primary key,
@@ -48,3 +53,12 @@ create view if not exists login_authorities as
       inner join logins_roles ur on u.login_name = ur.login_name
       inner join roles r on ur.role_id = r.role_id;
 
+-- Street data
+
+create table if not exists streets (
+  id          bigint auto_increment primary key,
+  name        varchar(64),
+  address     varchar(126), -- (block address size - 2)  as doesnt need to cover the last potential address of blocks
+                            -- NULL address is taken to mean the main (root) street
+  description varchar(512)
+) engine=InnoDB;
