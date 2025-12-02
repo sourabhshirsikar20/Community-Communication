@@ -135,7 +135,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '08', 'Sunnydale Primary',
+  '0000', 'Sunnydale Primary',
   2, '#B71C1C',       /* Red Brick Roof */
   2, '#FFCC80',       /* Orange/Brick Base */
   2, '#3E2723',       /* Dark Brown Foreground */
@@ -152,16 +152,17 @@ insert into communities (
   roof_option, roof_colour, 
   base_option, base_colour, 
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text
+  main_text, links_text, info_text, promo_text, approved
 ) values (
-  '09', 'Paws & Claws',
+  '0001', 'Paws & Claws',
   1, '#0288D1',       /* Bright Blue Roof */
   1, '#E1F5FE',       /* Light Blue Base */
   1, '#0277BD',       /* Deep Blue Foreground */
   'Everything you need for your furry, feathered, or scaled friends.',
   'Social: @PawsClawsShop',
   'Grooming services available',
-  'Buy 1 get 1 free on dog treats'
+  'Buy 1 get 1 free on dog treats',
+  1
 );
 
 -- Security
