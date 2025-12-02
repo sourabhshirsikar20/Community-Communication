@@ -18,6 +18,8 @@ CREATE TABLE communities (
     base_colour varchar(10),
     foreground_option smallint,
     foreground_colour varchar(10),
+    font_options varchar(92),
+    font_colour varchar(10),
     main_text varchar(512),
     links_text varchar(256),
     info_text varchar(256),
