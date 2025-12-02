@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,13 +19,18 @@ public class IndexController {
     @Autowired
     private ApproverRepository ApproverRepository;
 
+    @GetMapping("")
+    public ModelAndView RootRoute() {
+        return ApprovedList("00");
+    }
     
-    @GetMapping("/Index")
-    public ModelAndView ApprovedList(){
+    @GetMapping("/Index/{street}")
+    public ModelAndView ApprovedList(@PathVariable String street){
         ModelAndView mav = new ModelAndView("StreetView.html");
+
         List<Block> Approved = ApproverRepository.getApprovedBlocks();
-        System.out.println(Approved);
         mav.addObject("Approved", Approved);
+
         return mav;
     }
 
