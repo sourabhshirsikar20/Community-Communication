@@ -400,6 +400,7 @@ tbody tr:hover {
 
 .template-preview {
     position: relative;
+    height: 100%;
 }
 
 .preview-container {
@@ -408,6 +409,12 @@ tbody tr:hover {
     border-radius: 12px;
     padding: 1.25rem;
     width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .preview-box {
@@ -419,10 +426,6 @@ tbody tr:hover {
 
 .preview-layer {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
 }
 
