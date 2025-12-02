@@ -26,7 +26,8 @@
 
             <div class="form-field">
                 <label>Block Name <span class="required">*</span></label>
-                <input th:field="*{name}" type="text">
+                <input th:field="*{name}" type="text"readonly class="readonly-field">
+                <input type="hidden" id="blockNameHidden" th:value="${block.name}">
             </div>
 
             <!-- TEMPLATE DESIGNER-->
@@ -129,7 +130,7 @@
 
             <div class="form-field">
                 <label>Address</label>
-                <input th:field="*{address}" id="addressField">
+                <input th:field="*{address}" id="addressField" type="text" class="styled=input">
                 <span id="addressError" class="form-error"></span>
             </div>
 

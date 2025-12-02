@@ -32,7 +32,8 @@ function loadSVG(type, number) {
 }
 
 function updatePreview() {
-    let blockName = document.getElementById('blockName').value || 'Your Block';
+    let blockName = (document.getElementById('blockName')?.value) ||
+        (document.getElementById('blockNameHidden')?.value) || 'Your Block';
     
     let roofOption = parseInt(document.getElementById('roofOption').value);
     let baseOption = parseInt(document.getElementById('baseOption').value);
