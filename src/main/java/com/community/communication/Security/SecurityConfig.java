@@ -33,7 +33,9 @@ public class SecurityConfig {
     "/SubmitBlock",
     "/Index",
     "/OrganisationInfo",
-    "/OrganisationInfo/**"
+    "/OrganisationInfo/**",
+    "/search",
+    "/live-search"
   };
 
   public static boolean IsUrlInWhitelists(String url) {
