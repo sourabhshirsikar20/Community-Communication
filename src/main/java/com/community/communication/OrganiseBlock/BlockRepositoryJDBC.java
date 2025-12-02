@@ -104,4 +104,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 block.getSecretHash(),
                 block.getId() );
     }
+    public void deleteBlock(int blockId) {
+        String sql = "DELETE FROM communities WHERE id = ?";
+        Jdbc.update(sql, blockId);
+    }
 }

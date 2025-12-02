@@ -9,6 +9,9 @@
 <body class="has-navbar">
     <div class="main-content">
     <div th:replace="~{NavigationBar :: public-nav}"></div>
+        <div th:if="${successMessage}" class="success-message">
+            <p th:text="${successMessage}"></p>
+        </div>
     <div id="header"></div>
 
     <div class="street-container">
