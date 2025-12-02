@@ -41,6 +41,7 @@ function updatePreview() {
     let roofColour = document.getElementById('roofColour').value;
     let baseColour = document.getElementById('baseColour').value;
     let foregroundColour = document.getElementById('foregroundColour').value;
+    let textColour = document.getElementById('textColour').value;
 
     if (svgs.base[baseOption]) {  
         let container = document.getElementById('preview-base');
@@ -58,6 +59,7 @@ function updatePreview() {
             let textElement = svg.querySelector('text');
             if (textElement) {
                 textElement.textContent = blockName;
+                textElement.setAttribute('fill', textColour);
             }
         }
     }
@@ -92,6 +94,38 @@ function updatePreview() {
     document.getElementById('roofColourValue').textContent = roofColour.toUpperCase();
     document.getElementById('baseColourValue').textContent = baseColour.toUpperCase();
     document.getElementById('foregroundColourValue').textContent = foregroundColour.toUpperCase();
+    document.getElementById('textColourValue').textContent = textColour.toUpperCase();
+}
+
+function UpdateText() {
+    let text_element = document.getElementById('preview-base').querySelector('text');
+    let grad_slider  = document.getElementById('fontGrade');
+
+    let is_serif  = document.getElementById('fontSerif').checked;
+    let is_italic = document.getElementById('fontItalic').checked;
+    let weight    = document.getElementById('fontWeight').value;
+    let width     = document.getElementById('fontWidth').value;
+    let grade     = grad_slider.value;
+
+    if (is_serif) {
+        grad_slider.removeAttribute('disabled');
+        if (text_element) {
+            text_element.style.fontFamily = '"Roboto serif", serif';
+            text_element.style.fontVariationSettings = `'wght' ${weight}, 'wdth' ${width}, 'GRAD' ${grade}`;
+        }
+    }
+    else {
+        grad_slider.setAttribute('disabled', '');
+        if (text_element) {
+            text_element.style.fontFamily = '"Roboto", sans-serif';
+            text_element.style.fontVariationSettings = `'wght' ${weight}, 'wdth' ${width}`;
+        }
+    }
+
+    if (text_element) {
+        text_element.style.fontStyle = is_italic ? 'italic' : 'normal';
+        text_element.style.letterSpacing = `${(width-75)/(25)*(0.15)+0.05}em`; // scales width to a range 0.05-0.2 em
+    }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -101,4 +135,5 @@ window.addEventListener('DOMContentLoaded', () => {
     loadSVG('roof', 2);
     loadSVG('foreground', 1);
     loadSVG('foreground', 2);
+    UpdateText();
 });

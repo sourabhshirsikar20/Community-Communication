@@ -10,7 +10,7 @@
   <rect id="fill_col" y="65" width="265" height="200" ry="0" style="paint-order:stroke fill markers"/>
   <rect x="-5.5511e-17" y="65" width="265" height="200" ry="0" fill="url(#pattern3)" style="paint-order:stroke fill markers"/>
   <rect x="26.458" y="91.017" width="211.67" height="39.688" ry="0" fill-opacity=".44041" stroke="#331a1a" style="paint-order:stroke fill markers"/>
-  <text x="40.923107" y="117.45715" fill="#333334" font-family="Carlito" font-size="19.756px" font-weight="bold" letter-spacing="-.23812px" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" word-spacing="0px" style="paint-order:stroke fill markers" xml:space="preserve"><tspan x="40.923107" y="117.45715" font-size="19.756px" stroke-width="1.0001">Plot Name</tspan></text>
+  <text x="40.923107" y="117.45715" fill="#333334" font-family="Carlito" font-size="19.756px" font-weight="bold" letter-spacing="-.23812px" word-spacing="0px" style="paint-order:stroke fill markers" xml:space="preserve"><tspan x="40.923107" y="117.45715" font-size="19.756px" stroke-width="1.0001">Plot Name</tspan></text>
   <g stroke="#331a1a">
    <g stroke-width="1.0001">
     <path d="m28.243 145.48v86.105h66.848v-86.105zm141.25 1.3522v86.105h66.848v-86.105z" fill-opacity=".70651" style="paint-order:stroke fill markers"/>

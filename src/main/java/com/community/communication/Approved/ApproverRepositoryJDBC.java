@@ -28,6 +28,8 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             rs.getString("base_colour"),
             rs.getInt("foreground_option"),
             rs.getString("foreground_colour"),
+            rs.getString("font_options"),
+            rs.getString("font_colour"),
             rs.getString("main_text"),
             rs.getString("links_text"),
             rs.getString("info_text"),
@@ -52,11 +54,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
                 roof_option, roof_colour, 
                 base_option, base_colour, 
                 foreground_option, foreground_colour, 
+                font_options, font_colour,
                 main_text, 
                 links_text, 
                 info_text, 
                 promo_text
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """;
                 
         jdbc.update(sql, 
@@ -64,6 +67,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             block.getRoofOption(), block.getRoofColour(),
             block.getBaseOption(), block.getBaseColour(),
             block.getForegroundOption(), block.getForegroundColour(),
+            block.getFontOptions(), block.getFontColour(),
             block.getMainText(),
             block.getLinksText(),
             block.getInfoText(),

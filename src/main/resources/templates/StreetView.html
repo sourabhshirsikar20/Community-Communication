@@ -5,6 +5,11 @@
     <title>Community Street View</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Font Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wdth,wght,GRAD@0,8..144,50..150,100..900,-50..100;1,8..144,50..150,100..900,-50..100&display=swap" rel="stylesheet">
 </head>
 <body class="has-navbar">
     <div class="main-content">
@@ -20,7 +25,9 @@
             <div class="house-layer js-inject-svg"
                  th:data-url="'/svg/base/base-' + ${block.baseOption} + '.svg'"
                  th:data-color="${block.baseColour}"
-                 th:data-text="${block.name}">
+                 th:data-text="${block.name}"
+                 th:data-fontOptions="${block.fontOptions}"
+                 th:data-fontColour="${block.fontColour}">
             </div>
 
             <div class="house-layer js-inject-svg"

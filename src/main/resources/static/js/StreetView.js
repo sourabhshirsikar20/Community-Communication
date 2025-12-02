@@ -28,6 +28,24 @@ async function injectSvgs() {
                 const existingText = svgElement.querySelector('text');
                 if (existingText) {
                     existingText.textContent = textToInject;
+                    existingText.setAttribute('fill', container.getAttribute('data-fontColour'));
+
+                    // set font options
+                    let fontOptions = container.getAttribute('data-fontOptions');
+                    if (fontOptions) {
+                        let style = JSON.parse(fontOptions);
+                        if (style['serif']) {
+                            existingText.style.fontFamily = '"Roboto serif", serif';
+                            existingText.style.fontVariationSettings = `'wght' ${style['weight']}, 'wdth' ${style['width']}, 'GRAD' ${style['grade']}`;
+                        }
+                        else {
+                            existingText.style.fontFamily = '"Roboto", sans-serif';
+                            existingText.style.fontVariationSettings = `'wght' ${style['weight']}, 'wdth' ${style['width']}`;
+                        }
+
+                        existingText.style.fontStyle = style['italic'] ? 'italic' : 'normal';
+                        existingText.style.letterSpacing = `${(style['width']-75)/(25)*(0.15)+0.05}em`;
+                    }
                 } 
             }
 
@@ -38,5 +56,6 @@ async function injectSvgs() {
         }
     }
 }
+
 
 injectSvgs();
