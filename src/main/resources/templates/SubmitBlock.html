@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Submit New Block</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Font links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wdth,wght,GRAD@0,8..144,50..150,100..900,-50..100;1,8..144,50..150,100..900,-50..100&display=swap" rel="stylesheet">
 </head>
 <body class="has-navbar">
   <div class="main-content">
@@ -27,7 +32,7 @@
                type="text" 
                maxlength="128" 
                placeholder="Enter your block name"
-               onkeyup="updatePreview()">
+               onkeyup="updatePreview(); UpdateText()">
         <div class="form-error" th:errors="*{name}"></div>
         <div class="feedback"></div>
       </div>
@@ -41,63 +46,57 @@
           <div class="template-controls">
             
             <!-- Roof Layer -->
+            <h4>Roof</h4>
             <div class="template-group">
-              <label class="template-label">Roof Template</label>
               <select th:field="*{roofOption}" id="roofOption" onchange="updatePreview()" class="template-select">
-                <option value="1">Roof Template 1</option>
-                <option value="2">Roof Template 2</option>
+                <option value="1">Template 1</option>
+                <option value="2">Template 2</option>
               </select>
               
-              <div class="color-control">
-                <label class="color-label">Roof Color:</label>
-                <div class="color-input-group">
-                  <input type="color" 
-                         th:field="*{roofColour}" 
-                         id="roofColour"
-                         onchange="updatePreview()">
-                  <span class="color-value" id="roofColourValue" th:text="*{roofColour}"></span>
-                </div>
+              <div class="color-input-group">
+                <input type="color" th:field="*{roofColour}" id="roofColour" onchange="updatePreview()">
+                <span class="color-value" id="roofColourValue" th:text="*{roofColour}"></span>
               </div>
             </div>
 
             <!-- Base Layer -->
+            <h4>Base</h4>
             <div class="template-group">
-              <label class="template-label">Base Template</label>
               <select th:field="*{baseOption}" id="baseOption" onchange="updatePreview()" class="template-select">
-                <option value="1">Base Template 1</option>
-                <option value="2">Base Template 2</option>
+                <option value="1">Template 1</option>
+                <option value="2">Template 2</option>
               </select>
-              
-              <div class="color-control">
-                <label class="color-label">Base Color:</label>
-                <div class="color-input-group">
-                  <input type="color" 
-                         th:field="*{baseColour}" 
-                         id="baseColour"
-                         onchange="updatePreview()">
-                  <span class="color-value" id="baseColourValue" th:text="*{baseColour}"></span>
-                </div>
+              <div class="color-input-group">
+                <input type="color" th:field="*{baseColour}" id="baseColour" onchange="updatePreview()">
+                <span class="color-value" id="baseColourValue" th:text="*{baseColour}"></span>
               </div>
             </div>
 
             <!-- Foreground Layer -->
+            <h4>Foreground</h4>
             <div class="template-group">
-              <label class="template-label">Foreground Template</label>
               <select th:field="*{foregroundOption}" id="foregroundOption" onchange="updatePreview()" class="template-select">
-                <option value="1">Foreground Template 1</option>
-                <option value="2">Foreground Template 2</option>
+                <option value="1">Template 1</option>
+                <option value="2">Template 2</option>
               </select>
-              
-              <div class="color-control">
-                <label class="color-label">Foreground Color:</label>
-                <div class="color-input-group">
-                  <input type="color" 
-                         th:field="*{foregroundColour}" 
-                         id="foregroundColour"
-                         onchange="updatePreview()">
-                  <span class="color-value" id="foregroundColourValue" th:text="*{foregroundColour}"></span>
-                </div>
+              <div class="color-input-group">
+                <input type="color" th:field="*{foregroundColour}" id="foregroundColour" onchange="updatePreview()">
+                <span class="color-value" id="foregroundColourValue" th:text="*{foregroundColour}"></span>
               </div>
+            </div>
+
+            <!-- Text -->
+            <h4>Text Properties</h4>
+            <div class="template-group" id="template-font-group">
+              <label>Serif <input type="checkbox" id="fontSerif"  th:field="*{fontSerif}"  th:value="*{fontSerif}"  onchange="UpdateText()"></label>
+              <label>Italic<input type="checkbox" id="fontItalic" th:field="*{fontItalic}" th:value="*{fontItalic}" onchange="UpdateText()"></label>
+              <label>Weight<input type="range"    id="fontWeight" th:field="*{fontWeight}" th:value="*{fontWeight}" oninput= "UpdateText()" min="100" max="900"></label>
+              <label>Width <input type="range"    id="fontWidth"  th:field="*{fontWidth}"  th:value="*{fontWidth}"  oninput= "UpdateText()" min="75" max="100"></label>
+              <label>Grade <input type="range"    id="fontGrade"  th:field="*{fontGrade}"  th:value="*{fontGrade}"  oninput= "UpdateText()" min="-50" max="100"></label>
+            </div>
+            <div class="color-input-group">
+              <input type="color" th:field="*{fontColour}" id="textColour" onchange="updatePreview(); UpdateText()">
+              <span class="color-value" id="textColourValue" th:text="*{fontColour}"></span>
             </div>
           </div>
 

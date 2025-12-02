@@ -7,4 +7,5 @@ public interface ApproverRepository {
     List<Block> getUnapprovedBlocks();
     void addNewBlock(Block block);
     void approve(int id, String secretHash);
+    List<Block> getSearch(String value);
 }
