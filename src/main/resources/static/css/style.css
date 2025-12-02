@@ -1019,6 +1019,11 @@ body.has-navbar .container:first-of-type {
     background: #FFFFFF;
     transform: scale(1.1);
 }
+.search-highlight {
+    fill: #dc3545; 
+    font-weight: bold;
+    text-decoration: underline;
+}
 
 @media (max-width: 900px) {
     .nav-search-label {
