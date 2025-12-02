@@ -8,4 +8,5 @@ boolean Check(String Address);
 void Add(Block block);
 Block ById(int Id);
 void Update(Block block);
+void deleteBlock(int blockId);
 }

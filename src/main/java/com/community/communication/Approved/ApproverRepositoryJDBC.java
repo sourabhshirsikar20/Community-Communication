@@ -34,6 +34,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             rs.getString("links_text"),
             rs.getString("info_text"),
             rs.getString("promo_text"),
+            rs.getString("secret_hash"),
             rs.getBoolean("approved")
         ); 
     }
@@ -74,12 +75,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             block.getPromoText()
         );
     }
-    
-    public void approve(int id) {
-        String sql = "UPDATE communities SET approved = 1 WHERE id = ?";
-        jdbc.update(sql,id);
+    @Override
+    public void approve(int id, String secretHash) {
+        String sql = "UPDATE communities SET approved = 1, secret_Hash = ? WHERE id = ?";
+        jdbc.update(sql,secretHash, id);
     }
-
+    @Override
     public List<Block> getApprovedBlocks() {
         String sql = "SELECT * FROM communities WHERE approved = '1'";
         return jdbc.query(sql, blockMapper);

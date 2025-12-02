@@ -34,6 +34,7 @@ public class SecurityConfig {
     "/Index",
     "/OrganisationInfo",
     "/OrganisationInfo/**",
+    "/BlockAccess/**",
     "/search",
     "/live-search"
   };

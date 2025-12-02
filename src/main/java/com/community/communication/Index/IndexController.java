@@ -17,11 +17,15 @@ public class IndexController {
 
     @Autowired
     private ApproverRepository ApproverRepository;
+    @GetMapping("/")
+    public String redirectToIndex() {
+        return "redirect:/Index";
+    }
 
     
     @GetMapping("/Index")
     public ModelAndView ApprovedList(){
-        ModelAndView mav = new ModelAndView("StreetView.html");
+        ModelAndView mav = new ModelAndView("StreetView");
         List<Block> Approved = ApproverRepository.getApprovedBlocks();
         System.out.println(Approved);
         mav.addObject("Approved", Approved);

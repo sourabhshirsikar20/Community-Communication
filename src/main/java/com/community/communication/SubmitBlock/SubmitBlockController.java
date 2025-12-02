@@ -18,7 +18,7 @@ import com.community.communication.Approved.Block;
 import jakarta.validation.Valid;
 
 @Controller
-public class SubmitController {
+public class SubmitBlockController {
 
   @Autowired
   private ApproverRepository approverRepository;

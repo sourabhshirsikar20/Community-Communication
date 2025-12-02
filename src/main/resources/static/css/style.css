@@ -243,6 +243,7 @@ tbody tr:hover {
 }
 
 .form-field input[type="text"],
+.form-field input[type="password"],
 .form-field textarea {
     padding: 0.75rem;
     border: 2px solid #e0e0e0;
@@ -967,7 +968,68 @@ body.has-navbar .container:first-of-type {
         /* smaller on mobile */
     }
 }
+.preview-box {
+    width: 260px;
+    height: 260px;
+    position: relative;
+    border: 1px solid #ddd;
+    background: #ffffff;
+}
 
+.preview-layer {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.template-section {
+    margin-top: 25px;
+    padding: 15px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.template-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.template-group {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.template-select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.template-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-container {
+    text-align: center;
+}
+.readonly-field {
+    background-color: #eee;
+    cursor: not-allowed;
+}
 .nav-search-form {
     display: flex;
     align-items: center;
