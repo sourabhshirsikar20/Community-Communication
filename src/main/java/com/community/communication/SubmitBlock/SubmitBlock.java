@@ -58,7 +58,7 @@ public class SubmitBlock {
         fontWeight = 450;
         fontWidth  = 85;
         fontGrade  = 0;
-        fontColour = "#99604aff";
+        fontColour = "#cdab8f";
 
         mainText = "";
         linksText = "";
