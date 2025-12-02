@@ -1,11 +1,10 @@
 package com.community.communication.OrganiseBlock;
 
+import com.community.communication.Approved.Block;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import com.community.communication.Approved.Block;
 
 @Repository
 public class BlockRepositoryJDBC implements BlockRepository{
