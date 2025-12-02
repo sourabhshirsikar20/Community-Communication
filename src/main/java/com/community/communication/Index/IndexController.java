@@ -19,13 +19,22 @@ public class IndexController {
     @Autowired
     private ApproverRepository ApproverRepository;
 
-    @GetMapping("")
-    public ModelAndView RootRoute() {
-        return ApprovedList("00");
+     @GetMapping("/Index")
+    public ModelAndView ApprovedList(){
+        ModelAndView mav = new ModelAndView("StreetView.html");
+        List<Block> Approved = ApproverRepository.getApprovedBlocks();
+        mav.addObject("Approved", Approved);
+        return mav;
+    }
+
+
+    @GetMapping("/street")
+    public ModelAndView MainStreet() {
+        return Street("00");
     }
     
-    @GetMapping("/Index/{street}")
-    public ModelAndView ApprovedList(@PathVariable String street){
+    @GetMapping("/street/{street}")
+    public ModelAndView Street(@PathVariable String street){
         ModelAndView mav = new ModelAndView("StreetView.html");
 
         List<Block> Approved = ApproverRepository.getApprovedBlocks();

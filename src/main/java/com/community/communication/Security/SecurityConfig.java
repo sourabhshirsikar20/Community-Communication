@@ -30,6 +30,8 @@ public class SecurityConfig {
   private static final String[] USER_WHITELIST = {
     "/js/**",
     "/svg/**",
+    "/street",
+    "/street/**",
     "/SubmitBlock",
     "/Index",
     "/OrganisationInfo",
