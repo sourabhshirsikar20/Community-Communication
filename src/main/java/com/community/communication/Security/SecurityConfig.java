@@ -33,9 +33,7 @@ public class SecurityConfig {
     "/SubmitBlock",
     "/Index",
     "/OrganisationInfo",
-    "/OrganisationInfo/**",
-    "/search", // remove if live search works
-    "/live-search" // Added for the live search
+    "/OrganisationInfo/**"
   };
 
   public static boolean IsUrlInWhitelists(String url) {

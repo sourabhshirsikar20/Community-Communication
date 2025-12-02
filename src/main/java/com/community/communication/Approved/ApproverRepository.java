@@ -7,5 +7,4 @@ public interface ApproverRepository {
     List<Block> getUnapprovedBlocks();
     void addNewBlock(Block block);
     void approve(int id);
-    List<Block> getSearch(String value);
 }
