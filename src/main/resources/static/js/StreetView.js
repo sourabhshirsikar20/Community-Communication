@@ -40,3 +40,56 @@ async function injectSvgs() {
 }
 
 injectSvgs();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('search_value');
+    const streetContainer = document.querySelector('.street-container');
+
+    if (searchInput && streetContainer) {
+        searchInput.addEventListener('input', async (e) => {
+            const query = e.target.value;
+            
+            try {
+                // Fetch results from the new API endpoint
+                const response = await fetch(`/live-search?value=${encodeURIComponent(query)}`);
+                if (!response.ok) throw new Error('Search failed');
+                
+                const blocks = await response.json();
+                
+                // Clear current blocks
+                streetContainer.innerHTML = '';
+
+                // Rebuild DOM for each block
+                blocks.forEach(block => {
+                    const link = document.createElement('a');
+                    link.className = 'house-block';
+                    link.href = `/OrganisationInfo/${block.id}`;
+                    link.dataset.id = block.id;
+
+                    // Helper to create layer divs
+                    const createLayer = (type, option, color, text = null) => {
+                        const div = document.createElement('div');
+                        div.className = 'house-layer js-inject-svg';
+                        div.dataset.url = `/svg/${type}/${type}-${option}.svg`;
+                        div.dataset.color = color;
+                        if (text) div.dataset.text = text;
+                        return div;
+                    };
+
+                    // Append layers (Base, Roof, Foreground)
+                    link.appendChild(createLayer('base', block.baseOption, block.baseColour, block.name));
+                    link.appendChild(createLayer('roof', block.roofOption, block.roofColour));
+                    link.appendChild(createLayer('foreground', block.foregroundOption, block.foregroundColour));
+
+                    streetContainer.appendChild(link);
+                });
+
+                // Re-run SVG injection for the new elements
+                injectSvgs();
+
+            } catch (error) {
+                console.error('Live search error:', error);
+            }
+        });
+    }
+});
