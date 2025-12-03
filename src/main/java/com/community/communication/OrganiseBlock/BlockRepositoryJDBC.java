@@ -1,10 +1,11 @@
 package com.community.communication.OrganiseBlock;
 
-import com.community.communication.Approved.Block;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.community.communication.Approved.Block;
 
 @Repository
 public class BlockRepositoryJDBC implements BlockRepository {
@@ -34,7 +35,11 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 rs.getString("info_text"),
                 rs.getString("promo_text"),
                 rs.getString("secret_hash"),
-                rs.getBoolean("approved")
+                rs.getBoolean("approved"),
+                // Added created_date mapping
+                rs.getTimestamp("created_date") != null ? 
+                    rs.getTimestamp("created_date").toLocalDateTime() : 
+                    java.time.LocalDateTime.now()
         );
     }
 

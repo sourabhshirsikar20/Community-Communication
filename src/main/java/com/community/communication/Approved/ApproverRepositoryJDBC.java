@@ -7,13 +7,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ApproverRepositoryJDBC implements ApproverRepository{
+public class ApproverRepositoryJDBC implements ApproverRepository {
 
     private JdbcTemplate jdbc;
     private RowMapper<Block> blockMapper;
     private RowMapper<Street> streetMapper;
 
-    public ApproverRepositoryJDBC(JdbcTemplate aJdbc){
+    public ApproverRepositoryJDBC(JdbcTemplate aJdbc) {
         this.jdbc = aJdbc;
         setBlockMapper();
         setStreetMapper();
@@ -58,8 +58,9 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
 
     @Override
     public void addNewBlock(Block block) {
-        // id is autoincrementing, so not included
-        // approved has a default false value, so not included
+        
+        // created_date is handled by database DEFAULT CURRENT_TIMESTAMP
+        
         String sql = """
             INSERT INTO communities (
                 name, address,
@@ -91,7 +92,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
         String sql = "UPDATE communities SET approved = 1, secret_Hash = ? WHERE id = ?";
         jdbc.update(sql,secretHash, id);
     }
-
+    @Override
     public List<Block> getStreetBlocks(String streetAddress) {
         String sql = "SELECT * FROM communities WHERE " +
                         "approved = '1' AND " +
@@ -100,9 +101,15 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
         return jdbc.query(sql, blockMapper,  streetAddress.length(), streetAddress, streetAddress.length()+2);
     }
 
+    
     @Override
     public List<Block> getApprovedBlocks() {
-        String sql = "SELECT * FROM communities WHERE approved = '1'";
+        
+        String sql = """
+            SELECT * FROM communities 
+            WHERE approved = '1' 
+            AND DATE_ADD(created_date, INTERVAL 6 MONTH) > NOW()
+            """;
         return jdbc.query(sql, blockMapper);
     }
 
