@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.community.communication.Approved.ApproverRepository;
 import com.community.communication.Approved.Block;
-import com.community.communication.Approved.Street;
+import com.community.communication.Approved.StreetInfo;
 
 @Controller
 public class IndexController {
@@ -32,7 +32,10 @@ public class IndexController {
     @GetMapping("/street/{street}")
     public ModelAndView Street(@PathVariable String street){
         ModelAndView mav = new ModelAndView("StreetView.html");
-
+        
+        if (street.equals("root"))
+            street = "";
+        
         List<Block> Approved = ApproverRepository.getStreetBlocks(street);
         mav.addObject("Approved", Approved);
 
@@ -41,8 +44,15 @@ public class IndexController {
 
     @ResponseBody
     @GetMapping(path="/street-info/{street}", produces=MediaType.APPLICATION_JSON_VALUE)
-    public List<Street> getMethodName(@PathVariable String street) {
-        return ApproverRepository.getSubStreets(street);
+    public StreetInfo getMethodName(@PathVariable String street) {
+        StreetInfo info = new StreetInfo(
+            street.length() <= 2 ? 
+                ApproverRepository.getStreet("root") : 
+                ApproverRepository.getStreet(street.substring(0, street.length()-2)), 
+            ApproverRepository.getStreet(street),
+            ApproverRepository.getSubStreets(street)
+        );
+        return info;
     }
     
 

@@ -120,8 +120,6 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
     }
 
     public Street getStreet(String streetAddress) {
-        if (streetAddress.equals("root"))
-            streetAddress = "NULL";
         String sql = "SELECT * FROM streets WHERE address = ?";
         List<Street> result = jdbc.query(sql, streetMapper, streetAddress);
         if (result.size() == 1)

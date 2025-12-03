@@ -23,7 +23,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
   ) values (
-    '02', 'Sarah Resturant',
+    '0000', 'Sarah Resturant',
     2, '#be1313ff',
     2, '#ae0fd6ff',
     2, '#4a2d80ff',
@@ -95,16 +95,17 @@ insert into communities (
   roof_option, roof_colour, 
   base_option, base_colour, 
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text
+  main_text, links_text, info_text, promo_text, approved
 ) values (
-  '06', 'Sweet Treats Bakery',
+  '0002', 'Sweet Treats Bakery',
   2, '#E6B8B7',       /* Pinkish Roof */
   1, '#FFF8E1',       /* Cream Base */
   2, '#D7CCC8',       /* Light Brown Foreground */
   'Freshly baked bread, cakes, and pastries every morning.',
   'www.sweettreats.com',
   'Open 6am - 4pm daily',
-  'Half-price croissants after 3pm!'  
+  'Half-price croissants after 3pm!',
+  1 
 );
 
 insert into communities (
@@ -115,7 +116,7 @@ insert into communities (
   font_options, font_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '07', 'PowerLift Gym',
+  '06', 'PowerLift Gym',
   1, '#424242',       /* Dark Grey Roof */
   2, '#B0BEC5',       /* Steel Blue/Grey Base */
   1, '#263238',       /* Charcoal Foreground */
@@ -135,7 +136,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '0000', 'Sunnydale Primary',
+  '0001', 'Sunnydale Primary',
   2, '#B71C1C',       /* Red Brick Roof */
   2, '#FFCC80',       /* Orange/Brick Base */
   2, '#3E2723',       /* Dark Brown Foreground */
@@ -154,7 +155,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '0001', 'Paws & Claws',
+  '07', 'Paws & Claws',
   1, '#0288D1',       /* Bright Blue Roof */
   1, '#E1F5FE',       /* Light Blue Base */
   1, '#0277BD',       /* Deep Blue Foreground */
@@ -183,7 +184,10 @@ insert into logins_roles (login_name, role_id) values ('user', 2);
 -- Streets
 
 insert into streets (name, address, description) 
-values ('Main Street', NULL, '');
+values ('Main Street', 'root', '');
 
 insert into streets (name, address, description) 
-values ('Food & Drink', '00', 'A home for all retaurants, takeaways, cafes, and more.');
+values ('New Blocks', '00', 'A place to find newly-added blocks');
+
+insert into streets (name, address, description) 
+values ('Food & Drink', '02', 'A home for all retaurants, takeaways, cafes, and more');
