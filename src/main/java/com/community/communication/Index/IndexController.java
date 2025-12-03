@@ -22,22 +22,16 @@ public class IndexController {
      @GetMapping("/Index")
     public ModelAndView ApprovedList(){
         ModelAndView mav = new ModelAndView("StreetView.html");
-        List<Block> Approved = ApproverRepository.getApprovedBlocks();
+        List<Block> Approved = ApproverRepository.getStreetBlocks("");
         mav.addObject("Approved", Approved);
         return mav;
-    }
-
-
-    @GetMapping("/street")
-    public ModelAndView MainStreet() {
-        return Street("00");
     }
     
     @GetMapping("/street/{street}")
     public ModelAndView Street(@PathVariable String street){
         ModelAndView mav = new ModelAndView("StreetView.html");
 
-        List<Block> Approved = ApproverRepository.getApprovedBlocks();
+        List<Block> Approved = ApproverRepository.getStreetBlocks(street);
         mav.addObject("Approved", Approved);
 
         return mav;

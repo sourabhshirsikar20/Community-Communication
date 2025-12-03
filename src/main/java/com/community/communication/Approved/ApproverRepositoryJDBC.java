@@ -80,6 +80,18 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
         jdbc.update(sql,id);
     }
 
+    public List<Block> getStreetBlocks(String streetAddress) {
+        // check address exists
+
+        // find street blocks
+        String sql = "SELECT * FROM communities WHERE " +
+                        "approved = '1' AND " +
+                        "SUBSTRING(address, 1, ?) = ? AND " +
+                        "LENGTH(address) = ?" ;
+
+        return jdbc.query(sql, blockMapper,  streetAddress.length(), streetAddress, streetAddress.length()+2);
+    }
+
     public List<Block> getApprovedBlocks() {
         String sql = "SELECT * FROM communities WHERE approved = '1'";
         return jdbc.query(sql, blockMapper);
