@@ -1051,6 +1051,7 @@ body.has-navbar .container:first-of-type {
 #street-nav-list {
     display: flex;
     gap: 0.5em;
+    margin-left: 1em;
 }
 
 #street-nav-list .street-nav-link,
@@ -1065,7 +1066,6 @@ body.has-navbar .container:first-of-type {
 #street-nav-list a {
     text-decoration: none; 
 }
-
 
 #street-nav-list>h5 {
     scale: 1.5;

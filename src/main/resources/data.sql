@@ -185,7 +185,7 @@ insert into logins_roles (login_name, role_id) values ('user', 2);
 -- Streets
 
 insert into streets (name, address, description) 
-values ('Main Street', 'root', '');
+values ('Main Street', 'root', 'Everything starts here, explore your community!');
 
 insert into streets (name, address, description) 
 values ('New Blocks', '00', 'A place to find newly-added blocks');
