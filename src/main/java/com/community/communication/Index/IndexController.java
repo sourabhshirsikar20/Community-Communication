@@ -14,12 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.community.communication.Approved.ApproverRepository;
 import com.community.communication.Approved.Block;
 import com.community.communication.Approved.StreetInfo;
+import com.community.communication.OrganisationInfo.OrganisationInfoRepository;
 
 @Controller
 public class IndexController {
 
     @Autowired
     private ApproverRepository ApproverRepository;
+
+    @Autowired
+    private OrganisationInfoRepository OrganisationInfoRepository;
 
      @GetMapping("/Index")
     public ModelAndView ApprovedList(){
@@ -44,7 +48,7 @@ public class IndexController {
 
     @ResponseBody
     @GetMapping(path="/street-info/{street}", produces=MediaType.APPLICATION_JSON_VALUE)
-    public StreetInfo getMethodName(@PathVariable String street) {
+    public StreetInfo getStreetInfo(@PathVariable String street) {
         StreetInfo info = new StreetInfo(
             street.length() <= 2 ? 
                 ApproverRepository.getStreet("root") : 
@@ -53,6 +57,12 @@ public class IndexController {
             ApproverRepository.getSubStreets(street)
         );
         return info;
+    }
+
+    @ResponseBody
+    @GetMapping("/block-name/{address}")
+    public String getBlockName(@PathVariable String address) {
+        return OrganisationInfoRepository.getInfo(address).getName();
     }
     
 

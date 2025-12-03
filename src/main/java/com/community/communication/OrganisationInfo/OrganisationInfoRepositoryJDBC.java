@@ -37,9 +37,9 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
         );
     }
 
-    public Block getInfo(int Id){
-        String SQL = "SELECT * FROM communities WHERE id = ?";
-        return Jdbc.queryForObject(SQL, organisationInfoMapper, Id);
+    public Block getInfo(String address){
+        String SQL = "SELECT * FROM communities WHERE address = ?";
+        return Jdbc.queryForObject(SQL, organisationInfoMapper, address);
     }
 
 }

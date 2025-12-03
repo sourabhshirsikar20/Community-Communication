@@ -10,6 +10,12 @@
         return await response.json();
       }
 
+      async function getBlockName(address) {
+        let response = await fetch(`/block-name/${address}`);
+        if (!response.ok) throw new Error('block information unavailable');
+        return await response.text();
+      }
+
       async function loadNavigation() {
         // get info
         let streets = []
@@ -45,13 +51,21 @@
               <h5>/</h5>
               `
             );
-          else
+          else if (streets[i]['self'] != null )
             nav_list.insertAdjacentHTML(
               'beforeend', `
               <div class="street-nav-final">
                 <h5>${streets[i]['self']['name']}</h5>
               </div>
               <span class="street-nav-desc">${streets[i]['self']['description']}</span>
+              `
+            );
+          else // last item is a block, not a street
+            nav_list.insertAdjacentHTML(
+              'beforeend', `
+              <div class="street-nav-final">
+                <h5>${await getBlockName(current_address)}</h5>
+              </div>
               `
             );
         }

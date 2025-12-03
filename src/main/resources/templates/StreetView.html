@@ -20,7 +20,7 @@
     <div class="street-container">
         <a  class="house-block" 
             th:each="block : ${Approved}" 
-            th:href="@{'/OrganisationInfo/' + ${block.id}}"
+            th:href="@{'/OrganisationInfo/' + ${block.address}}"
             th:data-id="${block.id}"
             th:data-address="${block.address}">
             
@@ -47,7 +47,7 @@
     </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
-    
+
     <script src="/js/StreetView.js"></script>
 </body>
 </html>
