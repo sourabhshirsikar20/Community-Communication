@@ -963,3 +963,179 @@ body.has-navbar .container:first-of-type {
         /* smaller on mobile */
     }
 }
+
+/* EXPIRY COUNTDOWN & ALERT STYLES */
+
+.expiry-alert {
+    margin: 2rem auto;
+    max-width: 900px;
+    padding: 2.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Fade in animation */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Expired block styling - RED ALERT */
+
+.expiry-alert.expired {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: 4px solid #bd2130;
+}
+
+.expiry-alert.expired h3 {
+    font-size: 2rem;
+    margin: 0 0 1.5rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.expiry-alert.expired p {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    line-height: 1.6;
+}
+
+/* Active block styling - ORANGE WARNING */
+
+.expiry-alert.active {
+    background: linear-gradient(135deg, #F5A623 0%, #e09612 100%);
+    color: white;
+    border: 4px solid #d08a0d;
+}
+
+.expiry-alert.active h3 {
+    font-size: 2rem;
+    margin: 0 0 1.5rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Countdown timer container */
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+/* Individual countdown boxes */
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    min-width: 120px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+}
+
+/* The big number (30, 12, 45) */
+
+.countdown-value {
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    font-family: 'Courier New', monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* The label (Days, Hours, Minutes) */
+
+.countdown-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+/* Expiry date text */
+.expiry-date {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+.expiry-date strong {
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design for mobile */
+
+@media (max-width: 768px) {
+    .expiry-alert {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.5rem;
+    }
+
+    .countdown {
+        gap: 1.5rem;
+    }
+
+    .countdown-item {
+        padding: 1.5rem 2rem;
+        min-width: 90px;
+    }
+
+    .countdown-value {
+        font-size: 2.5rem;
+    }
+
+    .countdown-label {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown {
+        gap: 1rem;
+    }
+
+    .countdown-item {
+        padding: 1rem 1.5rem;
+        min-width: 70px;
+    }
+
+    .countdown-value {
+        font-size: 2rem;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.25rem;
+    }
+
+    .expiry-alert p {
+        font-size: 1rem;
+    }
+}
