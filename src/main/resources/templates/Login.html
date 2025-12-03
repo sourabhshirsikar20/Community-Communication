@@ -10,15 +10,16 @@
 <div class="main-content">
 <form id="login-form" method="post" th:action="@{/Login}">
     <div>
+        <h2 th:if="${admin_url}">Admin access is required for this page</h2>
         <h2 th:if="${manager_url}">Manager access is required for this page</h2>
-        <h2 th:unless="${manager_url}">Welcome</h2>
+        <h2 th:unless="${manager_url or admin_url }">Welcome User</h2>
         <div id="logout-message" th:if="${param.logout}">You have been logged out</div>
         <div id="login-fields">
             <label>
                 <p>Enter as:</p>
                 <select name="username">
-                    <option th:unless="${manager_url}" value="user">User</option>
-                    <option value="manager">Local Manager</option>
+                    <option th:unless="${manager_url or admin_url}" value="user">User</option>
+                    <option th:unless="${admin_url}" value="manager">Local Manager</option>
                     <option value="admin">Admin</option>
                 </select>
             </label>

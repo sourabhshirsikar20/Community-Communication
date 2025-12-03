@@ -37,12 +37,6 @@ public class SecurityConfig {
     };
 
     private static final String[] MANAGER_WHITELIST = {
-            "/js/**",
-            "/svg/**",
-            "/SubmitBlock",
-            "/Index",
-            "/OrganisationInfo",
-            "/OrganisationInfo/**",
             "/Approver",
             "/approveBlock/**"
     };
@@ -56,6 +50,14 @@ public class SecurityConfig {
             if (matchPattern(url, pattern))
                 return true;
         }
+        for (String pattern : MANAGER_WHITELIST) {
+            if (matchPattern(url, pattern))
+                return true;
+        }
+        return false;
+    }
+
+    public static  boolean IsUrlManager(String url){
         for (String pattern : MANAGER_WHITELIST) {
             if (matchPattern(url, pattern))
                 return true;
