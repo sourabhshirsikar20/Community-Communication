@@ -20,7 +20,8 @@ main_text varchar(512),
 links_text varchar(256),
 info_text varchar(256),
 promo_text varchar(256),
-approved BIT NOT NULL DEFAULT 0
+approved BIT NOT NULL DEFAULT 0,
+created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Added created_date column
 ) engine=InnoDB;
 
 create table if not exists logins (
