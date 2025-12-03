@@ -13,10 +13,10 @@
     <!-- EXPIRED MESSAGE - Shows when block has expired -->
         <div th:if="${isExpired}" class="expiry-alert expired">
             <h3>This Block Has Expired</h3>
-            <p>This organization's listing expired on 
+            <p>This organisation's listing expired on 
                 <strong th:text="${formattedExpiryDate}">Date</strong>.
             </p>
-            <p><strong>This listing is no longer active. Please contact the organization to update their information.</strong></p>
+            <p><strong>This listing is no longer active. Please contact the organisation to update their information.</strong></p>
         </div>
         
 <!-- 10-DAY URGENT WARNING - Shows when ≤ 10 days remaining -->
@@ -26,7 +26,7 @@
         <strong>Your listing expires in <span th:text="${daysRemaining}">0</span> days!</strong>
     </p>
     <p class="urgent-action">
-        Please update your organization information to keep your listing active.
+        Please update your organisation information to keep your listing active.
     </p>
     
     <!-- Still show countdown -->
