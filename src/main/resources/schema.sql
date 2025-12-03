@@ -2,7 +2,7 @@ DROP VIEW IF EXISTS login_authorities;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS login_roles;
+DROP TABLE IF EXISTS logins_roles;
 DROP TABLE IF EXISTS logins;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS communities;
@@ -39,7 +39,7 @@ CREATE TABLE roles (
   name    varchar(32) not null
 )engine=InnoDB;
 
-CREATE TABLE login_roles (
+CREATE TABLE logins_roles (
   id         bigint      auto_increment primary key,
   login_name varchar(32) not null,
   role_id    int(11)     not null
@@ -49,7 +49,7 @@ CREATE VIEW login_authorities AS
   SELECT u.login_name AS login_name,
          CONCAT('ROLE_', r.name) AS authority
     FROM logins u
-         INNER JOIN login_roles ur ON u.login_name = ur.login_name
+         INNER JOIN logins_roles ur ON u.login_name = ur.login_name
          INNER JOIN roles r        ON ur.role_id   = r.role_id;
 
 SET FOREIGN_KEY_CHECKS = 1;

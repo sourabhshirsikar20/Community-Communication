@@ -1,6 +1,6 @@
 -- Clean old data
-DELETE FROM login_roles;
-DELETE FROM login_roles;
+DELETE FROM logins_roles;
+DELETE FROM logins_roles;
 DELETE FROM logins;
 DELETE FROM roles;
 DELETE FROM communities;
@@ -181,6 +181,6 @@ INSERT INTO logins (login_name, password, enabled)
 VALUES ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
 
 -- Role mapping
-INSERT INTO login_roles (login_name, role_id) VALUES ('manager', 1);
-INSERT INTO login_roles (login_name, role_id) VALUES ('manager', 2);
-INSERT INTO login_roles (login_name, role_id) VALUES ('user', 2);
+INSERT INTO logins_roles (login_name, role_id) VALUES ('manager', 1);
+INSERT INTO logins_roles (login_name, role_id) VALUES ('manager', 2);
+INSERT INTO logins_roles (login_name, role_id) VALUES ('user', 2);
