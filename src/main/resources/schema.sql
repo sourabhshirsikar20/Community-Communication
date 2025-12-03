@@ -24,7 +24,8 @@ CREATE TABLE communities (
     info_text varchar(256),
     promo_text varchar(256),
     approved BIT NOT NULL DEFAULT 0,
-    secret_hash varchar(255)
+    secret_hash varchar(255),
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Added created_date column
 )engine=InnoDB;
 
 CREATE TABLE logins (
