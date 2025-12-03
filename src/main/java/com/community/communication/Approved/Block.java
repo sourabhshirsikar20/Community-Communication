@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.community.communication.SubmitBlock.SubmitBlock;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,24 +12,37 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Block {
+
     int id;
     String address;
+
     String name;
+
     int roofOption;
     String roofColour;
     int baseOption;
     String baseColour;
     int foregroundOption;
     String foregroundColour;
+
     String fontOptions;
     String fontColour;
     String mainText;
+
+    @Size(max = 256, message = "Link text cannot exceed 256 characters")
     String linksText;
+
+    @Size(max = 256, message = "Contact Information cannot exceed 256 characters")
     String infoText;
+
+    @Size(max = 256, message = "Promo text cannot exceed 256 characters")
     String promoText;
 
     String secretHash;
+
     boolean approved;
+
+    LocalDateTime createdDate;  
 
     public Block() {
         id = -1;
