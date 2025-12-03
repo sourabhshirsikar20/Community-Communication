@@ -51,9 +51,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text
 ) values (
   '03', 'The Old Library',
-  1, '#5D4037',       /* Dark Brown Roof */
-  1, '#F5F5DC',       /* Beige Base */
-  1, '#8D6E63',       /* Brown Foreground */
+  1, '#5D4037',
+  1, '#F5F5DC',
+  1, '#8D6E63',
   'A quiet place to study and read books from our vast collection.',
   'www.library.org',
   'Open 9am - 5pm',
@@ -68,9 +68,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved
 ) values (
   '04', 'Tech Startups',
-  1, '#263238',       /* Dark Grey Roof */
-  2, '#ECEFF1',       /* Light Grey Base */
-  2, '#37474F',       /* Slate Foreground */
+  1, '#263238',
+  2, '#ECEFF1',
+  2, '#37474F',
   'Co-working space for local tech enthusiasts and startups.',
   'www.techhub.io',
   'Contact: admin@techhub.io',
@@ -86,9 +86,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved
 ) values (
   '05', 'Green Gardens',
-  2, '#33691E',       /* Dark Green Roof */
-  1, '#8D6E63',       /* Earthy Base */
-  1, '#558B2F',       /* Light Green Foreground */
+  2, '#33691E',
+  1, '#8D6E63',
+  1, '#558B2F',
   'Fresh vegetables and flowers grown by the community, for the community.',
   'Social: @GreenGardens',
   'Volunteers welcome on weekends',
@@ -104,9 +104,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved
 ) values (
   '0201', 'Sweet Treats Bakery',
-  2, '#E6B8B7',       /* Pinkish Roof */
-  1, '#FFF8E1',       /* Cream Base */
-  2, '#D7CCC8',       /* Light Brown Foreground */
+  2, '#E6B8B7',
+  1, '#FFF8E1',
+  2, '#D7CCC8',
   'Freshly baked bread, cakes, and pastries every morning.',
   'www.sweettreats.com',
   'Open 6am - 4pm daily',
@@ -123,9 +123,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved
 ) values (
   '06', 'PowerLift Gym',
-  1, '#424242',       /* Dark Grey Roof */
-  2, '#B0BEC5',       /* Steel Blue/Grey Base */
-  1, '#263238',       /* Charcoal Foreground */
+  1, '#424242',
+  2, '#B0BEC5',
+  1, '#263238',
   '{"serif":false,"italic":true,"weight":450,"width":85}', '#e2ac6f',
   'Your local spot for fitness and strength training.',
   'www.powerlift.local',
