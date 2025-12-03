@@ -4,7 +4,7 @@ insert into communities (
   roof_option, roof_colour,
   base_option, base_colour,
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text
+  main_text, links_text, info_text, promo_text, approved
   ) values (
     '01', 'Corner Shop',
     1, '#cc7979',
@@ -13,7 +13,8 @@ insert into communities (
     'Your local corner shop, here for all everyday items! ...',
     '-links text-',
     '-info text-',
-    '-promo text-'
+    '-promo text-',
+    1
   );
 
   insert into communities (
@@ -23,7 +24,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
   ) values (
-    '0000', 'Sarah Resturant',
+    '0200', 'Sarah Resturant',
     2, '#be1313ff',
     2, '#ae0fd6ff',
     2, '#4a2d80ff',
@@ -97,7 +98,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '0002', 'Sweet Treats Bakery',
+  '0201', 'Sweet Treats Bakery',
   2, '#E6B8B7',       /* Pinkish Roof */
   1, '#FFF8E1',       /* Cream Base */
   2, '#D7CCC8',       /* Light Brown Foreground */
@@ -136,7 +137,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '0001', 'Sunnydale Primary',
+  '07', 'Sunnydale Primary',
   2, '#B71C1C',       /* Red Brick Roof */
   2, '#FFCC80',       /* Orange/Brick Base */
   2, '#3E2723',       /* Dark Brown Foreground */
@@ -155,7 +156,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '07', 'Paws & Claws',
+  '08', 'Paws & Claws',
   1, '#0288D1',       /* Bright Blue Roof */
   1, '#E1F5FE',       /* Light Blue Base */
   1, '#0277BD',       /* Deep Blue Foreground */

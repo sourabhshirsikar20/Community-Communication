@@ -83,6 +83,21 @@ async function injectSvgs() {
     }
 }
 
+function findNextStreetElement(currentAddress) {
+    let currentNum = parseInt(currentAddress); 
+    
+    let streetElements = Array.from(document.querySelectorAll('a[data-address]'))
+        .map(el => ({
+            element: el,
+            address: el.dataset.address,
+            value: parseInt(el.dataset.address.slice(-2))
+        }))
+        .filter(item => item.value > currentNum) 
+        .sort((a, b) => a.value - b.value); 
+    
+    return streetElements[0] ? streetElements[0].element : null;
+}
+
 async function injectStreets() {
     // get street information
     let current_street = window.location.pathname;
@@ -112,8 +127,8 @@ async function injectStreets() {
 
     // add nodes making sub streets
     for (let i = 0; i < street_info['children'].length; i++) {
-        document.querySelector('.street-container').insertAdjacentHTML(
-            'beforeend',
+        findNextStreetElement(street_info['children'][i].address).insertAdjacentHTML(
+            'beforebegin',
             `
             <a href="/street/${street_info['children'][i]['address']}">
                 <h4>${street_info['children'][i]['name']}</h4>
@@ -121,8 +136,6 @@ async function injectStreets() {
             `
         );
     }
-    
-    console.log(street_info);
 }
 
 injectSvgs();
