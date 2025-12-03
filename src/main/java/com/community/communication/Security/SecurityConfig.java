@@ -32,6 +32,7 @@ public class SecurityConfig {
     "/svg/**",
     "/street",
     "/street/**",
+    "/street-info/**",
     "/SubmitBlock",
     "/Index",
     "/OrganisationInfo",

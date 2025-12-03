@@ -9,4 +9,6 @@ public interface ApproverRepository {
     void addNewBlock(Block block);
     void approve(int id);
     List<Block> getSearch(String value);
+    List<Street> getSubStreets(String streetAddress);
+    Street getStreet(String streetAddress);
 }
