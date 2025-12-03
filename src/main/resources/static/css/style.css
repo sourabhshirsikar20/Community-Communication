@@ -59,6 +59,11 @@ body {
     cursor: pointer;
 }
 
+.house-block svg {
+    width: 200px;
+    height: 200px;
+}
+
 .house-block:hover {
     transform: scale(1.05);
     z-index: 10;          

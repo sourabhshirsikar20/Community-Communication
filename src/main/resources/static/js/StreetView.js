@@ -1,6 +1,8 @@
 // renderHeader();
 // renderFooter();
 
+let svgs = {};
+
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -99,6 +101,15 @@ function findNextStreetElement(currentAddress) {
 }
 
 async function injectStreets() {
+    // load svgs
+    let response = await fetch(`/svg/street.svg`);
+    if (!response.ok) throw new Error('svgs unavailable');
+    svgs['street'] = await response.text();
+
+    response = await fetch(`/svg/street-return.svg`);
+    if (!response.ok) throw new Error('svgs unavailable');
+    svgs['street-return'] = await response.text();
+
     // get street information
     let current_street = window.location.pathname;
     let current_address = null;
@@ -109,7 +120,7 @@ async function injectStreets() {
         current_address = current_street.split("/").pop();
 
     // get street information
-    let response = await fetch(`/street-info/${current_address}`);
+    response = await fetch(`/street-info/${current_address}`);
     if (!response.ok) throw new Error('street information unavailable');
     let street_info = await response.json();
     
@@ -118,11 +129,13 @@ async function injectStreets() {
         document.querySelector('.street-container').insertAdjacentHTML(
             'afterbegin',
             `
-            <a href="/street/${street_info['parent']['address']}">
-                <h4>← Return to ${street_info['parent']['name']}</h4>
+            <a id="street-return" class="house-block" href="/street/${street_info['parent']['address']}">
+                ${svgs['street-return']}
             </a>
             `
         );
+
+        document.querySelector(`#street-return text`).textContent = street_info['parent']['name'];
     }
 
     // add nodes making sub streets
@@ -130,11 +143,13 @@ async function injectStreets() {
         findNextStreetElement(street_info['children'][i].address).insertAdjacentHTML(
             'beforebegin',
             `
-            <a href="/street/${street_info['children'][i]['address']}">
-                <h4>${street_info['children'][i]['name']}</h4>
+            <a id="street-${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
+                ${svgs['street']}
             </a>
             `
         );
+
+        document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
     }
 }
 
