@@ -11,7 +11,7 @@ drop table if exists streets;
 
 create table if not exists communities (
 id bigint auto_increment primary key,
-address varchar(128),
+address varchar(128) UNIQUE,
 name varchar(128),
 roof_option smallint,
 roof_colour varchar(10),
@@ -58,7 +58,7 @@ create view if not exists login_authorities as
 create table if not exists streets (
   id          bigint auto_increment primary key,
   name        varchar(64),
-  address     varchar(126), -- (block address size - 2)  as doesnt need to cover the last potential address of blocks
-                            -- NULL address is taken to mean the main (root) street
+  address     varchar(126) UNIQUE, -- (block address size - 2)  as doesnt need to cover the last potential address of blocks
+                                   -- NULL address is taken to mean the main (root) street
   description varchar(512)
 ) engine=InnoDB;
