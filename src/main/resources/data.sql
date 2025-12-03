@@ -4,6 +4,7 @@ DELETE FROM logins_roles;
 DELETE FROM logins;
 DELETE FROM roles;
 DELETE FROM communities;
+DELETE FROM streets;
 
 -- Insert communities
 

@@ -1,33 +1,5 @@
 DROP VIEW IF EXISTS login_authorities;
 
-drop table if exists communities;
-drop table if exists logins;
-drop table if exists roles;
-drop table if exists login_roles;
-drop table if exists streets;
-
--- Block data
-
-create table if not exists communities (
-id bigint auto_increment primary key,
-address varchar(128) UNIQUE,
-name varchar(128),
-roof_option smallint,
-roof_colour varchar(10),
-base_option smallint,
-base_colour varchar(10),
-foreground_option smallint,
-foreground_colour varchar(10),
-font_options varchar(92),
-font_colour varchar(10),
-main_text varchar(512),
-links_text varchar(256),
-info_text varchar(256),
-promo_text varchar(256),
-approved BIT NOT NULL DEFAULT 0
-) engine=InnoDB;
-
--- Security data
 
 DROP TABLE IF EXISTS logins_roles;
 DROP TABLE IF EXISTS logins;

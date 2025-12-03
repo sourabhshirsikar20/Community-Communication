@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 blocks.forEach(block => {
                     const link = document.createElement('a');
                     link.className = 'house-block';
-                    link.href = `/OrganisationInfo/${block.id}`;
+                    link.href = `/OrganisationInfo/${block.address}`;
                     link.dataset.id = block.id;
 
 
