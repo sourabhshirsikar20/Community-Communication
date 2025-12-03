@@ -123,9 +123,9 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved
 ) values (
   '06', 'PowerLift Gym',
-  1, '#424242',
-  2, '#B0BEC5',
-  1, '#263238',
+  1, '#424242',       /* Dark Grey Roof */
+  2, '#B0BEC5',       /* Steel Blue/Grey Base */
+  1, '#263238',       /* Charcoal Foreground */
   '{"serif":false,"italic":true,"weight":450,"width":85}', '#e2ac6f',
   'Your local spot for fitness and strength training.',
   'www.powerlift.local',
@@ -183,6 +183,7 @@ VALUES ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu
 INSERT INTO logins (login_name, password, enabled)
 VALUES ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
 
+-- Role mapping
 insert into logins_roles (login_name, role_id) values ('manager', 1);
 insert into logins_roles (login_name, role_id) values ('manager', 2);
 insert into logins_roles (login_name, role_id) values ('user', 2);
