@@ -83,6 +83,47 @@ async function injectSvgs() {
     }
 }
 
+async function injectStreets() {
+    // get street information
+    let current_street = window.location.pathname;
+    let current_address = null;
+
+    if (current_street == "/Index")
+        current_address = "root";
+    else
+        current_address = current_street.split("/").pop();
+
+    // get street information
+    let response = await fetch(`/street-info/${current_address}`);
+    if (!response.ok) throw new Error('street information unavailable');
+    let street_info = await response.json();
+    
+    // add node to return to previous street
+    if (street_info['parent'] != null) {
+        document.querySelector('.street-container').insertAdjacentHTML(
+            'afterbegin',
+            `
+            <a href="/street/${street_info['parent']['address']}">
+                <h4>← Return to ${street_info['parent']['name']}</h4>
+            </a>
+            `
+        );
+    }
+
+    // add nodes making sub streets
+    for (let i = 0; i < street_info['children'].length; i++) {
+        document.querySelector('.street-container').insertAdjacentHTML(
+            'beforeend',
+            `
+            <a href="/street/${street_info['children'][i]['address']}">
+                <h4>${street_info['children'][i]['name']}</h4>
+            </a>
+            `
+        );
+    }
+    
+    console.log(street_info);
+}
 
 injectSvgs();
 
@@ -132,4 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    injectStreets();
 });
