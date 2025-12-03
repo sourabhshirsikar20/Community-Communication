@@ -111,4 +111,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
         String sql = "DELETE FROM communities WHERE id = ?";
         Jdbc.update(sql, blockId);
     }
+    public void updateAccessCode(int id, String hash) {
+        Jdbc.update("UPDATE blocks SET accessCodeHash = ? WHERE id = ?", hash, id);
+    }
 }

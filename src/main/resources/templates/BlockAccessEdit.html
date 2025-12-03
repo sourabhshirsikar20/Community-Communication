@@ -133,9 +133,24 @@
                 <input th:field="*{address}" id="addressField" type="text" class="styled=input">
                 <span id="addressError" class="form-error"></span>
             </div>
-
             <button class="submit-button" type="submit">Save</button>
 
+        </form>
+        <form th:action="@{/BlockAccess/updateCode}" method="post" style="margin-top: 20px;">
+            <input type="hidden" name="id" th:value="${block.id}">
+            <input type="hidden" name="accessCode" th:value="${accessCode}">
+
+            <div class="form-field">
+                <label>New Access Code</label>
+                <input name="newAccessCode" type="password" minlength="4" maxlength="6">
+            </div>
+
+            <div class="form-field">
+                <label>Repeat New Code</label>
+                <input name="confirmAccessCode" type="password" minlength="4" maxlength="6">
+            </div>
+
+            <button class="submit-button" type="submit">Change Code</button>
         </form>
         <form action="/Block/block/delete" method="post" style="margin-top:20px;">
             <input type="hidden" name="blockId" th:value="${block != null} ? ${block.id} : ${Block.id}">
