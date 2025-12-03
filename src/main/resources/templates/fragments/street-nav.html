@@ -1,0 +1,63 @@
+<div th:fragment="street-nav">
+  <div class="street-nav">
+    <nav id="street-nav-list">
+      
+    </nav>
+    <script>
+      async function getStreetInfo(address) {
+        let response = await fetch(`/street-info/${address}`);
+        if (!response.ok) throw new Error('street information unavailable');
+        return await response.json();
+      }
+
+      async function loadNavigation() {
+        // get info
+        let streets = []
+
+        let current_street = window.location.pathname;
+        let current_address = null;
+
+        if (current_street == "/Index")
+            current_address = "root";
+        else
+            current_address = current_street.split("/").pop();
+
+        streets.push(await getStreetInfo(current_address));
+
+        // loop through parents to get full history
+        while (streets[0]['parent'] != null) {
+          streets.unshift(await getStreetInfo(streets[0]['parent']['address']));
+        }
+
+        // add items to navigation
+        let nav_list = document.getElementById('street-nav-list');
+        for(let i = 0; i < streets.length; i++) {
+          
+
+          if (i != streets.length - 1)
+            nav_list.insertAdjacentHTML(
+              'beforeend', `
+              <a href="/street/${streets[i]['self']['address']}">
+                  <div class="street-nav-link">
+                    <h5>${streets[i]['self']['name']}</h5>
+                  </div>
+              </a>
+              <h5>/</h5>
+              `
+            );
+          else
+            nav_list.insertAdjacentHTML(
+              'beforeend', `
+              <div class="street-nav-final">
+                <h5>${streets[i]['self']['name']}</h5>
+              </div>
+              <span class="street-nav-desc">${streets[i]['self']['description']}</span>
+              `
+            );
+        }
+      }
+
+      loadNavigation();
+    </script>
+  </div>
+</div>
