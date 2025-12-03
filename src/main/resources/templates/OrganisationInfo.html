@@ -19,30 +19,62 @@
             <p><strong>This listing is no longer active. Please contact the organization to update their information.</strong></p>
         </div>
         
-        <!-- COUNTDOWN TIMER - Shows when block is still active -->
-        <div th:unless="${isExpired}" class="expiry-alert active">
-            <h3>Time Remaining Until Expiry</h3>
-            
-            <div class="countdown">
-                <div class="countdown-item">
-                    <span class="countdown-value" th:text="${daysRemaining}">0</span>
-                    <span class="countdown-label">Days</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-value" th:text="${hoursRemaining}">0</span>
-                    <span class="countdown-label">Hours</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-value" th:text="${minutesRemaining}">0</span>
-                    <span class="countdown-label">Minutes</span>
-                </div>
-            </div>
-            
-            <p class="expiry-date">
-                This listing expires on: 
-                <strong th:text="${formattedExpiryDate}">Date</strong>
-            </p>
+<!-- 10-DAY URGENT WARNING - Shows when ≤ 10 days remaining -->
+<div th:if="${!isExpired && daysRemaining <= 10}" class="expiry-alert urgent">
+    <h3>⚠️ URGENT: Listing Expiring Soon!</h3>
+    <p class="urgent-message">
+        <strong>Your listing expires in <span th:text="${daysRemaining}">0</span> days!</strong>
+    </p>
+    <p class="urgent-action">
+        Please update your organization information to keep your listing active.
+    </p>
+    
+    <!-- Still show countdown -->
+    <div class="countdown">
+        <div class="countdown-item">
+            <span class="countdown-value" th:text="${daysRemaining}">0</span>
+            <span class="countdown-label">Days</span>
         </div>
+        <div class="countdown-item">
+            <span class="countdown-value" th:text="${hoursRemaining}">0</span>
+            <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+            <span class="countdown-value" th:text="${minutesRemaining}">0</span>
+            <span class="countdown-label">Minutes</span>
+        </div>
+    </div>
+    
+    <p class="expiry-date">
+        Expires on: <strong th:text="${formattedExpiryDate}">Date</strong>
+    </p>
+</div>
+
+<!-- NORMAL COUNTDOWN - Shows when > 10 days remaining -->
+<div th:if="${!isExpired && daysRemaining > 10}" class="expiry-alert active">
+    <h3>⏰ Time Remaining Until Expiry</h3>
+    
+    <div class="countdown">
+        <div class="countdown-item">
+            <span class="countdown-value" th:text="${daysRemaining}">0</span>
+            <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+            <span class="countdown-value" th:text="${hoursRemaining}">0</span>
+            <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+            <span class="countdown-value" th:text="${minutesRemaining}">0</span>
+            <span class="countdown-label">Minutes</span>
+        </div>
+    </div>
+    
+    <p class="expiry-date">
+        This listing expires on: 
+        <strong th:text="${formattedExpiryDate}">Date</strong>
+    </p>
+</div>
+
 <div class="grid">
     <div class="box">
         <h2>About the Organisation</h2>
