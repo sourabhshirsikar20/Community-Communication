@@ -964,20 +964,21 @@ body.has-navbar .container:first-of-type {
     }
 }
 
+/* ========================================= */
 /* EXPIRY COUNTDOWN & ALERT STYLES */
+/* ========================================= */
 
 .expiry-alert {
-    margin: 2rem auto;
-    max-width: 900px;
-    padding: 2.5rem;
-    border-radius: 15px;
+    margin: 1rem auto;
+    max-width: 500px;
+    padding: 1rem 1rem;
+    border-radius: 10px;
     text-align: center;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
     animation: fadeIn 0.5s ease-in;
 }
 
 /* Fade in animation */
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -991,7 +992,6 @@ body.has-navbar .container:first-of-type {
 }
 
 /* Expired block styling - RED ALERT */
-
 .expiry-alert.expired {
     background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
     color: white;
@@ -999,19 +999,18 @@ body.has-navbar .container:first-of-type {
 }
 
 .expiry-alert.expired h3 {
-    font-size: 2rem;
-    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .expiry-alert.expired p {
-    font-size: 1.2rem;
-    margin: 1rem 0;
+    font-size: 1rem;
+    margin: 0.75rem 0;
     line-height: 1.6;
 }
 
 /* Active block styling - ORANGE WARNING */
-
 .expiry-alert.active {
     background: linear-gradient(135deg, #F5A623 0%, #e09612 100%);
     color: white;
@@ -1019,33 +1018,31 @@ body.has-navbar .container:first-of-type {
 }
 
 .expiry-alert.active h3 {
-    font-size: 2rem;
-    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Countdown timer container */
-
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 2.5rem;
-    margin: 2rem 0;
+    gap: 1.5rem;
+    margin: 1rem 0;
     flex-wrap: wrap;
 }
 
 /* Individual countdown boxes */
-
 .countdown-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
-    padding: 2rem 2.5rem;
-    border-radius: 12px;
-    min-width: 120px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 1.25rem 1.75rem;
+    border-radius: 10px;
+    min-width: 85px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease;
 }
 
@@ -1054,30 +1051,28 @@ body.has-navbar .container:first-of-type {
 }
 
 /* The big number (30, 12, 45) */
-
 .countdown-value {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     font-weight: bold;
     line-height: 1;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     font-family: 'Courier New', monospace;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* The label (Days, Hours, Minutes) */
-
 .countdown-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     font-weight: 600;
     opacity: 0.95;
 }
 
 /* Expiry date text */
 .expiry-date {
-    margin-top: 1.5rem;
-    font-size: 1.1rem;
+    margin-top: 1rem;
+    font-size: 0.95rem;
     opacity: 0.95;
     font-weight: 500;
 }
@@ -1087,58 +1082,6 @@ body.has-navbar .container:first-of-type {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive design for mobile */
-
-@media (max-width: 768px) {
-    .expiry-alert {
-        padding: 1.5rem;
-        margin: 1rem;
-    }
-
-    .expiry-alert h3 {
-        font-size: 1.5rem;
-    }
-
-    .countdown {
-        gap: 1.5rem;
-    }
-
-    .countdown-item {
-        padding: 1.5rem 2rem;
-        min-width: 90px;
-    }
-
-    .countdown-value {
-        font-size: 2.5rem;
-    }
-
-    .countdown-label {
-        font-size: 0.875rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .countdown {
-        gap: 1rem;
-    }
-
-    .countdown-item {
-        padding: 1rem 1.5rem;
-        min-width: 70px;
-    }
-
-    .countdown-value {
-        font-size: 2rem;
-    }
-
-    .expiry-alert h3 {
-        font-size: 1.25rem;
-    }
-
-    .expiry-alert p {
-        font-size: 1rem;
-    }
-}
 /* ========================================= */
 /* 10-DAY URGENT WARNING STYLES */
 /* ========================================= */
@@ -1156,17 +1099,17 @@ body.has-navbar .container:first-of-type {
 
     0%,
     100% {
-        box-shadow: 0 8px 25px rgba(255, 69, 0, 0.3);
+        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.3);
     }
 
     50% {
-        box-shadow: 0 8px 35px rgba(255, 69, 0, 0.6);
+        box-shadow: 0 8px 30px rgba(255, 69, 0, 0.6);
     }
 }
 
 .expiry-alert.urgent h3 {
-    font-size: 2.2rem;
-    margin: 0 0 1.5rem 0;
+    font-size: 1.6rem;
+    margin: 0 0 1rem 0;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
     animation: shake 0.5s ease-in-out;
 }
@@ -1189,20 +1132,20 @@ body.has-navbar .container:first-of-type {
 }
 
 .expiry-alert.urgent .urgent-message {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    margin: 1.5rem 0;
-    padding: 1rem;
+    margin: 1rem 0;
+    padding: 0.75rem;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
 }
 
 .expiry-alert.urgent .urgent-action {
-    font-size: 1.2rem;
-    margin: 1rem 0 2rem 0;
+    font-size: 1rem;
+    margin: 0.75rem 0 1.5rem 0;
     font-weight: 600;
     background: rgba(0, 0, 0, 0.2);
-    padding: 1rem;
+    padding: 0.75rem;
     border-radius: 8px;
 }
 
@@ -1212,17 +1155,85 @@ body.has-navbar .container:first-of-type {
     border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-/* Responsive for mobile */
+/* ========================================= */
+/* RESPONSIVE DESIGN */
+/* ========================================= */
+
 @media (max-width: 768px) {
+    .expiry-alert {
+        padding: 1.25rem 1.5rem;
+        margin: 1rem;
+        max-width: 95%;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.3rem;
+    }
+
+    .countdown {
+        gap: 1rem;
+    }
+
+    .countdown-item {
+        padding: 1rem 1.25rem;
+        min-width: 70px;
+    }
+
+    .countdown-value {
+        font-size: 2rem;
+    }
+
+    .countdown-label {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
     .expiry-alert.urgent h3 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
 
     .expiry-alert.urgent .urgent-message {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .expiry-alert.urgent .urgent-action {
-        font-size: 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .expiry-alert {
+        padding: 1rem;
+        margin: 0.75rem;
+    }
+
+    .countdown {
+        gap: 0.75rem;
+    }
+
+    .countdown-item {
+        padding: 0.75rem 1rem;
+        min-width: 60px;
+    }
+
+    .countdown-value {
+        font-size: 1.75rem;
+    }
+
+    .countdown-label {
+        font-size: 0.75rem;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.15rem;
+    }
+
+    .expiry-alert p,
+    .expiry-alert.expired p {
+        font-size: 0.9rem;
+    }
+
+    .expiry-date {
+        font-size: 0.85rem;
     }
 }
