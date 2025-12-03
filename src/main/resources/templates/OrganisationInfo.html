@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>InfoTest</title>
@@ -8,6 +8,39 @@
 <body class="has-navbar">
     <div class="main-content">
     <div th:replace="~{NavigationBar :: public-nav}"></div>
+    <!-- EXPIRED MESSAGE - Shows when block has expired -->
+        <div th:if="${isExpired}" class="expiry-alert expired">
+            <h3>This Block Has Expired</h3>
+            <p>This organization's listing expired on 
+                <strong th:text="${formattedExpiryDate}">Date</strong>.
+            </p>
+            <p><strong>This listing is no longer active. Please contact the organization to update their information.</strong></p>
+        </div>
+        
+        <!-- COUNTDOWN TIMER - Shows when block is still active -->
+        <div th:unless="${isExpired}" class="expiry-alert active">
+            <h3>Time Remaining Until Expiry</h3>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${daysRemaining}">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${hoursRemaining}">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${minutesRemaining}">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+            </div>
+            
+            <p class="expiry-date">
+                This listing expires on: 
+                <strong th:text="${formattedExpiryDate}">Date</strong>
+            </p>
+        </div>
 <div class="grid">
     <div class="box">
         <h2>About the Organisation</h2>
@@ -34,5 +67,39 @@
 </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
+
+    <script th:unless="${isExpired}" th:inline="javascript">
+        // Get expiry date from server (Thymeleaf injects it)
+        const expiryDateStr = /*[[${expiryDate}]]*/ "2025-01-01T00:00:00";
+        const expiryDate = new Date(expiryDateStr);
+        
+        // Function to update countdown every minute
+        function updateCountdown() {
+            const now = new Date();
+            const diff = expiryDate - now;
+            
+            // If expired, reload page to show expired message
+            if (diff <= 0) {
+                location.reload();
+                return;
+            }
+            
+            // Calculate remaining time
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // Update display
+            const countdownValues = document.querySelectorAll('.countdown-value');
+            if (countdownValues.length >= 3) {
+                countdownValues[0].textContent = days;
+                countdownValues[1].textContent = hours;
+                countdownValues[2].textContent = minutes;
+            }
+        }
+        
+        // Update countdown every 60 seconds
+        setInterval(updateCountdown, 60000);
+    </script>
 </body>
 </html>
