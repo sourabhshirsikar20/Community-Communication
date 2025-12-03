@@ -1,4 +1,12 @@
-delete from communities;
+-- Clean old data
+DELETE FROM logins_roles;
+DELETE FROM logins_roles;
+DELETE FROM logins;
+DELETE FROM roles;
+DELETE FROM communities;
+
+-- Insert communities
+
 insert into communities (
   address, name,
   roof_option, roof_colour,
@@ -17,7 +25,7 @@ insert into communities (
     1
   );
 
-  insert into communities (
+insert into communities (
   address, name,
   roof_option, roof_colour,
   base_option, base_colour,
@@ -35,13 +43,10 @@ insert into communities (
     1
   );
 
-
-/* Google Gemini created examples */
-
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
@@ -56,9 +61,9 @@ insert into communities (
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
@@ -74,9 +79,9 @@ insert into communities (
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
@@ -92,9 +97,9 @@ insert into communities (
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
@@ -110,9 +115,9 @@ insert into communities (
 );
 
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   font_options, font_colour,
   main_text, links_text, info_text, promo_text, approved
@@ -129,18 +134,17 @@ insert into communities (
   1
 );
 
-/* Example 8: Primary School */
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
   '07', 'Sunnydale Primary',
-  2, '#B71C1C',       /* Red Brick Roof */
-  2, '#FFCC80',       /* Orange/Brick Base */
-  2, '#3E2723',       /* Dark Brown Foreground */
+  2, '#B71C1C',
+  2, '#FFCC80',
+  2, '#3E2723',
   'Educating the next generation of community leaders.',
   'www.sunnydale.edu',
   'Office: 8am - 3:30pm',
@@ -148,18 +152,17 @@ insert into communities (
   1
 );
 
-/* Example 9: Pet Shop */
 insert into communities (
-  address, name, 
-  roof_option, roof_colour, 
-  base_option, base_colour, 
+  address, name,
+  roof_option, roof_colour,
+  base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
   '08', 'Paws & Claws',
-  1, '#0288D1',       /* Bright Blue Roof */
-  1, '#E1F5FE',       /* Light Blue Base */
-  1, '#0277BD',       /* Deep Blue Foreground */
+  1, '#0288D1',
+  1, '#E1F5FE',
+  1, '#0277BD',
   'Everything you need for your furry, feathered, or scaled friends.',
   'Social: @PawsClawsShop',
   'Grooming services available',
@@ -167,16 +170,18 @@ insert into communities (
   1
 );
 
--- Security
+-- SECURITY SETUP
 
-insert into logins (login_name, password, enabled) -- password: 'manager'
-values ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu', true);
+-- Roles
+INSERT INTO roles (role_id, name) VALUES (1, 'MANAGER');
+INSERT INTO roles (role_id, name) VALUES (2, 'USER');
 
-insert into logins (login_name, password, enabled) -- password: 'shops'
-values ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
+-- Users
+INSERT INTO logins (login_name, password, enabled)
+VALUES ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu', true);
 
-insert into roles (role_id, name) values (1, 'MANAGER');
-insert into roles (role_id, name) values (2, 'USER');
+INSERT INTO logins (login_name, password, enabled)
+VALUES ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
 
 insert into logins_roles (login_name, role_id) values ('manager', 1);
 insert into logins_roles (login_name, role_id) values ('manager', 2);

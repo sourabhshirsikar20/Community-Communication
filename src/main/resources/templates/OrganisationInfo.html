@@ -14,6 +14,12 @@
     <div class="box">
         <h2>About the Organisation</h2>
         <p th:text="${Info.mainText}"></p>
+
+        <a th:href="@{'/BlockAccess?address=' + ${Info.address}}"
+           class="button-link"
+           style="margin-top: 15px; display:inline-block;">
+            ✏️ Edit this page
+        </a>
     </div>
 
     <div class="side">

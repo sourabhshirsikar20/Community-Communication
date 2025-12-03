@@ -26,6 +26,8 @@ public class Block {
     String linksText;
     String infoText;
     String promoText;
+
+    String secretHash;
     boolean approved;
 
     public Block() {

@@ -154,6 +154,14 @@ async function injectStreets() {
 }
 
 injectSvgs();
+setTimeout(() => {
+    const msg = document.querySelector('.success-message');
+    if (msg) {
+        msg.style.transition = "opacity 1s ease";
+        msg.style.opacity = 0;
+        setTimeout(() => msg.remove(), 1000);
+    }
+}, 5000);
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search_value');
@@ -201,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
+    
     injectStreets();
 });
+

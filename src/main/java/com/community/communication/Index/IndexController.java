@@ -21,6 +21,10 @@ public class IndexController {
 
     @Autowired
     private ApproverRepository ApproverRepository;
+    @GetMapping("/")
+    public String redirectToIndex() {
+        return "redirect:/Index";
+    }
 
     @Autowired
     private OrganisationInfoRepository OrganisationInfoRepository;
