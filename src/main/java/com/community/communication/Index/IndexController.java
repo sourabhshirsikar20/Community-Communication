@@ -1,5 +1,6 @@
 package com.community.communication.Index;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,24 +30,41 @@ public class IndexController {
     @Autowired
     private OrganisationInfoRepository OrganisationInfoRepository;
 
-     @GetMapping("/Index")
-    public ModelAndView ApprovedList(){
-        ModelAndView mav = new ModelAndView("StreetView.html");
-        List<Block> Approved = ApproverRepository.getStreetBlocks("");
-        mav.addObject("Approved", Approved);
-        return mav;
+    @GetMapping("/Index")
+    public ModelAndView ApprovedList(@RequestParam(defaultValue = "root") String street, @RequestParam(defaultValue = "1") int Page, @RequestParam(defaultValue = "4") int Size){
+        return Street(street, Page, Size);
     }
-    
+
     @GetMapping("/street/{street}")
-    public ModelAndView Street(@PathVariable String street){
+    public ModelAndView Street(@PathVariable String street, @RequestParam(defaultValue = "1") int Page, @RequestParam(defaultValue = "4") int Size){
         ModelAndView mav = new ModelAndView("StreetView.html");
-        
         if (street.equals("root"))
             street = "";
-        
         List<Block> Approved = ApproverRepository.getStreetBlocks(street);
-        mav.addObject("Approved", Approved);
-
+        //mav.addObject("Approved", Approved);
+        int Cnt = Approved.size();
+        int Pages = Math.ceilDiv(Cnt, Size);
+        List<Integer> PageNumbers = new ArrayList<>();
+        if(Pages < 1){
+            Pages = 1;
+        }
+        int First = (Page - 1) * Size;
+        int Last = First + Size;
+        if(Last > Cnt){
+            Last = Cnt;
+        }
+        List<Block> Pagination = new ArrayList<>();
+        for(int i=First; i < Last; i++){
+            Pagination.add(Approved.get(i));
+        }
+        for(int i = 1;i<= Pages;i++){
+            PageNumbers.add(i);
+        }
+        mav.addObject("PageNumbers", PageNumbers);
+        mav.addObject("Approved", Pagination);
+        mav.addObject("CurrentPage", Page);
+        mav.addObject("TotalPages", Pages);
+        mav.addObject("Size", Size);
         return mav;
     }
 
