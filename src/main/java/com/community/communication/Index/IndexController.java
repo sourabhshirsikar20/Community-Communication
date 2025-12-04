@@ -2,7 +2,9 @@ package com.community.communication.Index;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.community.communication.Approved.Street;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -43,6 +45,10 @@ public class IndexController {
         List<Block> Approved = ApproverRepository.getStreetBlocks(street);
         //mav.addObject("Approved", Approved);
         int Cnt = Approved.size();
+        List<Street> Streets = ApproverRepository.getSubStreets(street);
+        int StrCnt = Streets.size();
+        List<Integer> StreetAddr = Streets.stream().map(E -> {String Addr = E.getAddress(); return Integer.valueOf(Addr.substring(Addr.length()-2, Addr.length()));}).collect(Collectors.toList());
+        Cnt = Cnt + StrCnt;
         int Pages = Math.ceilDiv(Cnt, Size);
         List<Integer> PageNumbers = new ArrayList<>();
         if(Pages < 1){
@@ -54,8 +60,11 @@ public class IndexController {
             Last = Cnt;
         }
         List<Block> Pagination = new ArrayList<>();
+        int BlkIdx =0;
         for(int i=First; i < Last; i++){
-            Pagination.add(Approved.get(i));
+            if(!StreetAddr.contains(i)) {
+                Pagination.add(Approved.get(BlkIdx++));
+            }
         }
         for(int i = 1;i<= Pages;i++){
             PageNumbers.add(i);
