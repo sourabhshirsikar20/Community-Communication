@@ -33,6 +33,7 @@ public class SecurityConfig {
     "/street",
     "/street/**",
     "/street-info/**",
+    "/street-blocks/**",
     "/block-name/**",
     "/SubmitBlock",
     "/Index",

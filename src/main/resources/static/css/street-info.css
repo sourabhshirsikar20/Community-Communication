@@ -1,0 +1,98 @@
+main {
+  padding: 1em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+main button {
+  width: fit-content;
+  background: white;
+  border: 3px solid #2a4494;
+  border-radius: 1em;
+  padding: 0.5em;
+  transition: 0.2s ease;
+  font-weight: bold;
+}
+
+main button:hover {
+  cursor: pointer;
+  color: white;
+  background: #2a4494;
+}
+
+.street-info, .block-info {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5em;
+  
+  align-items: center;
+  
+  padding: 0.5em 0.5em.5em 1em;;
+  border-radius: 1.5em;
+  box-shadow: 1px  1px 4px grey;
+}
+
+.street-info:before {
+  content: '';
+  background: #2a4494;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 1em
+}
+
+#street-description {
+  color: grey;
+  font-style: italic;
+}
+
+.street-buttons {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.inset-element {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  position: relative;
+
+  ::after {
+    content: '';
+    background: #2a4494;
+    width: 1em;
+    height: 0.25em;
+    position: absolute;  
+    top: calc(50% + 0.375em);
+    left: 1.65em;
+  }
+}
+
+.inset-element.full::before {
+      content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: 100%;
+    position: absolute;  
+    top: 0;
+    left: 1.65em;
+}
+
+.inset-element.final::before {
+      content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: calc(50% + 0.5em);
+    position: absolute;  
+    top: 0;
+    left: 1.65em;
+}
+
+.block-info {
+  flex: 1 1 auto;
+  margin-left: 3em;
+  margin-top: 1em;
+}

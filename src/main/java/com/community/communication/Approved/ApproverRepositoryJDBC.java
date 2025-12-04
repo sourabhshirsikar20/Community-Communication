@@ -128,4 +128,9 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             return result.get(0);
         return null; // address field is enforced unique, so should never be reached in practice
     }
+
+    public List<Street> getAllStreets() {
+        String sql = "SELECT * FROM streets";
+        return jdbc.query(sql, streetMapper);
+    }
 }

@@ -5,22 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manage Streets</title>
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/street-info.css">
 </head>
 <body>
   <div th:replace="~{NavigationBar :: approver-nav}"></div>
   <main>
-    <h2>Street Layout</h2>
+    <h2>Street Layout<button>Add New Street</button></h2>
     <div id="street-layout-box"></div>
   </main>
   <div th:replace="~{fragments/footer :: footer}"></div>
 
-  <template id="street-info">
-    <div>
+  <template id="street-info-template">
+    <div class="street-info">
       <h4 id="street-name"></h4>
       <p  id="street-address"></p>
+      <p> <span id="street-child-count"></span> sub-blocks</p>
+      <p  id="street-description"></p>
+      <div class="street-buttons">
+        <button>Move</button>
+        <button>Remove</button>
+        <button>Expand</button>
+      </div>
+    </div>
+    <div id="street-children"></div>
+  </template>
+
+  <template id="block-info-template">
+    <div class="inset-element">
+      <div class="block-info">
+        <h4 id="block-name"></h4>
+      </div>
     </div>
   </template>
 
   <script th:replace="~{NavigationBar :: navbar-js}"></script>
+  <script src="/js/ManageStreets.js"></script>
 </body>
 </html>
