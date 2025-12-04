@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Streets</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div th:replace="~{NavigationBar :: approver-nav}"></div>
+  <main>
+    <h2>Street Layout</h2>
+    <div id="street-layout-box"></div>
+  </main>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+  <template id="street-info">
+    <div>
+      <h4 id="street-name"></h4>
+      <p  id="street-address"></p>
+    </div>
+  </template>
+
+  <script th:replace="~{NavigationBar :: navbar-js}"></script>
+</body>
+</html>
