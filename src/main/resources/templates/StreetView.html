@@ -18,12 +18,14 @@
             <p th:text="${successMessage}"></p>
         </div>
     <div id="header"></div>
+    <div th:replace="~{fragments/street-nav :: street-nav}"></div>
 
     <div class="street-container">
         <a  class="house-block" 
             th:each="block : ${Approved}" 
-            th:href="@{'/OrganisationInfo/' + ${block.id}}"
-            th:data-id="${block.id}">
+            th:href="@{'/OrganisationInfo/' + ${block.address}}"
+            th:data-id="${block.id}"
+            th:data-address="${block.address}">
             
             <div class="house-layer js-inject-svg"
                  th:data-url="'/svg/base/base-' + ${block.baseOption} + '.svg'"
@@ -48,8 +50,7 @@
     </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
-    
-    <script src="/js/Header_Footer.js"></script>
+
     <script src="/js/StreetView.js"></script>
 </body>
 </html>

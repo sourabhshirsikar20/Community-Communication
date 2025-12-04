@@ -1,6 +1,8 @@
 // renderHeader();
 // renderFooter();
 
+let svgs = {};
+
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -83,6 +85,73 @@ async function injectSvgs() {
     }
 }
 
+function findNextStreetElement(currentAddress) {
+    let currentNum = parseInt(currentAddress); 
+    
+    let streetElements = Array.from(document.querySelectorAll('a[data-address]'))
+        .map(el => ({
+            element: el,
+            address: el.dataset.address,
+            value: parseInt(el.dataset.address.slice(-2))
+        }))
+        .filter(item => item.value > currentNum) 
+        .sort((a, b) => a.value - b.value); 
+    
+    return streetElements[0] ? streetElements[0].element : null;
+}
+
+async function injectStreets() {
+    // load svgs
+    let response = await fetch(`/svg/street.svg`);
+    if (!response.ok) throw new Error('svgs unavailable');
+    svgs['street'] = await response.text();
+
+    response = await fetch(`/svg/street-return.svg`);
+    if (!response.ok) throw new Error('svgs unavailable');
+    svgs['street-return'] = await response.text();
+
+    // get street information
+    let current_street = window.location.pathname;
+    let current_address = null;
+
+    if (current_street == "/Index")
+        current_address = "root";
+    else
+        current_address = current_street.split("/").pop();
+
+    // get street information
+    response = await fetch(`/street-info/${current_address}`);
+    if (!response.ok) throw new Error('street information unavailable');
+    let street_info = await response.json();
+    
+    // add node to return to previous street
+    if (street_info['parent'] != null) {
+        document.querySelector('.street-container').insertAdjacentHTML(
+            'afterbegin',
+            `
+            <a id="street-return" class="house-block" href="/street/${street_info['parent']['address']}">
+                ${svgs['street-return']}
+            </a>
+            `
+        );
+
+        document.querySelector(`#street-return text`).textContent = street_info['parent']['name'];
+    }
+
+    // add nodes making sub streets
+    for (let i = 0; i < street_info['children'].length; i++) {
+        findNextStreetElement(street_info['children'][i].address).insertAdjacentHTML(
+            'beforebegin',
+            `
+            <a id="street-${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
+                ${svgs['street']}
+            </a>
+            `
+        );
+
+        document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
+    }
+}
 
 injectSvgs();
 setTimeout(() => {
@@ -113,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 blocks.forEach(block => {
                     const link = document.createElement('a');
                     link.className = 'house-block';
-                    link.href = `/OrganisationInfo/${block.id}`;
+                    link.href = `/OrganisationInfo/${block.address}`;
                     link.dataset.id = block.id;
 
 
@@ -140,4 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    injectStreets();
 });
+

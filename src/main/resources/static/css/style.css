@@ -59,6 +59,11 @@ body {
     cursor: pointer;
 }
 
+.house-block svg {
+    width: 200px;
+    height: 200px;
+}
+
 .house-block:hover {
     transform: scale(1.05);
     z-index: 10;          
@@ -1106,4 +1111,53 @@ body.has-navbar .container:first-of-type {
     .nav-search-form {
         display: none;
     }
+}
+
+/* Street navigation */
+
+#street-nav-list {
+    display: flex;
+    gap: 0.5em;
+    margin-left: 1em;
+}
+
+#street-nav-list .street-nav-link,
+#street-nav-list .street-nav-final {
+    box-shadow: 0 4px 15px rgba(29, 47, 111, 0.3);
+    border: 3px solid #2a4494;
+    color: white;
+    padding: 0.1em 0.4em 0.1em 0.4em;
+    border-radius: 0.75em;
+}
+
+#street-nav-list a {
+    text-decoration: none; 
+}
+
+#street-nav-list>h5 {
+    scale: 1.5;
+    padding: 0.1em;
+    transform: translateY(0.2em);
+}
+
+#street-nav-list .street-nav-link {
+    color: black;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+#street-nav-list .street-nav-link:hover {
+    background: #2a4494;
+    color: white;
+}
+
+#street-nav-list .street-nav-final {
+    background-color: #2a4494;
+}
+
+.street-nav-desc {
+    transform: translateY(0.1em);
+    font-style: italic;
+    color: grey;
+    margin-left: 0.5em;
 }

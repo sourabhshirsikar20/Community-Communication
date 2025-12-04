@@ -1,6 +1,5 @@
 DROP VIEW IF EXISTS login_authorities;
 
-SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS logins_roles;
 DROP TABLE IF EXISTS logins;
@@ -51,5 +50,15 @@ CREATE VIEW login_authorities AS
     FROM logins u
          INNER JOIN logins_roles ur ON u.login_name = ur.login_name
          INNER JOIN roles r        ON ur.role_id   = r.role_id;
+
+-- Street data
+
+create table if not exists streets (
+  id          bigint auto_increment primary key,
+  name        varchar(64),
+  address     varchar(126) UNIQUE, -- (block address size - 2)  as doesnt need to cover the last potential address of blocks
+                                   -- NULL address is taken to mean the main (root) street
+  description varchar(512)
+) engine=InnoDB;
 
 SET FOREIGN_KEY_CHECKS = 1;
