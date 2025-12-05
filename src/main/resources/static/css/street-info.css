@@ -6,6 +6,14 @@ main {
   gap: 1em;
 }
 
+main>h2 {
+  display: flex;
+}
+
+main>h2>button {
+  margin-left: auto;
+}
+
 main button {
   width: fit-content;
   background: white;
@@ -32,6 +40,7 @@ main button:hover {
   padding: 0.5em 0.5em.5em 1em;;
   border-radius: 1.5em;
   box-shadow: 1px  1px 4px grey;
+  background: white;
 }
 
 .street-info:before {
@@ -63,7 +72,7 @@ main button:hover {
   ::after {
     content: '';
     background: #2a4494;
-    width: 1em;
+    width: 1.3em;
     height: 0.25em;
     position: absolute;  
     top: calc(50% + 0.375em);
@@ -95,4 +104,6 @@ main button:hover {
   flex: 1 1 auto;
   margin-left: 3em;
   margin-top: 1em;
+  display: grid;
+  grid-template-columns: 10em 5em auto;
 }

@@ -22,7 +22,7 @@ async function getStreetChildren(street) {
   return children.length == 0 ? null : children;
 }
 
-async function displayStreet(street) {
+async function getDisplayStreet(street) {
   let street_template = document.getElementById('street-info-template');
   let block_template  = document.getElementById('block-info-template');
 
@@ -36,7 +36,6 @@ async function displayStreet(street) {
 
   // fill block data
   let blocks = await getStreetBlocks(street['self']['address']);
-  console.log(blocks);
   for (let i = 0; i < blocks.length; i++) {
     let block_element = block_template.content.cloneNode(true);
 
@@ -46,11 +45,21 @@ async function displayStreet(street) {
       block_element.querySelector('.inset-element').classList.add('full');
 
     block_element.getElementById('block-name').textContent = blocks[i]['name'];
+    block_element.getElementById('block-address').textContent = blocks[i]['address'];
 
     street_element.getElementById('street-children').appendChild(block_element);
   };
 
-  document.getElementById('street-layout-box').appendChild(street_element);
+  /* add sub streets 
+  for (let i = 0; i < street['children'].length; i++) {
+    console.log(street['children'][i]);
+    let sub_street_element = getDisplayStreet(await getStreetInfo(street['children'][i]['address']));
+
+    street_element.getElementById('street-children').appendChild(sub_street_element);
+  }
+    */
+
+  return street_element;
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -58,7 +67,6 @@ window.addEventListener('DOMContentLoaded', async () => {
   streets = await getStreetInfo('root');
   streets['children'] = await getStreetChildren(streets);
 
-  console.log(streets);
-
-  displayStreet(streets);
+  // recursively create dom elements
+  document.getElementById('street-layout-box').appendChild(await getDisplayStreet(streets));
 });
