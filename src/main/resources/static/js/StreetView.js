@@ -86,7 +86,7 @@ async function injectSvgs() {
 }
 
 function findNextStreetElement(currentAddress) {
-    let currentNum = parseInt(currentAddress); 
+    let currentNum = parseInt(currentAddress.slice(-2)); 
     
     let streetElements = Array.from(document.querySelectorAll('a[data-address]'))
         .map(el => ({

@@ -10,18 +10,38 @@ async function getStreetBlocks(address) {
   return await response.json();
 }
 
+function findNextChildElement(currentAddress, street_element) {
+    let currentNum = parseInt(currentAddress.slice(-2)); 
+    let streetElements = Array.from(street_element.querySelectorAll('#street-children .inset-element'));
+
+    streetElements = streetElements
+        .map(el => ({
+            element: el,
+            value: parseInt(el.querySelector('#block-address,#street-address').textContent.slice(-2))
+        }))
+        .filter(item => item.value > currentNum) 
+        .sort((a, b) => a.value - b.value); 
+
+    return streetElements[0] ? streetElements[0].element.parentElement : null;
+}
+
 async function DisplaySideStreet(street, street_children_element) {
   if (street['children']) {
     for (let i = 0; i < street['children'].length; i++) {
       let child = await getStreetInfo(street['children'][i]['address']);
       let address = child['self']['address'];
       let sub_street = await getStreetInfo(address);
-      
-      street_children_element.insertAdjacentHTML(
-        'beforeend', `<div class="inset-element ${i == street['children'].length - 1 ? 'final' : 'full'}">
-                        <div id="street-${address}"></div>
-                      </div>`
-      );
+
+      let html = `<div class="inset-element ${i == street['children'].length - 1 ? 'final' : 'full'}">
+                    <div id="street-${address}"></div>
+                  </div>`;
+
+      let add_element = findNextChildElement(address, street_children_element);
+
+      if (add_element != null)
+        add_element.insertAdjacentHTML('afterbegin', html);
+      else
+        street_children_element.insertAdjacentHTML('beforeend', html);
 
       DisplayStreet(sub_street, street_children_element.querySelector(`#street-${address}`));
     }
