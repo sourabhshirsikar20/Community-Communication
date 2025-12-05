@@ -19,31 +19,39 @@ main>h2>button {
 
 main button {
   width: fit-content;
-  background: white;
-  border: 3px solid #2a4494;
-  border-radius: 1em;
-  padding: 0.5em;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
   transition: 0.2s ease;
   font-weight: bold;
+  transform: translateY(0.2em);
+  color: #2a4494;
 }
 
 main button:hover {
   cursor: pointer;
-  color: white;
-  background: #2a4494;
+  scale: 1.1;
+}
+
+.hidden {
+  display: none;
 }
 
 .street-info, .block-info {
-  display: flex;
-  flex-direction: row;
   gap: 1.5em;
   margin-top: 1em;  
   align-items: center;
   
-  padding: 0.5em 0.5em.5em 1em;;
+  padding: 0.5em 1em.5em 1em;;
   border-radius: 1.5em;
   box-shadow: 1px  1px 4px grey;
   background: white;
+}
+
+.street-info {
+  display: grid;
+  grid-template-columns: 1em 9.5em 5em auto;
 }
 
 .street-info:before {
@@ -66,14 +74,14 @@ main button:hover {
   gap: 1em;
 }
 
-.inset-element {
+.inset-element, .inset-street {
   display: flex;
-  width: calc(100% - 3em);
   align-items: center;
   position: relative;
   margin-left: 3em;
+}
 
-  ::after {
+.inset-element::after {
     content: '';
     background: #2a4494;
     width: 1.3em;
@@ -81,11 +89,31 @@ main button:hover {
     position: absolute;  
     top: calc(50% + 0.375em);
     left: -1.35em;
-  }
 }
 
-.inset-element.full::before {
-      content: '';
+.inset-street::after {
+    content: '';
+    background: #2a4494;
+    width: 1.3em;
+    height: 0.25em;
+    position: absolute;  
+    top: calc(2.2em);
+    left: -1.35em;
+}
+
+.inset-element.full::before,
+.inset-street.full::before {
+    content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: 100%;
+    position: absolute;  
+    top: 0;
+    left: -1.35em;
+}
+
+.inset-street.full::before {
+    content: '';
     background: #2a4494;
     width: 0.25em;
     height: 100%;
@@ -104,8 +132,21 @@ main button:hover {
     left: -1.35em;
 }
 
+.inset-street.final-street::before {
+    content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: calc(50% + 1.7em);
+    position: absolute;  
+    top: -1.2em;
+    left: -1.35em;
+}
+
 .block-info {
-  flex: 1 1 auto;
   display: grid;
-  grid-template-columns: 10em 5em auto;
+  grid-template-columns: 12em auto;
+}
+
+#block-address, #street-address {
+  font-family: 'mono';
 }
