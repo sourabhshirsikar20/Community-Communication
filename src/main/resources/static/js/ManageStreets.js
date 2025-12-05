@@ -22,7 +22,7 @@ async function getStreetChildren(street) {
   return children.length == 0 ? null : children;
 }
 
-async function getDisplayStreet(street) {
+async function DisplayStreet(street, attatch_element) {
   let street_template = document.getElementById('street-info-template');
   let block_template  = document.getElementById('block-info-template');
 
@@ -50,23 +50,30 @@ async function getDisplayStreet(street) {
     street_element.getElementById('street-children').appendChild(block_element);
   };
 
-  /* add sub streets 
-  for (let i = 0; i < street['children'].length; i++) {
-    console.log(street['children'][i]);
-    let sub_street_element = getDisplayStreet(await getStreetInfo(street['children'][i]['address']));
+  // add sub streets 
+  if (street['children']) {
+    for (let i = 0; i < street['children'].length; i++) {
+      let address = street['children'][i]['self']['address'];
+      let sub_street = await getStreetInfo(address);
+      
+      street_element.getElementById('street-children').insertAdjacentHTML(
+        'beforeend', `<div class="inset-element ${i == street['children'].length - 1 ? 'final' : 'full'}">
+                        <div id="street-${address}"></div>
+                      </div>`
+      );
 
-    street_element.getElementById('street-children').appendChild(sub_street_element);
+      DisplayStreet(await getStreetInfo(address), street_element.querySelector(`#street-${address}`));
+    }
   }
-    */
-
-  return street_element;
+  
+  attatch_element.appendChild(street_element);
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
-  // start with root and enter recursion
+  // start with root and enter recursion for data
   streets = await getStreetInfo('root');
   streets['children'] = await getStreetChildren(streets);
 
   // recursively create dom elements
-  document.getElementById('street-layout-box').appendChild(await getDisplayStreet(streets));
+  DisplayStreet(streets, document.getElementById('street-layout-box'));
 });
