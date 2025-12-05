@@ -10,16 +10,22 @@ async function getStreetBlocks(address) {
   return await response.json();
 }
 
-async function getStreetChildren(street) {
-  let children = [];
+async function DisplaySideStreet(street, street_children_element) {
+  if (street['children']) {
+    for (let i = 0; i < street['children'].length; i++) {
+      let child = await getStreetInfo(street['children'][i]['address']);
+      let address = child['self']['address'];
+      let sub_street = await getStreetInfo(address);
+      
+      street_children_element.insertAdjacentHTML(
+        'beforeend', `<div class="inset-element ${i == street['children'].length - 1 ? 'final' : 'full'}">
+                        <div id="street-${address}"></div>
+                      </div>`
+      );
 
-  for (let i = 0; i < street['children'].length; i++) {
-    let child = await getStreetInfo(street['children'][i]['address']);
-    child['children'] = await getStreetChildren(child);
-    children.push(child);
+      DisplayStreet(sub_street, street_children_element.querySelector(`#street-${address}`));
+    }
   }
-
-  return children.length == 0 ? null : children;
 }
 
 async function DisplayStreet(street, attatch_element) {
@@ -50,30 +56,12 @@ async function DisplayStreet(street, attatch_element) {
     street_element.getElementById('street-children').appendChild(block_element);
   };
 
-  // add sub streets 
-  if (street['children']) {
-    for (let i = 0; i < street['children'].length; i++) {
-      let address = street['children'][i]['self']['address'];
-      let sub_street = await getStreetInfo(address);
-      
-      street_element.getElementById('street-children').insertAdjacentHTML(
-        'beforeend', `<div class="inset-element ${i == street['children'].length - 1 ? 'final' : 'full'}">
-                        <div id="street-${address}"></div>
-                      </div>`
-      );
-
-      DisplayStreet(await getStreetInfo(address), street_element.querySelector(`#street-${address}`));
-    }
-  }
-  
+  DisplaySideStreet(street, street_element.getElementById('street-children'));
   attatch_element.appendChild(street_element);
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
-  // start with root and enter recursion for data
+  // start with root and enter recursion for display
   streets = await getStreetInfo('root');
-  streets['children'] = await getStreetChildren(streets);
-
-  // recursively create dom elements
   DisplayStreet(streets, document.getElementById('street-layout-box'));
 });

@@ -4,7 +4,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  max-width: 1000px;
+  min-width: 1000px;
   margin-left: auto;
   margin-right:auto;
 }
@@ -37,8 +37,7 @@ main button:hover {
   display: flex;
   flex-direction: row;
   gap: 1.5em;
-  margin-top: 1em;
-  
+  margin-top: 1em;  
   align-items: center;
   
   padding: 0.5em 0.5em.5em 1em;;
@@ -69,7 +68,7 @@ main button:hover {
 
 .inset-element {
   display: flex;
-  width: 100%;
+  width: calc(100% - 3em);
   align-items: center;
   position: relative;
   margin-left: 3em;
