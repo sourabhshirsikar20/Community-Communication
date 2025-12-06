@@ -9,4 +9,13 @@ void Add(Block block);
 Block ById(int Id);
 void Update(Block block);
 void deleteBlock(int blockId);
+
+//Get all blocks from database. Used by cleanup service to check all blocks
+List<Block> findAll();
+    
+// Delete a block from database. Used by cleanup service to remove expired blocks
+void delete(Block block);
+    
+//Delete block by ID (alternative method)
+void deleteById(int id);
 }
