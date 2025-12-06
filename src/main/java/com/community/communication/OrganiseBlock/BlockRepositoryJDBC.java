@@ -1,5 +1,7 @@
 package com.community.communication.OrganiseBlock;
 
+import java.util.List;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -76,5 +78,25 @@ public class BlockRepositoryJDBC implements BlockRepository{
                 block.getInfoText(),
                 block.getPromoText(),
                 block.getId());
+    }
+    //Get all blocks from database.Used by cleanup service to check all blocks for expiry
+    @Override
+    public List<Block> findAll() {
+        String SQL = "SELECT * FROM communities";
+        return Jdbc.query(SQL, rowMapper);
+    }
+    
+    //Delete a block from database.Used by cleanup service to remove expired blocks
+    @Override
+    public void delete(Block block) {
+        String SQL = "DELETE FROM communities WHERE id = ?";
+        Jdbc.update(SQL, block.getId());
+    }
+    
+    // Delete block by ID (alternative method)
+    @Override
+    public void deleteById(int id) {
+        String SQL = "DELETE FROM communities WHERE id = ?";
+        Jdbc.update(SQL, id);
     }
 }
