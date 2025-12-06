@@ -33,7 +33,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
   ) values (
-    '0200', 'Sarah Resturant',
+    '020000', 'Sarah Resturant',
     2, '#be1313ff',
     2, '#ae0fd6ff',
     2, '#4a2d80ff',
@@ -199,3 +199,12 @@ values ('New Blocks', '00', 'A place to find newly-added blocks');
 
 insert into streets (name, address, description) 
 values ('Food & Drink', '02', 'A home for all retaurants, takeaways, cafes, and more');
+
+insert into streets (name, address, description) 
+values ('Restaurants', '0200', '');
+
+insert into streets (name, address, description) 
+values ('Fast Food', '0202', '');
+
+insert into streets (name, address, description) 
+values ('Events', '09', 'Find all local events taking place soon here');
