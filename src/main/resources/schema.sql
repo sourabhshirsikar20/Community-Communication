@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS logins;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS communities;
 DROP TABLE IF EXISTS pages;
+DROP TABLE IF EXISTS reports;
 
 CREATE TABLE communities (
     id bigint auto_increment primary key,
@@ -59,6 +60,14 @@ create table if not exists streets (
   address     varchar(126) UNIQUE, -- (block address size - 2)  as doesnt need to cover the last potential address of blocks
                                    -- NULL address is taken to mean the main (root) street
   description varchar(512)
+) engine=InnoDB;
+
+--Reports table
+CREATE TABLE reports (
+    id bigint auto_increment primary key,
+    block_name varchar(128),
+    reason varchar(512),
+    report_date timestamp default current_timestamp
 ) engine=InnoDB;
 
 SET FOREIGN_KEY_CHECKS = 1;
