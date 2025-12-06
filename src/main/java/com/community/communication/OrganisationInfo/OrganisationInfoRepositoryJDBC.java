@@ -43,4 +43,12 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
         return Jdbc.queryForObject(SQL, organisationInfoMapper, address);
     }
 
+    public void reportBlock(int id, String name, String reason) {
+        String SQL = "UPDATE communities SET address = NULL, approved = 0 WHERE id = ?";
+        Jdbc.update(SQL,id);
+
+        String reportSQL = "INSERT INTO reports (block_name, reason) VALUES (?, ?)";
+        Jdbc.update(reportSQL,name, reason);
+    }
+
 }
