@@ -57,5 +57,14 @@
 </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
+    <script>
+        function reportBlock() {
+            let reason = prompt("Please enter the reason for reporting this block.\nThis will clear the address and unapprove the block.");
+            if (reason != null && reason.trim() !== "") {
+                document.getElementById("reportReason").value = reason;
+                document.getElementById("reportForm").submit();
+            }
+        }
+    </script>
 </body>
 </html>
