@@ -19,8 +19,9 @@
         </div>
     <div id="header"></div>
     <div th:replace="~{fragments/street-nav :: street-nav}"></div>
-        <form method="get" th:action="@{/Index}">
-            <input type="hidden" name="Page" th:value="${CurrentPage}">
+
+        <form method="get" th:action="@{'/street/'+${street}}">
+            <input type="hidden" name="Page" value="1">
             <select name="Size" onchange="this.form.submit()">
                 <option th:value="4" th:selected="${Size == 4}">4</option>
                 <option th:value="5" th:selected="${Size == 5}">5</option>
@@ -28,6 +29,9 @@
                 <option th:value="100" th:selected="${Size == 100}">100</option>
             </select>
         </form>
+        <div>
+            <span id="address-range" th:attr="data-paginationlist=${PaginationLst}"></span>
+        </div>
         <div class="street-container">
         <a  class="house-block" 
             th:each="block : ${Approved}" 
@@ -56,14 +60,14 @@
         </a>
     </div>
         <div class="pagination">
-            <a th:if="${CurrentPage >1}" th:href="@{/Index(Page=${CurrentPage - 1},Size=${Size})}">
+            <a th:if="${CurrentPage >1}" th:href="@{'/street/'+${street}(Page=${CurrentPage - 1},Size=${Size})}">
                 Prev
             </a>
             <th:block th:each="i : ${PageNumbers}">
-                <a th:href="@{/Index(Page=${i},Size=${Size})}" th:text="${i}">
+                <a th:href="@{'/street/'+${street}(Page=${i},Size=${Size})}" th:text="${i}">
                 </a>
             </th:block>
-            <a th:if="${CurrentPage < TotalPages}" th:href="@{/Index(Page=${CurrentPage + 1},Size=${Size})}">
+            <a th:if="${CurrentPage < TotalPages}" th:href="@{'/street/'+${street}(Page=${CurrentPage + 1},Size=${Size})}">
                 Next
             </a>
         </div>

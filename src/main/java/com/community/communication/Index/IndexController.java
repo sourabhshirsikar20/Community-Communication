@@ -45,35 +45,56 @@ public class IndexController {
         List<Block> Approved = ApproverRepository.getStreetBlocks(street);
         //mav.addObject("Approved", Approved);
         int Cnt = Approved.size();
+        System.out.println(Cnt);
         List<Street> Streets = ApproverRepository.getSubStreets(street);
         int StrCnt = Streets.size();
+        System.out.println(StrCnt);
         List<Integer> StreetAddr = Streets.stream().map(E -> {String Addr = E.getAddress(); return Integer.valueOf(Addr.substring(Addr.length()-2, Addr.length()));}).collect(Collectors.toList());
         Cnt = Cnt + StrCnt;
+        System.out.println(Cnt);
         int Pages = Math.ceilDiv(Cnt, Size);
+        System.out.println(Pages);
         List<Integer> PageNumbers = new ArrayList<>();
         if(Pages < 1){
             Pages = 1;
         }
+        System.out.println(Pages);
         int First = (Page - 1) * Size;
+        System.out.println(First);
         int Last = First + Size;
+        System.out.println(Last);
         if(Last > Cnt){
             Last = Cnt;
         }
+        System.out.println(Last);
         List<Block> Pagination = new ArrayList<>();
-        int BlkIdx =0;
+        List<Integer> PaginationLst = new ArrayList<>();
+        int BlkIdx = 0;
+        for(int i=0; i< First;i++){
+            if(!StreetAddr.contains(i)){
+                BlkIdx++;
+            }
+        }
         for(int i=First; i < Last; i++){
             if(!StreetAddr.contains(i)) {
                 Pagination.add(Approved.get(BlkIdx++));
             }
+            else{
+                PaginationLst.add(i);
+            }
         }
+        System.out.println(BlkIdx);
         for(int i = 1;i<= Pages;i++){
             PageNumbers.add(i);
         }
+
+        mav.addObject("PaginationLst", PaginationLst);
         mav.addObject("PageNumbers", PageNumbers);
         mav.addObject("Approved", Pagination);
         mav.addObject("CurrentPage", Page);
         mav.addObject("TotalPages", Pages);
         mav.addObject("Size", Size);
+        mav.addObject("street", street.equals("") ? "root" : street);
         return mav;
     }
 
