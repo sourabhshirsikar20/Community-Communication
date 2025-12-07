@@ -21,33 +21,36 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
 
     private void setBlockMapper() {
         blockMapper = (rs, i) -> new Block(
-            rs.getInt("id"),
-            rs.getString("address"),
-            rs.getString("name"),
-            rs.getInt("roof_option"),
-            rs.getString("roof_colour"),
-            rs.getInt("base_option"),
-            rs.getString("base_colour"),
-            rs.getInt("foreground_option"),
-            rs.getString("foreground_colour"),
-            rs.getString("font_options"),
-            rs.getString("font_colour"),
-            rs.getString("main_text"),
-            rs.getString("links_text"),
-            rs.getString("info_text"),
-            rs.getString("promo_text"),
-            rs.getString("secret_hash"),
-            rs.getBoolean("approved")
-        ); 
+                rs.getInt("id"),
+                rs.getString("address"),
+                rs.getString("name"),
+                rs.getInt("roof_option"),
+                rs.getString("roof_colour"),
+                rs.getInt("base_option"),
+                rs.getString("base_colour"),
+                rs.getInt("foreground_option"),
+                rs.getString("foreground_colour"),
+                rs.getString("font_options"),
+                rs.getString("font_colour"),
+                rs.getString("main_text"),
+                rs.getString("links_text"),
+                rs.getString("info_text"),
+                rs.getString("promo_text"),
+                rs.getString("secret_hash"),
+                rs.getBoolean("approved"),
+                // Added created_date mapping
+                rs.getTimestamp("created_date") != null ? 
+                    rs.getTimestamp("created_date").toLocalDateTime() : 
+                    null // Allow null for unapproved blocks
+        );
     }
-
     private void setStreetMapper() {
         streetMapper = (rs, i) -> new Street(
-            rs.getInt("id"),
-            rs.getString("name"),
-            rs.getString("address"),
-            rs.getString("description")
-        ); 
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("address"),
+                rs.getString("description")
+        );
     }
 
     @Override
@@ -71,7 +74,9 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
                 main_text, 
                 links_text, 
                 info_text, 
-                promo_text
+                promo_text,
+                approved,
+                created_date
             ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """;
                 
@@ -84,12 +89,14 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
             block.getMainText(),
             block.getLinksText(),
             block.getInfoText(),
-            block.getPromoText()
+            block.getPromoText(),
+                false,  // Not approved yet
+                null    // NULL created_date - will be set on approval
         );
     }
     @Override
     public void approve(int id, String secretHash) {
-        String sql = "UPDATE communities SET approved = 1, secret_Hash = ? WHERE id = ?";
+        String sql = "UPDATE communities SET approved = 1, secret_Hash = ?, created_date = NOW() WHERE id = ?";
         jdbc.update(sql,secretHash, id);
     }
     @Override
@@ -108,8 +115,9 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
         String sql = """
             SELECT * FROM communities 
             WHERE approved = '1' 
+            AND created_date IS NOT NULL
             AND DATE_ADD(created_date, INTERVAL 6 MONTH) > NOW()
-            """;
+        """;
         return jdbc.query(sql, blockMapper);
     }
 

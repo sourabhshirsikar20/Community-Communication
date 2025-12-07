@@ -39,10 +39,16 @@ public class ExpiryTestController {
     public ModelAndView showExpiryStatus() {
         ModelAndView mav = new ModelAndView("ExpiryTest");
 
+        // Get ALL blocks from database
         List<Block> allBlocks = blockRepository.findAll();
 
-        // Add expiry info to each block
-        List<Map<String, Object>> blocksWithExpiry = allBlocks.stream()
+        List<Block> approvedBlocksWithTimer = allBlocks.stream()
+                .filter(block -> block.isApproved()) // Must be approved
+                .filter(block -> block.getCreatedDate() != null) // Must have timer started
+                .collect(Collectors.toList());
+
+        // Add expiry info to each approved block
+        List<Map<String, Object>> blocksWithExpiry = approvedBlocksWithTimer.stream()
                 .map(block -> {
                     Map<String, Object> blockInfo = new HashMap<>();
                     blockInfo.put("id", block.getId());
@@ -67,24 +73,29 @@ public class ExpiryTestController {
     public Map<String, Object> getExpiryStatusJson() {
         List<Block> allBlocks = blockRepository.findAll();
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("totalBlocks", allBlocks.size());
-
-        long expiredCount = allBlocks.stream()
+        List<Block> approvedBlocks = allBlocks.stream()
+                .filter(block -> block.isApproved())
                 .filter(block -> block.getCreatedDate() != null)
+                .collect(Collectors.toList());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalBlocks", approvedBlocks.size());
+
+        long expiredCount = approvedBlocks.stream()
                 .filter(expiryService::isBlockExpired)
                 .count();
 
         response.put("expiredBlocks", expiredCount);
-        response.put("activeBlocks", allBlocks.size() - expiredCount);
+        response.put("activeBlocks", approvedBlocks.size() - expiredCount);
 
-        List<Map<String, Object>> blockDetails = allBlocks.stream()
+        List<Map<String, Object>> blockDetails = approvedBlocks.stream()
                 .map(block -> {
                     Map<String, Object> info = new HashMap<>();
                     info.put("id", block.getId());
                     info.put("name", block.getName());
                     info.put("address", block.getAddress());
                     info.put("createdDate", block.getCreatedDate());
+                    info.put("approved", block.isApproved());
                     info.put("isExpired", expiryService.isBlockExpired(block));
                     info.put("daysRemaining", ExpiryCalculator.getDaysRemaining(block.getCreatedDate()));
                     return info;
@@ -92,6 +103,7 @@ public class ExpiryTestController {
                 .collect(Collectors.toList());
 
         response.put("blocks", blockDetails);
+        response.put("timestamp", java.time.LocalDateTime.now().toString());
 
         return response;
     }
@@ -117,10 +129,21 @@ public class ExpiryTestController {
     @GetMapping("/api/expired-count")
     @ResponseBody
     public Map<String, Object> getExpiredCount() {
-        int expiredCount = cleanupService.countExpiredBlocks();
+        List<Block> allBlocks = blockRepository.findAll();
+
+        List<Block> approvedBlocks = allBlocks.stream()
+                .filter(block -> block.isApproved())
+                .filter(block -> block.getCreatedDate() != null)
+                .collect(Collectors.toList());
+
+        int expiredCount = (int) approvedBlocks.stream()
+                .filter(expiryService::isBlockExpired)
+                .count();
 
         Map<String, Object> response = new HashMap<>();
         response.put("expiredCount", expiredCount);
+        response.put("totalApprovedBlocks", approvedBlocks.size());
+        response.put("activeCount", approvedBlocks.size() - expiredCount);
         response.put("timestamp", java.time.LocalDateTime.now().toString());
 
         return response;
