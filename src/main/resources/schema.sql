@@ -21,7 +21,7 @@ links_text varchar(256),
 info_text varchar(256),
 promo_text varchar(256),
 approved BIT NOT NULL DEFAULT 0,
-created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Added created_date column
+created_date TIMESTAMP NULL DEFAULT NULL -- Added created_date column & Allow NULL, no default
 ) engine=InnoDB;
 
 create table if not exists logins (

@@ -41,7 +41,7 @@ insert into communities (
   DATE_SUB(NOW(), INTERVAL 1 WEEK)
 );
 
--- Block 3: Created 1 MONTH AGO (~152 days left)
+-- Block 3
 insert into communities (
   address, name, 
   roof_option, roof_colour, 
@@ -58,11 +58,11 @@ insert into communities (
   'www.library.org',
   'Open 9am - 5pm Mon-Sat',
   'Free membership this month!',
-  1,
-  DATE_SUB(NOW(), INTERVAL 1 MONTH)
+  0,
+  NULL
 );
 
--- Block 4: Created 2 MONTHS AGO (~121 days left)
+-- Block 4
 insert into communities (
   address, name, 
   roof_option, roof_colour, 
@@ -79,8 +79,8 @@ insert into communities (
   'www.techhub.io',
   'Contact: admin@techhub.io',
   'Desks available from $10/day',
-  1,
-  DATE_SUB(NOW(), INTERVAL 2 MONTH)
+  0,
+  NULL
 );
 
 -- Block 5: Created 3 MONTHS AGO (~91 days left - HALFWAY)
@@ -104,7 +104,7 @@ insert into communities (
   DATE_SUB(NOW(), INTERVAL 3 MONTH)
 );
 
--- Block 6: Created 4 MONTHS AGO (~61 days left)
+-- Block 6
 insert into communities (
   address, name, 
   roof_option, roof_colour, 
@@ -121,11 +121,11 @@ insert into communities (
   'www.sweettreats.com',
   'Open 6am - 4pm daily',
   'Half-price croissants after 3pm!',
-  1,
-  DATE_SUB(NOW(), INTERVAL 4 MONTH)
+  0,
+  NULL
 );
 
--- Block 7: Created 5 MONTHS AGO (~30 days left - EXPIRING SOON!)
+-- Block 7: Created 5 MONTHS, 3 WEEKS AGO (~7 days left - CRITICAL!)
 insert into communities (
   address, name, 
   roof_option, roof_colour, 
@@ -143,10 +143,10 @@ insert into communities (
   '24/7 Access for members',
   'Join now for $0 initiation fee',
   1,
-  DATE_SUB(NOW(), INTERVAL 5 MONTH)
+  DATE_SUB(DATE_SUB(NOW(), INTERVAL 5 MONTH), INTERVAL 21 DAY)
 );
 
--- Block 8: Created 5 MONTHS, 3 WEEKS AGO (~7 days left - CRITICAL!)
+-- Block 8:
 insert into communities (
   address, name, 
   roof_option, roof_colour, 
@@ -163,8 +163,8 @@ insert into communities (
   'www.sunnydale.edu',
   'Office: 8am - 3:30pm',
   'Enrollment open for Fall 2025',
-  1,
-  DATE_SUB(DATE_SUB(NOW(), INTERVAL 5 MONTH), INTERVAL 21 DAY)
+  0,
+  NULL
 );
 
 -- Block 9: Created EXACTLY 6 MONTHS AGO (Expires TODAY - shows hours/minutes)
@@ -230,7 +230,7 @@ insert into communities (
   DATE_SUB(NOW(), INTERVAL 8 MONTH)
 );
 
--- Block 12: Created 10 DAYS AGO (~172 days left)
+-- Block 12: Created 5 MONTHS AGO (Critical!! - ~30 days left)
 insert into communities (
   address, name, 
   roof_option, roof_colour, 
@@ -248,7 +248,7 @@ insert into communities (
   'Open 7am - 7pm',
   'Organic vegetables 30% off',
   1,
-  DATE_SUB(NOW(), INTERVAL 10 DAY)
+  DATE_SUB(NOW(), INTERVAL 5 MONTH)
 );
 
 -- Block 13: Created 2.5 MONTHS AGO (~106 days left)

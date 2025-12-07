@@ -1,6 +1,5 @@
 package com.community.communication.Approved;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,7 +36,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
                 // Added created_date mapping
                 rs.getTimestamp("created_date") != null ? 
                     rs.getTimestamp("created_date").toLocalDateTime() : 
-                    LocalDateTime.now()
+                    null // Allow null for unapproved blocks
         );
     }
 
@@ -61,7 +60,9 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
                 main_text, 
                 links_text, 
                 info_text, 
-                promo_text
+                promo_text,
+                approved,
+                created_date
             ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
         """;
 
@@ -73,12 +74,14 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
                 block.getMainText(),
                 block.getLinksText(),
                 block.getInfoText(),
-                block.getPromoText()
+                block.getPromoText(),
+                false,  // Not approved yet
+                null    // NULL created_date - will be set on approval
         );
     }
 
     public void approve(int id) {
-        String sql = "UPDATE communities SET approved = 1 WHERE id = ?";
+        String sql = "UPDATE communities SET approved = 1, created_date = NOW() WHERE id = ?";
         jdbc.update(sql, id);
     }
 
@@ -88,8 +91,9 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
         String sql = """
             SELECT * FROM communities 
             WHERE approved = '1' 
+            AND created_date IS NOT NULL
             AND DATE_ADD(created_date, INTERVAL 6 MONTH) > NOW()
-            """;
+        """;
         return jdbc.query(sql, blockMapper);
     }
 }
