@@ -8,7 +8,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '00', 'Corner Shop',
+  '01', 'Corner Shop',
   1, '#cc7979',
   1, '#d8c286',
   1, '#f5dfd5ff',
@@ -29,7 +29,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '01', 'Sarah Restaurant',
+  '0200', 'Sarah Restaurant',
   2, '#be1313ff',
   2, '#ae0fd6ff',
   2, '#4a2d80ff',
@@ -113,7 +113,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '05', 'Sweet Treats Bakery',
+  '0201', 'Sweet Treats Bakery',
   2, '#E6B8B7',
   1, '#FFF8E1',
   2, '#D7CCC8',
@@ -121,8 +121,8 @@ insert into communities (
   'www.sweettreats.com',
   'Open 6am - 4pm daily',
   'Half-price croissants after 3pm!',
-  0,
-  NULL
+  1,
+  DATE_SUB(NOW(), INTERVAL 3 MONTH)
 );
 
 -- Block 7: Created 5 MONTHS, 3 WEEKS AGO (~7 days left - CRITICAL!)
@@ -134,7 +134,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '06', 'PowerLift Gym',
+  '05', 'PowerLift Gym',
   1, '#424242',
   2, '#B0BEC5',
   1, '#263238',
@@ -155,7 +155,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '07', 'Sunnydale School',
+  '06', 'Sunnydale School',
   2, '#B71C1C',
   2, '#FFCC80',
   2, '#3E2723',
@@ -176,7 +176,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '08', 'Paws & Claws Pet Shop',
+  '07', 'Paws & Claws Pet Shop',
   1, '#0288D1',
   1, '#E1F5FE',
   1, '#0277BD',
@@ -197,7 +197,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '09', 'Classic Bookstore',
+  '08', 'Classic Bookstore',
   1, '#FF0000',
   1, '#CCCCCC',
   1, '#888888',
@@ -218,7 +218,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '10', 'Riverside Community Center',
+  '09', 'Riverside Community Center',
   2, '#8B0000',
   2, '#A9A9A9',
   2, '#696969',
@@ -239,7 +239,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '11', 'Fresh Market',
+  '10', 'Fresh Market',
   2, '#4CAF50',
   1, '#E8F5E9',
   2, '#2E7D32',
@@ -251,7 +251,7 @@ insert into communities (
   DATE_SUB(NOW(), INTERVAL 5 MONTH)
 );
 
--- Block 13: Created 2.5 MONTHS AGO (~106 days left)
+-- Block 13:
 insert into communities (
   address, name, 
   roof_option, roof_colour, 
@@ -260,7 +260,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '12', 'Downtown Art Gallery',
+  '11', 'Downtown Art Gallery',
   1, '#9C27B0',
   2, '#F3E5F5',
   1, '#6A1B9A',
@@ -268,8 +268,8 @@ insert into communities (
   'www.artgallery.local',
   'Tue-Sun 10am - 6pm',
   'New exhibition opening soon!',
-  1,
-  DATE_SUB(DATE_SUB(NOW(), INTERVAL 2 MONTH), INTERVAL 15 DAY)
+  0,
+  NULL
 );
 
 -- Block 14: Created 4.5 MONTHS AGO (~45 days left)
@@ -281,7 +281,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '13', 'The Coffee House',
+  '12', 'The Coffee House',
   2, '#5D4037',
   1, '#EFEBE9',
   2, '#3E2723',
@@ -302,7 +302,7 @@ insert into communities (
   main_text, links_text, info_text, promo_text, approved,
   created_date
 ) values (
-  '14', 'Main Street Boutique',
+  '13', 'Main Street Boutique',
   1, '#000000',
   1, '#424242',
   1, '#212121',
