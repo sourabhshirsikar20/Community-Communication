@@ -38,6 +38,14 @@ main button:hover {
   display: none;
 }
 
+#street-toggle-expand {
+  transition: rotate 0.5s ease;
+}
+
+#street-toggle-expand.active {
+  rotate: 180deg;
+}
+
 .street-info, .block-info {
   gap: 1.5em;
   margin-top: 1em;  
@@ -47,11 +55,12 @@ main button:hover {
   border-radius: 1.5em;
   box-shadow: 1px  1px 4px grey;
   background: white;
+  width: fit-content;
 }
 
 .street-info {
   display: grid;
-  grid-template-columns: 1em 9.5em 5em auto;
+  grid-template-columns: 1em 9.5em auto auto;
 }
 
 .street-info:before {
@@ -79,6 +88,7 @@ main button:hover {
   align-items: center;
   position: relative;
   margin-left: 3em;
+  width: 100%;
 }
 
 .inset-element::after {

@@ -66,6 +66,7 @@ async function DisplayStreet(street, attatch_element) {
   let street_element = street_template.content.cloneNode(true);
 
   // fill basic data
+  street_element.id = 'street-'+street['self']['address'];
   street_element.getElementById('street-name').textContent = street['self']['name'];
   street_element.getElementById('street-address').textContent = formatAddress(street['self']['address']);
 
@@ -85,6 +86,13 @@ async function DisplayStreet(street, attatch_element) {
     street_element.getElementById('street-children').appendChild(block_element);
   };
 
+  // set button events
+  street_element.getElementById('street-toggle-expand').addEventListener('click', () => {
+    el = document.getElementById(`street-${street['self']['address']}`);
+    el.querySelector('#street-children').classList.toggle('hidden');
+    el.querySelector('#street-toggle-expand').classList.toggle('active');
+  });
+
   DisplaySideStreet(street, street_element.getElementById('street-children'));
   attatch_element.appendChild(street_element);
 }
@@ -92,5 +100,5 @@ async function DisplayStreet(street, attatch_element) {
 window.addEventListener('DOMContentLoaded', async () => {
   // start with root and enter recursion for display
   streets = await getStreetInfo('root');
-  DisplayStreet(streets, document.getElementById('street-layout-box'));
+  DisplayStreet(streets, document.getElementById('street-root'));
 });
