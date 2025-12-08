@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Site Login</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Login</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="main-content">
-  <form id="login-form" method="post" th:action="@{/Login}">
+<div class="main-content">
+<form id="login-form" method="post" th:action="@{/Login}">
     <div>
-      <h2 th:if="${manager_url}">Manager access is required for this page</h2>
-      <h2 th:unless="${manager_url}">Welcome</h2>
-      <div id="logout-message" th:if="${param.logout}">You have been logged out</div>
-      <div id="login-fields">
-        <label> 
-          <p>Enter as:</p>
-          <select name="username">
-            <option th:unless="${manager_url}" value="user">User</option>
-            <option value="manager">Local Manager</option>
-          </select>
-        </label>
-        <label>
-          <p>Access code:</p>
-          <input name="password" type="password"/>
-        </label>
-      </div>
-      <div class="form-error" th:if="${param.error}">Invalid access code</div>
-      <input type="submit" value="Enter Site"/>
+        <h2 th:if="${admin_url}">Admin access is required for this page</h2>
+        <h2 th:if="${manager_url}">Manager access is required for this page</h2>
+        <h2 th:unless="${manager_url or admin_url }">Welcome User</h2>
+        <div id="logout-message" th:if="${param.logout}">You have been logged out</div>
+        <div id="login-fields">
+            <label>
+                <p>Enter as:</p>
+                <select name="username">
+                    <option th:unless="${manager_url or admin_url}" value="user">User</option>
+                    <option th:unless="${admin_url}" value="manager">Local Manager</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </label>
+            <label>
+                <p>Access code:</p>
+                <input name="password" type="password"/>
+            </label>
+        </div>
+        <div class="form-error" th:if="${param.error}">Invalid access code</div>
+        <input type="submit" value="Enter Site"/>
     </div>
-  </form>
-  </div>
-  <div th:replace="~{fragments/footer :: footer}"></div>
+</form>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
