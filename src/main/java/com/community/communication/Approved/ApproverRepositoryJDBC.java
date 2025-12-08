@@ -7,13 +7,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ApproverRepositoryJDBC implements ApproverRepository {
+public class ApproverRepositoryJDBC implements ApproverRepository  {
 
     private JdbcTemplate jdbc;
     private RowMapper<Block> blockMapper;
     private RowMapper<Street> streetMapper;
 
-    public ApproverRepositoryJDBC(JdbcTemplate aJdbc) {
+    public ApproverRepositoryJDBC(JdbcTemplate aJdbc)  {
         this.jdbc = aJdbc;
         setBlockMapper();
         setStreetMapper();
@@ -107,8 +107,6 @@ public class ApproverRepositoryJDBC implements ApproverRepository {
                         "LENGTH(address) = ?" ;
         return jdbc.query(sql, blockMapper,  streetAddress.length(), streetAddress, streetAddress.length()+2);
     }
-
-    
     @Override
     public List<Block> getApprovedBlocks() {
         

@@ -10,7 +10,6 @@ import com.community.communication.Approved.Block;
 
 @Repository
 public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepository {
-
     private JdbcTemplate Jdbc;
     private RowMapper<Block> organisationInfoMapper;
 

@@ -1,3 +1,5 @@
+delete from communities;
+
 -- Clean old data
 DELETE FROM logins_roles;
 DELETE FROM logins_roles;
@@ -9,13 +11,14 @@ DELETE FROM streets;
 -- Insert communities
 
 
+
 insert into communities (
   address, name,
   roof_option, roof_colour,
   base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved,
-  created_date, approved
+  created_date
 ) values (
   '01', 'Corner Shop',
   1, '#cc7979',
@@ -25,8 +28,7 @@ insert into communities (
   'www.cornershop.com',
   'Open 7am - 10pm daily',
   'Grand opening sale - 20% off!',
-  1,,
-    1
+  1,
   NOW()
 );
 
@@ -121,7 +123,7 @@ insert into communities (
   base_option, base_colour,
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved,
-  created_date, approved
+  created_date
 ) values (
   '0201', 'Sweet Treats Bakery',
   2, '#E6B8B7',
@@ -185,8 +187,7 @@ insert into communities (
   roof_option, roof_colour,
   base_option, base_colour,
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text, approved,
-  created_date, approved
+  main_text, links_text, info_text, promo_text
 ) values (
   '07', 'Paws & Claws Pet Shop',
   1, '#0288D1',
@@ -198,6 +199,132 @@ insert into communities (
   'Buy 1 get 1 free on dog treats',
   1,
   DATE_ADD(DATE_SUB(NOW(), INTERVAL 6 MONTH), INTERVAL 3 MINUTE)
+);
+
+-- Block 10: Created 7 MONTHS AGO (EXPIRED - Red warning should show)
+insert into communities (
+  address, name, 
+  roof_option, roof_colour, 
+  base_option, base_colour, 
+  foreground_option, foreground_colour,
+  main_text, links_text, info_text, promo_text, approved,
+  created_date
+) values (
+  '08', 'Classic Bookstore',
+  1, '#FF0000',
+  1, '#CCCCCC',
+  1, '#888888',
+  'A cosy bookstore with rare and vintage books for collectors.',
+  'www.expired.com',
+  'This listing is no longer active',
+  'Please contact to renew',
+  1,
+  DATE_SUB(NOW(), INTERVAL 7 MONTH)
+);
+
+-- Block 11: Created 8 MONTHS AGO (EXPIRED - Red warning)
+insert into communities (
+  address, name, 
+  roof_option, roof_colour, 
+  base_option, base_colour, 
+  foreground_option, foreground_colour,
+  main_text, links_text, info_text, promo_text, approved,
+  created_date
+) values (
+  '09', 'Riverside Community Center',
+  2, '#8B0000',
+  2, '#A9A9A9',
+  2, '#696969',
+  'A gathering place for community events, classes, and activities.',
+  'www.oldcenter.com',
+  'Expired listing',
+  'No longer active',
+  1,
+  DATE_SUB(NOW(), INTERVAL 8 MONTH)
+);
+
+-- Block 12: Created 5 MONTHS AGO (Critical!! - ~30 days left)
+insert into communities (
+  address, name, 
+  roof_option, roof_colour, 
+  base_option, base_colour, 
+  foreground_option, foreground_colour,
+  main_text, links_text, info_text, promo_text, approved,
+  created_date
+) values (
+  '10', 'Fresh Market',
+  2, '#4CAF50',
+  1, '#E8F5E9',
+  2, '#2E7D32',
+  'Farm-fresh produce delivered daily.',
+  'www.freshmarket.local',
+  'Open 7am - 7pm',
+  'Organic vegetables 30% off',
+  1,
+  DATE_SUB(NOW(), INTERVAL 5 MONTH)
+);
+
+-- Block 13:
+insert into communities (
+  address, name, 
+  roof_option, roof_colour, 
+  base_option, base_colour, 
+  foreground_option, foreground_colour,
+  main_text, links_text, info_text, promo_text, approved,
+  created_date
+) values (
+  '11', 'Downtown Art Gallery',
+  1, '#9C27B0',
+  2, '#F3E5F5',
+  1, '#6A1B9A',
+  'Showcasing local artists and their incredible work.',
+  'www.artgallery.local',
+  'Tue-Sun 10am - 6pm',
+  'New exhibition opening soon!',
+  0,
+  NULL
+);
+
+-- Block 14: Created 4.5 MONTHS AGO (~45 days left)
+insert into communities (
+  address, name, 
+  roof_option, roof_colour, 
+  base_option, base_colour, 
+  foreground_option, foreground_colour,
+  main_text, links_text, info_text, promo_text, approved,
+  created_date
+) values (
+  '12', 'The Coffee House',
+  2, '#5D4037',
+  1, '#EFEBE9',
+  2, '#3E2723',
+  'Artisan coffee and cosy atmosphere.',
+  'www.coffeehouse.local',
+  'Open 6am - 10pm',
+  'Latte of the day: $3.50',
+  1,
+  DATE_SUB(DATE_SUB(NOW(), INTERVAL 4 MONTH), INTERVAL 15 DAY)
+);
+
+-- Block 15: Created 1 YEAR AGO (LONG EXPIRED)
+insert into communities (
+  address, name, 
+  roof_option, roof_colour, 
+  base_option, base_colour, 
+  foreground_option, foreground_colour,
+  main_text, links_text, info_text, promo_text, approved,
+  created_date
+) values (
+  '13', 'Main Street Boutique',
+  1, '#000000',
+  1, '#424242',
+  1, '#212121',
+  'Fashion boutique featuring local designers and unique clothing.',
+  'www.abandoned.com',
+  'No longer in business',
+  'Contact owner',
+  1,
+  DATE_SUB(NOW(), INTERVAL 12 MONTH)
 );
 
 -- Block 10: Created 7 MONTHS AGO (EXPIRED - Red warning should show)
