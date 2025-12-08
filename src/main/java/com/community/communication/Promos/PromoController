@@ -19,7 +19,7 @@ public class PromoController {
 
     @GetMapping("/Promos/Manage")
     public ModelAndView managePromos() {
-        ModelAndView mav = new ModelAndView("ManagePromos");
+        ModelAndView mav = new ModelAndView("ManagePromos.html");
         
         
         Map<Integer, Block> currentPromos = promoRepository.getActivePromos();

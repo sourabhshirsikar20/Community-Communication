@@ -4,10 +4,10 @@ DROP VIEW IF EXISTS login_authorities;
 DROP TABLE IF EXISTS logins_roles;
 DROP TABLE IF EXISTS logins;
 DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS promos;
 DROP TABLE IF EXISTS communities;
 DROP TABLE IF EXISTS pages;
 DROP TABLE IF EXISTS reports;
-DROP TABLE IF EXISTS promos;
 
 CREATE TABLE communities (
     id bigint auto_increment primary key,
