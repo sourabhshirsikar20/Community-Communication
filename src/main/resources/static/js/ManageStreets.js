@@ -108,6 +108,58 @@ function AddNewStreet() {
   document.getElementById('add-street-section').classList.remove('hidden');
 }
 
+function AddressAvailable(address) {
+  let blocks = document.querySelectorAll('#block-address');
+  for (const block of blocks) {
+    if (block.textContent == formatAddress(address))
+      return false;
+  };
+
+  let street = document.getElementById(`street-${address}`);
+  if (street != null)
+    return false;
+
+  return true;
+}
+
+function ValidateStreetForm() {
+  // get inputs
+  let name_input = document.getElementById('add-street-name');
+  let addr_input = document.getElementById('add-street-addr');
+  let desc_input = document.getElementById('add-street-desc');
+
+  valid = true;
+
+  if (name_input.value == "") {
+    name_input.classList.add('input-error');
+    valid = false;
+  }
+  else
+    name_input.classList.remove('input-error');
+
+  // numeric test (/^\d+$/.test(val)) from [https://stackoverflow.com/questions/1779013/check-if-string-contains-only-digits]
+  if (addr_input.value == "" || !AddressAvailable(addr_input.value) || !/^\d+$/.test(addr_input.value) || addr_input.value.length % 2 != 0) {
+    addr_input.classList.add('input-error');
+    valid = false;
+    if (!AddressAvailable(addr_input.value))
+      document.getElementById('addr-error').textContent = "Not available";
+  }
+  else {
+    addr_input.classList.remove('input-error');
+  }
+  if (AddressAvailable(addr_input.value))
+    document.getElementById('addr-error').textContent = "";
+
+  if (desc_input.value == "") {
+    desc_input.classList.add('input-error');
+    valid = false;
+  }
+  else
+    desc_input.classList.remove('input-error');
+
+  return valid;
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
   // start with root and enter recursion for display
   streets = await getStreetInfo('root');

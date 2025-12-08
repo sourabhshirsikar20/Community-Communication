@@ -14,18 +14,18 @@
 
     <section id="add-street-section" class="hidden">
       <h4>New Street Details</h4>
-      <form id="add-street-form" action="/new-street" method="post" th:object="${newStreet}">
+      <form id="add-street-form" action="/new-street" method="post" th:object="${newStreet}" onsubmit="return ValidateStreetForm()">
         <label>
           Name<br>
-          <input size="26" required maxlength="64" placeholder="Name" th:field="*{name}">
+          <input id="add-street-name" size="26" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm()">
         </label>
         <label>
-          Address<br>
-          <input size="26" required placeholder="Address" th:field="*{address}">
+          <div class="form-label"><span>Address</span><span id="addr-error"></span></div>
+          <input id="add-street-addr" size="26" required placeholder="Address" th:field="*{address}" onkeyup="ValidateStreetForm()">
         </label>
         <label>
           Description<br>
-          <input size="52" required maxlength="64" placeholder="Short Description" th:field="*{description}">
+          <input id="add-street-desc" size="52" required maxlength="64" placeholder="Short Description" th:field="*{description}" onkeyup="ValidateStreetForm()">
         </label>
         <input type="submit" value="Add Street">
       </form>

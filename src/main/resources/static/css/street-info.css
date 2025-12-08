@@ -179,11 +179,10 @@ main button:hover {
 }
 
 #add-street-form input {
-  background: #F4F7F6;
+  background: #00000010;
   border: none;
   border-radius: 0.5em;
   padding: 0.5em;
-  box-shadow: inset 1px 1px 3px grey;
 }
 
 #add-street-form input[type='submit'] {
@@ -203,4 +202,17 @@ main button:hover {
   background: #2a4494;
   color: white;
   cursor: pointer;
+}
+
+#add-street-form input.input-error {
+  color: #ff0000;
+}
+
+.form-label {
+  display: flex;
+}
+
+#addr-error {
+  margin-left: auto;
+  color: red;
 }
