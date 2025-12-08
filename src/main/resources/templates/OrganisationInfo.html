@@ -20,6 +20,21 @@
            style="margin-top: 15px; display:inline-block;">
             ✏️ Edit this page
         </a>
+
+        <div th:if="${isManager}" id = "report">
+            <h3>Manager Actions</h3>
+            <button onclick="reportBlock()" class="submit-button">
+                🚩 Report & Remove Block
+            </button>
+            
+            <form id="reportForm" action="/OrganisationInfo/report" method="post">
+                <input type="hidden" name="id" th:value="${Info.id}">
+                <input type="hidden" name="name" th:value="${Info.name}">
+                <input type="hidden" id="reportReason" name="reason">
+            </form>
+
+            
+        </div>
     </div>
 
     <div class="side">
@@ -42,5 +57,14 @@
 </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
+    <script>
+        function reportBlock() {
+            let reason = prompt("Please enter the reason for reporting this block.\nThis will clear the address and unapprove the block.");
+            if (reason != null && reason.trim() !== "") {
+                document.getElementById("reportReason").value = reason;
+                document.getElementById("reportForm").submit();
+            }
+        }
+    </script>
 </body>
 </html>
