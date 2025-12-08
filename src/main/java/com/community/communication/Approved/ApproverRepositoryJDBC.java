@@ -88,8 +88,36 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
     }
     @Override
     public void approve(int id, String secretHash) {
-        String sql = "UPDATE communities SET approved = 1, secret_Hash = ? WHERE id = ?";
-        jdbc.update(sql,secretHash, id);
+        int newAddress = 1;
+        String newAddressString = "0001";
+        List<Block> NewStreet = getStreetBlocks("00");
+        
+        for (Block block : NewStreet) {
+
+            if (newAddress<10) {
+                newAddressString = "000" + newAddress + "";
+            }else if(newAddress>9) {
+                newAddressString = "00" + newAddress + "";
+            }
+
+            if (block.getAddress().equals(newAddressString)) {
+                newAddress++;
+            }
+        }
+
+        //Check if the database is full 
+        if(newAddress>99){
+            System.out.println("No space in the database");
+        }else{
+            //check weather to add 2 or 3 zeros before the address
+            if (newAddress<10) {
+                newAddressString = "000" + newAddress + "";
+            }else if(newAddress>9) {
+                newAddressString = "00" + newAddress + "";
+            }
+            String sql = "UPDATE communities SET approved = 1, address = ?, secret_Hash = ? WHERE id = ?";
+            jdbc.update(sql,newAddressString,secretHash, id);
+        }
     }
 
     public List<Block> getStreetBlocks(String streetAddress) {
