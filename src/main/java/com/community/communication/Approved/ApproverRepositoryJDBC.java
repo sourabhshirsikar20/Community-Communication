@@ -119,6 +119,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             jdbc.update(sql,newAddressString,secretHash, id);
         }
     }
+    
+    @Override
+    public void deleteBlock(int id) {
+        String sql = "DELETE FROM communities WHERE id = ?";
+        jdbc.update(sql, id);
+    }
 
     public List<Block> getStreetBlocks(String streetAddress) {
         String sql = "SELECT * FROM communities WHERE " +
