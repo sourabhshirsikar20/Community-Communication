@@ -140,10 +140,18 @@ async function injectStreets() {
 
     // add nodes making sub streets
     for (let i = 0; i < street_info['children'].length; i++) {
-        findNextStreetElement(street_info['children'][i].address).insertAdjacentHTML(
-            'beforebegin',
+        let next_element = findNextStreetElement(street_info['children'][i].address);
+        let mode = 'beforebegin';
+
+        if (next_element == null) {
+            next_element = document.querySelector('.street-container');
+            mode = 'beforeend';
+        }
+        
+        next_element.insertAdjacentHTML(
+            mode,
             `
-            <a id="street-${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
+            <a id="street-${street_info['children'][i]['address']}" data-address="${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
                 ${svgs['street']}
             </a>
             `
