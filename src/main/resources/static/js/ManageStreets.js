@@ -23,7 +23,7 @@ function formatAddress(address) {
 
 function findNextChildElement(currentAddress, street_element) {
     let currentNum = parseInt(currentAddress.slice(-2)); 
-    let streetElements = Array.from(street_element.querySelectorAll('#street-children .inset-element'));
+    let streetElements = Array.from(street_element.querySelectorAll('#street-children .inset-element, #street-children .inset-street'));
 
     streetElements = streetElements
         .map(el => ({
@@ -33,7 +33,7 @@ function findNextChildElement(currentAddress, street_element) {
         .filter(item => item.value > currentNum) 
         .sort((a, b) => a.value - b.value); 
 
-    return streetElements[0] ? streetElements[0].element.parentElement : null;
+    return streetElements[0] ? streetElements[0].element : null;
 }
 
 async function DisplaySideStreet(street, street_children_element) {
@@ -50,7 +50,7 @@ async function DisplaySideStreet(street, street_children_element) {
             </div>`;
 
       if (add_element != null)
-        add_element.insertAdjacentHTML('afterbegin', html);
+        add_element.insertAdjacentHTML('beforebegin', html);
       else
         street_children_element.insertAdjacentHTML('beforeend', html);
 
