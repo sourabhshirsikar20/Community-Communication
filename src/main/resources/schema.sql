@@ -71,4 +71,12 @@ CREATE TABLE reports (
     report_date timestamp default current_timestamp
 ) engine=InnoDB;
 
+-- Promo Table
+CREATE TABLE IF NOT EXISTS promos (
+    id bigint auto_increment primary key,
+    block_id bigint not null,
+    position int not null,
+    CONSTRAINT unique_position UNIQUE (position),
+    FOREIGN KEY (block_id) REFERENCES communities(id) ON DELETE CASCADE
+) engine=InnoDB;
 SET FOREIGN_KEY_CHECKS = 1;
