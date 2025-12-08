@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS communities;
 DROP TABLE IF EXISTS pages;
 DROP TABLE IF EXISTS reports;
+DROP TABLE IF EXISTS promos;
 
 CREATE TABLE communities (
     id bigint auto_increment primary key,
@@ -63,7 +64,7 @@ create table if not exists streets (
 ) engine=InnoDB;
 
 --Reports table
-CREATE TABLE reports (
+CREATE TABLE IF NOT EXISTS reports (
     id bigint auto_increment primary key,
     blockID int,
     block_name varchar(128),
@@ -75,8 +76,8 @@ CREATE TABLE reports (
 CREATE TABLE IF NOT EXISTS promos (
     id bigint auto_increment primary key,
     block_id bigint not null,
-    position int not null,
-    CONSTRAINT unique_position UNIQUE (position),
+    promo_position int not null,
+    CONSTRAINT unique_position UNIQUE (promo_position),
     FOREIGN KEY (block_id) REFERENCES communities(id) ON DELETE CASCADE
 ) engine=InnoDB;
 SET FOREIGN_KEY_CHECKS = 1;
