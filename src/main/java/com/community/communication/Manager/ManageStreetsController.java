@@ -27,7 +27,9 @@ public class ManageStreetsController {
   
   @GetMapping("/ManageStreets")
   public ModelAndView ManageStreetsPage() {
-    return new ModelAndView("ManageStreets");
+    ModelAndView mav = new ModelAndView("ManageStreets");
+    mav.addObject("newStreet", new NewStreet(null, null, null));
+    return mav;
   }
 
   @ResponseBody
@@ -43,9 +45,10 @@ public class ManageStreetsController {
   }
 
   @PostMapping("/new-street")
-  public ModelAndView AddStreet(@Valid @ModelAttribute("newStreet") NewStreet block) {
+  public ModelAndView AddStreet(@Valid @ModelAttribute("newStreet") NewStreet street) {
 
-    System.out.println(block);
+    Street db_street = new Street(-1, street.getName(), street.getAddress(), street.getDescription());
+    ApproverRepository.addNewStreet(db_street);
       
     return new ModelAndView("redirect:/ManageStreets");
   }

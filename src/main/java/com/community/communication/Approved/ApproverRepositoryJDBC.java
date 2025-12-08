@@ -86,6 +86,14 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             block.getPromoText()
         );
     }
+
+    @Override
+    public void addNewStreet(Street street) {
+        // id is autoincrementing, so not included
+        String sql = "INSERT INTO streets (name, address, description) VALUES (?,?,?)";
+        jdbc.update(sql, street.getName(), street.getAddress(), street.getDescription());
+    }
+
     @Override
     public void approve(int id, String secretHash) {
         String sql = "UPDATE communities SET approved = 1, secret_Hash = ? WHERE id = ?";
