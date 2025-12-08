@@ -45,7 +45,7 @@ async function DisplaySideStreet(street, street_children_element) {
 
       let add_element = findNextChildElement(address, street_children_element);
 
-      let html = `<div class="inset-street ${add_element == null ? 'final final-street' : 'full'}">
+      let html = `<div class="inset-street ${add_element == null ? 'final final-street' : 'full'}" draggable="true">
               <div id="street-${address}"></div>
             </div>`;
 
@@ -93,8 +93,19 @@ async function DisplayStreet(street, attatch_element) {
     el.querySelector('#street-toggle-expand').classList.toggle('active');
   });
 
+  street_element.getElementById('street-delete').addEventListener('click', () => {
+    el = document.getElementById(`street-${street['self']['address']}`);
+
+    alert('This  will remove ...');
+  });
+
   DisplaySideStreet(street, street_element.getElementById('street-children'));
   attatch_element.appendChild(street_element);
+}
+
+function AddNewStreet() {
+  console.log('test');
+  document.getElementById('add-street-section').classList.remove('hidden');
 }
 
 window.addEventListener('DOMContentLoaded', async () => {

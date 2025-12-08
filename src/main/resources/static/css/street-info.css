@@ -63,6 +63,10 @@ main button:hover {
   grid-template-columns: 1em 9.5em auto auto;
 }
 
+.street-info #street-address {
+  margin-right: 1em;
+}
+
 .street-info:before {
   content: '';
   background: #2a4494;
@@ -160,3 +164,7 @@ main button:hover {
 #block-address, #street-address {
   font-family: 'mono';
 }
+
+#add-street-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
