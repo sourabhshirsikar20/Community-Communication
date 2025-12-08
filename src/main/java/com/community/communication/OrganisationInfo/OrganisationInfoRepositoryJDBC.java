@@ -47,8 +47,8 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
         String SQL = "UPDATE communities SET address = NULL, approved = 0 WHERE id = ?";
         Jdbc.update(SQL,id);
 
-        String reportSQL = "INSERT INTO reports (block_name, reason) VALUES (?, ?)";
-        Jdbc.update(reportSQL,name, reason);
+        String reportSQL = "INSERT INTO reports (blockID, block_name, reason) VALUES (?, ?, ?)";
+        Jdbc.update(reportSQL, id, name, reason);
     }
 
 }

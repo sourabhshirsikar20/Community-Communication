@@ -65,6 +65,7 @@ create table if not exists streets (
 --Reports table
 CREATE TABLE reports (
     id bigint auto_increment primary key,
+    blockID int,
     block_name varchar(128),
     reason varchar(512),
     report_date timestamp default current_timestamp
