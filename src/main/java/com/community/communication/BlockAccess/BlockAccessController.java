@@ -145,6 +145,11 @@ public class BlockAccessController {
             mav.addObject("error", "Codes do NOT match!");
             return mav;
         }
+        AccessCodeValidator validator = new AccessCodeValidator();
+        if (!validator.isValid(newAccessCode, confirmAccessCode)) {
+            mav.addObject("error", "Codes must match and contain only 4–6 digits.");
+            return mav;
+        }
 
         String hash = passwordEncoder.encode(newAccessCode);
         current.setSecretHash(hash);
