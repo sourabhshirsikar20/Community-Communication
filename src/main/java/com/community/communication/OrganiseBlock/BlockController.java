@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/Block")
@@ -99,6 +100,8 @@ public class BlockController {
             block.setLinksText(LinksText);
             block.setInfoText(InfoText);
             block.setPromoText(PromoText);
+            block.setApproved(Exists.isApproved());
+            block.setSecretHash(Exists.getSecretHash());
             if(blockRepository.Check(Address)){
                 mav.addObject("Str", "Cannot Update Into Existing Address");
                 mav.addObject("Block", null);
@@ -108,5 +111,14 @@ public class BlockController {
             mav.addObject("Str", "Updated Successfully");
             mav.addObject("Block", block);
         return mav;
+    }
+    @PostMapping("/block/delete")
+    public String deleteBlock(@RequestParam int blockId, RedirectAttributes redirectAttributes) {
+
+        blockRepository.deleteBlock(blockId);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Block was successfully deleted.");
+
+        return "redirect:/Index";
     }
 }

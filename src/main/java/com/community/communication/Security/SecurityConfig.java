@@ -28,12 +28,19 @@ public class SecurityConfig {
     };
 
     private static final String[] USER_WHITELIST = {
-            "/js/**",
-            "/svg/**",
-            "/SubmitBlock",
-            "/Index",
-            "/OrganisationInfo",
-            "/OrganisationInfo/**"
+        "/js/**",
+        "/svg/**",
+        "/street",
+        "/street/**",
+        "/street-info/**",
+        "/block-name/**",
+        "/SubmitBlock",
+        "/Index",
+        "/OrganisationInfo",
+        "/OrganisationInfo/**",
+        "/BlockAccess/**",
+        "/search",
+        "/live-search"
     };
 
     private static final String[] MANAGER_WHITELIST = {

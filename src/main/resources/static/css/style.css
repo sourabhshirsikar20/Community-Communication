@@ -59,6 +59,11 @@ body {
     cursor: pointer;
 }
 
+.house-block svg {
+    width: 200px;
+    height: 200px;
+}
+
 .house-block:hover {
     transform: scale(1.05);
     z-index: 10;          
@@ -243,6 +248,7 @@ tbody tr:hover {
 }
 
 .form-field input[type="text"],
+.form-field input[type="password"],
 .form-field textarea {
     padding: 0.75rem;
     border: 2px solid #e0e0e0;
@@ -339,14 +345,15 @@ tbody tr:hover {
 
 .template-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.75rem;
+    width: 100%;
 }
 
 .template-select {
     width: 100%;
     padding: 0.65rem;
-    border: 2px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
     border-radius: 6px;
     font-size: 0.95rem;
     background-color: white;
@@ -355,42 +362,25 @@ tbody tr:hover {
 }
 
 .template-select:hover {
-    border-color: #1D2F6F;
-}
-
-.template-select:focus {
-    outline: none;
-    border-color: #1D2F6F;
-    box-shadow: 0 0 0 3px rgba(29, 47, 111, 0.1);
-}
-
-.color-control {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 0.25rem;
-}
-
-.color-label {
-    font-size: 0.9rem;
-    color: #555;
-    font-weight: 500;
+    border-color: #47527a;
 }
 
 .color-input-group {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
 }
 
 .color-input-group input[type="color"] {
     width: 50px;
     height: 40px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
+    border: none;
     cursor: pointer;
     padding: 3px;
-    background-color: white;
     transition: border-color 0.3s ease;
 }
 
@@ -398,25 +388,39 @@ tbody tr:hover {
     font-family: 'Courier New', monospace;
     font-size: 0.85rem;
     color: #333;
-    background: white;
-    padding: 0.4rem 0.75rem;
-    border-radius: 5px;
     font-weight: 600;
+    padding-right: 0.5em;
+}
+
+#template-font-group {
+    background: white;
+    padding: 5px;
+    padding-left: 15px;
     border: 1px solid #e0e0e0;
-    min-width: 75px;
-    text-align: center;
+    border-radius: 5px;
+}
+
+#template-font-group input {
+    max-width: 7em;
 }
 
 .template-preview {
     position: relative;
+    height: 100%;
 }
 
 .preview-container {
     background: white;
-    border: 2px solid #1D2F6F;
+    border: 2px solid #3c4978;
     border-radius: 12px;
     padding: 1.25rem;
     width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .preview-box {
@@ -428,10 +432,6 @@ tbody tr:hover {
 
 .preview-layer {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
 }
 
@@ -440,6 +440,16 @@ tbody tr:hover {
     height: 100%;
     display: block;
 }
+
+.preview-layer svg text {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings: "wdth" 80;
+    letter-spacing: 0.1em;
+}
+
 
 .form-actions {
     display: flex;
@@ -962,4 +972,192 @@ body.has-navbar .container:first-of-type {
         font-size: 0.75rem;
         /* smaller on mobile */
     }
+}
+.preview-box {
+    width: 260px;
+    height: 260px;
+    position: relative;
+    border: 1px solid #ddd;
+    background: #ffffff;
+}
+
+.preview-layer {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.template-section {
+    margin-top: 25px;
+    padding: 15px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.template-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.template-group {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.template-select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.template-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-container {
+    text-align: center;
+}
+.readonly-field {
+    background-color: #eee;
+    cursor: not-allowed;
+}
+.nav-search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1); 
+    padding: 5px 5px 5px 15px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-right: auto;
+    margin-left: 2rem; 
+}
+
+.nav-search-label {
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.nav-search-input {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    color: #333;
+    width: 200px; 
+    outline: none;
+    transition: width 0.3s ease;
+}
+
+.nav-search-input:focus {
+    box-shadow: 0 0 0 2px #F5A623; 
+}
+
+
+.nav-search-btn {
+    background: #F5A623; 
+    border: none;
+    border-radius: 50%; 
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.nav-search-btn:hover {
+    background: #FFFFFF;
+    transform: scale(1.1);
+}
+.search-highlight {
+    fill: #dc3545; 
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .nav-search-label {
+        display: none;
+    }
+    
+    .nav-search-input {
+        width: 140px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .nav-search-form {
+        display: none;
+    }
+}
+
+/* Street navigation */
+
+#street-nav-list {
+    display: flex;
+    gap: 0.5em;
+    margin-left: 1em;
+}
+
+#street-nav-list .street-nav-link,
+#street-nav-list .street-nav-final {
+    box-shadow: 0 4px 15px rgba(29, 47, 111, 0.3);
+    border: 3px solid #2a4494;
+    color: white;
+    padding: 0.1em 0.4em 0.1em 0.4em;
+    border-radius: 0.75em;
+}
+
+#street-nav-list a {
+    text-decoration: none; 
+}
+
+#street-nav-list>h5 {
+    scale: 1.5;
+    padding: 0.1em;
+    transform: translateY(0.2em);
+}
+
+#street-nav-list .street-nav-link {
+    color: black;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+#street-nav-list .street-nav-link:hover {
+    background: #2a4494;
+    color: white;
+}
+
+#street-nav-list .street-nav-final {
+    background-color: #2a4494;
+}
+
+.street-nav-desc {
+    transform: translateY(0.1em);
+    font-style: italic;
+    color: grey;
+    margin-left: 0.5em;
 }

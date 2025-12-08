@@ -1,9 +1,10 @@
 package com.community.communication.OrganisationInfo;
 
-import com.community.communication.Approved.Block;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.community.communication.Approved.Block;
 
 @Repository
 public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepository {
@@ -26,17 +27,20 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
                 rs.getString("base_colour"),
                 rs.getInt("foreground_option"),
                 rs.getString("foreground_colour"),
+                rs.getString("font_options"),
+                rs.getString("font_colour"),
                 rs.getString("main_text"),
                 rs.getString("links_text"),
                 rs.getString("info_text"),
                 rs.getString("promo_text"),
+                rs.getString("secret_hash"),
                 rs.getBoolean("approved")
         );
     }
 
-    public Block getInfo(int Id){
-        String SQL = "SELECT * FROM communities WHERE id = ?";
-        return Jdbc.queryForObject(SQL, organisationInfoMapper, Id);
+    public Block getInfo(String address){
+        String SQL = "SELECT * FROM communities WHERE address = ?";
+        return Jdbc.queryForObject(SQL, organisationInfoMapper, address);
     }
 
 }

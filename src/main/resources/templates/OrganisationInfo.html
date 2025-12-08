@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <title>InfoTest</title>
     <link rel="stylesheet" th:href="@{/css/infostyle.css}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="has-navbar">
     <div class="main-content">
     <div th:replace="~{NavigationBar :: public-nav}"></div>
+    <div th:replace="~{fragments/street-nav :: street-nav}"></div>
 <div class="grid">
     <div class="box">
         <h2>About the Organisation</h2>
         <p th:text="${Info.mainText}"></p>
+
+        <a th:href="@{'/BlockAccess?address=' + ${Info.address}}"
+           class="button-link"
+           style="margin-top: 15px; display:inline-block;">
+            ✏️ Edit this page
+        </a>
     </div>
 
     <div class="side">
