@@ -46,7 +46,7 @@ main button:hover {
   rotate: 180deg;
 }
 
-.street-info, .block-info {
+.street-info, .block-info, section {
   gap: 1.5em;
   margin-top: 1em;  
   align-items: center;
@@ -159,6 +159,7 @@ main button:hover {
 .block-info {
   display: grid;
   grid-template-columns: 12em auto;
+  padding-right: 8.5em;
 }
 
 #block-address, #street-address {
@@ -166,5 +167,40 @@ main button:hover {
 }
 
 #add-street-form {
+  margin: 0.5em;
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
+  grid-gap: 1em;
+}
+
+#add-street-section h4 {
+  color: #2a4494;
+  margin-left: 0.5em;
+}
+
+#add-street-form input {
+  background: #F4F7F6;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  box-shadow: inset 1px 1px 3px grey;
+}
+
+#add-street-form input[type='submit'] {
+  border: 2px solid #2a4494;
+  border-radius: 1em;
+  background: none;
+  padding: 0.25em;
+  margin: 0;
+  transition: 0.2s ease;
+  font-weight: bold;
+  color: #2a4494;
+  box-shadow: none;
+}
+
+#add-street-form input[type='submit']:hover {
+  border-radius: 1em;
+  background: #2a4494;
+  color: white;
+  cursor: pointer;
+}

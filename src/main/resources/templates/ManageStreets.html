@@ -14,18 +14,18 @@
 
     <section id="add-street-section" class="hidden">
       <h4>New Street Details</h4>
-      <form id="add-street-form">
+      <form id="add-street-form" action="/new-street" method="post" th:object="${newStreet}">
         <label>
           Name<br>
-          <input size="26">
+          <input size="26" required maxlength="64" placeholder="Name">
         </label>
         <label>
           Address<br>
-          <input size="26">
+          <input size="26" required placeholder="Address">
         </label>
         <label>
           Description<br>
-          <input size="52">
+          <input size="52" required maxlength="64" placeholder="Short Description">
         </label>
         <input type="submit" value="Add Street">
       </form>
