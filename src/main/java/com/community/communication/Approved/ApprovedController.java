@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,5 +58,30 @@ public class ApprovedController {
     private String generateCode() {
         int number = 100000 + random.nextInt(900000); // 6 digits
         return String.valueOf(number);
+    }
+    @GetMapping("/UpdateBlock")
+    public ModelAndView updateBlock(@RequestParam("Address") String Address) {
+        ModelAndView mav = new ModelAndView("UpdateAddress.html");
+        List<Street> Streets = ApproverRepository.getSubStreets("");
+        Streets.add(ApproverRepository.getStreet("root"));
+        mav.addObject("Streets", Streets);
+        mav.addObject("Address", Address);
+        return mav;
+    }
+    @PostMapping("/UpdateBlock/Move")
+    public ModelAndView moveBlock(@RequestParam("OldAddress") String OldAddress, @RequestParam("Street") String Street){
+        ModelAndView mav = new ModelAndView("UpdateAddress");
+        List<Street> Streets = ApproverRepository.getSubStreets("");
+        Streets.add(ApproverRepository.getStreet("root"));
+        mav.addObject("Streets", Streets);
+        mav.addObject("OldAddress", OldAddress);
+        String NewAddress = ApproverRepository.GenAddr(Street);
+        if(NewAddress == null || NewAddress.isEmpty()){
+            mav.addObject("Error","No Available Address on that Street");
+            return mav;
+        }
+       ApproverRepository.updateAddress(OldAddress,NewAddress);
+        mav.addObject("NewAddress", NewAddress);
+        return mav;
     }
 }

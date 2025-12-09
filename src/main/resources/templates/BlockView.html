@@ -21,6 +21,7 @@
     <div th:if="${Exists}">
         <span>Yes, In DB</span>
         <a th:href="@{'/Block/Update/' + ${Address}}">Can Update Here</a>
+        <a th:href="@{'/UpdateBlock?Address=' + ${Address}}">Move Streets</a>
     </div>
     <div th:if="${!Exists}">
         <span>Not, In DB</span>

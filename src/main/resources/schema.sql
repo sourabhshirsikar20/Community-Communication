@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS communities;
 DROP TABLE IF EXISTS pages;
 DROP TABLE IF EXISTS reports;
+DROP TABLE IF EXISTS streets;
 
 CREATE TABLE communities (
     id bigint auto_increment primary key,

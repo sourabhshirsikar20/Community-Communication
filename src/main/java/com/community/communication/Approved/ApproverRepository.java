@@ -12,4 +12,6 @@ public interface ApproverRepository {
     List<Block> getSearch(String value);
     List<Street> getSubStreets(String streetAddress);
     Street getStreet(String streetAddress);
+    String GenAddr(String StAddress);
+    void updateAddress(String OldAddr, String NewAddr);
 }

@@ -162,4 +162,42 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             return result.get(0);
         return null; // address field is enforced unique, so should never be reached in practice
     }
+    public String GenAddr(String StAddress){
+        if(StAddress.equals("root")) {
+            StAddress = "";
+        }
+        List<Block> Exists = getStreetBlocks(StAddress);
+        List<Street> ExistsSt = getSubStreets(StAddress);
+        int Nxt = 1;
+        String NxtAddr = "";
+        while(true){
+            if (Nxt < 10) {
+                NxtAddr = StAddress + "0" + Nxt;
+            } else {
+                NxtAddr = StAddress + Nxt;
+            }
+            boolean Ctr = false;
+            for(Block Addr : Exists){
+                if(Addr.address.equals(NxtAddr)){
+                    Ctr = true;
+                    break;
+                }
+            }
+            for(Street Addr : ExistsSt){
+                if(Addr.address.equals(NxtAddr)){
+                    Ctr = true;
+                    break;
+                }
+            }
+            if(!Ctr){
+                break;
+            }
+            Nxt++;
+        }
+        return NxtAddr;
+    }
+    public void updateAddress(String OldAddr, String NewAddr) {
+        String sql = "UPDATE communities SET address = ? WHERE address = ?";
+        jdbc.update(sql, NewAddr, OldAddr);
+    }
 }
