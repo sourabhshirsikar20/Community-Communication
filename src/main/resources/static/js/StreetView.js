@@ -101,6 +101,9 @@ function findNextStreetElement(currentAddress) {
 }
 
 async function injectStreets() {
+    let street_addresses = document.getElementById("address-range");
+    let addresses = street_addresses.dataset.paginationlist;
+
     // load svgs
     let response = await fetch(`/svg/street.svg`);
     if (!response.ok) throw new Error('svgs unavailable');
@@ -140,6 +143,7 @@ async function injectStreets() {
 
     // add nodes making sub streets
     for (let i = 0; i < street_info['children'].length; i++) {
+    if(addresses.includes(parseInt(street_info['children'][i].address.slice(-2)))){
         findNextStreetElement(street_info['children'][i].address).insertAdjacentHTML(
             'beforebegin',
             `
@@ -150,6 +154,7 @@ async function injectStreets() {
         );
 
         document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
+    }
     }
 }
 
