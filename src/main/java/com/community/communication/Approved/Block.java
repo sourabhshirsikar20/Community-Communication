@@ -1,9 +1,10 @@
 package com.community.communication.Approved;
+import java.time.LocalDateTime;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.community.communication.SubmitBlock.SubmitBlock;
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,8 +14,6 @@ import lombok.Data;
 public class Block {
     int id;
     String address;
-    @NotEmpty(message = "Blocks must have a name")
-    @Size(max = 128, message = "Names cannot exceed 128 characters")
     String name;
     int roofOption;
     String roofColour;
@@ -24,24 +23,12 @@ public class Block {
     String foregroundColour;
     String fontOptions;
     String fontColour;
-
-    @NotEmpty(message = "Main text may not be empty")
-    @Size(max = 512, message = "Main text cannot exceed 512 characters")
     String mainText;
-
-    @Size(max = 256, message = "Link text cannot exceed 256 characters")
     String linksText;
-
-    @Size(max = 256, message = "Contact Information cannot exceed 256 characters")
     String infoText;
-
-    @Size(max = 256, message = "Promo text cannot exceed 256 characters")
     String promoText;
-
     String secretHash;
-
     boolean approved;
-
     LocalDateTime createdDate;  
 
     public Block() {
@@ -82,33 +69,66 @@ public class Block {
         promoText = submitBlock.getPromoText();
         approved = false;
     }
+    // Adding try-catch to handle potential JSON parsing errors. For Manual Database Edits - JSONException → 500 error → ERR_INCOMPLETE_CHUNKED_ENCODING
 
     public boolean ExtractFontSerif() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getBoolean("serif");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return false; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getBoolean("serif");
+        } catch (JSONException e) {
+            return false; // Default on error
+        }
     }
 
     public boolean ExtractFontItalic() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getBoolean("italic");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return true; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getBoolean("italic");
+        } catch (JSONException e) {
+            return true; // Default on error
+        }
     }
 
     public int ExtractFontWeight() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getInt("weight");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return 450; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getInt("weight");
+        } catch (JSONException e) {
+            return 450; // Default on error
+        }
     }
 
     public int ExtractFontWidth() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getInt("width");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return 85; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getInt("width");
+        } catch (JSONException e) {
+            return 85; // Default on error
+        }
     }
 
     public int ExtractFontGrade() {
         try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return 0; // Default value
+            }
             JSONObject json = new JSONObject(fontOptions);
             return json.getInt("grade");
         } catch (JSONException e) {
-            return 0; // grade not found, return neutral value
+            return 0; // Default on error
         }
     }
+    
 }

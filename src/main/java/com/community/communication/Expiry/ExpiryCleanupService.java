@@ -27,13 +27,10 @@ public class ExpiryCleanupService {
     private ExpiryService expiryService;
 
     /**
-     * AUTOMATIC CLEANUP - Runs every 2 minutes
-     * This method runs automatically while your server is running. It checks
-     * all blocks and deletes expired ones.
-     * Change the timing by modifying fixedRate value: - 
-     * 120000 = 2 minutes
-     * 300000 = 5 minutes
-     * 3600000 = 1 hour
+     * AUTOMATIC CLEANUP - Runs every 2 minutes This method runs automatically
+     * while your server is running. It checks all APPROVED blocks and deletes
+     * expired ones. Change the timing by modifying fixedRate value: - 120000 =
+     * 2 minutes 300000 = 5 minutes 3600000 = 1 hour
      */
     @Scheduled(fixedRate = 120000, initialDelay = 10000)
     @Transactional
@@ -49,34 +46,51 @@ public class ExpiryCleanupService {
 
             int deletedCount = 0;
             int activeCount = 0;
+            int unapprovedCount = 0;
+            int noDateCount = 0;
 
             // Check each block for expiry
             for (Block block : allBlocks) {
-                if (block.getCreatedDate() != null) {
-                    boolean isExpired = expiryService.isBlockExpired(block);
+                // Skip unapproved blocks - they don't have expiry timers
+                if (!block.isApproved()) {
+                    unapprovedCount++;
+                    continue;
+                }
 
-                    if (isExpired) {
-                        logger.info("DELETING expired block:");
-                        logger.info("   - ID: {}", block.getId());
-                        logger.info("   - Name: {}", block.getName());
-                        logger.info("   - Address: {}", block.getAddress());
-                        logger.info("   - Created: {}", block.getCreatedDate());
+                // Skip blocks without created_date (shouldn't happen for approved blocks)
+                if (block.getCreatedDate() == null) {
+                    logger.warn("ANOMALY: Approved block {} ('{}') has null created_date!",
+                            block.getId(), block.getName());
+                    noDateCount++;
+                    continue;
+                }
 
-                        blockRepository.delete(block);
-                        deletedCount++;
-                    } else {
-                        activeCount++;
-                    }
+                // Check if expired
+                boolean isExpired = expiryService.isBlockExpired(block);
+
+                if (isExpired) {
+                    logger.info("DELETING expired block:");
+                    logger.info("   - ID: {}", block.getId());
+                    logger.info("   - Name: {}", block.getName());
+                    logger.info("   - Address: {}", block.getAddress());
+                    logger.info("   - Created: {}", block.getCreatedDate());
+
+                    blockRepository.delete(block);
+                    deletedCount++;
                 } else {
-                    logger.warn("Block {} has null created_date, skipping", block.getId());
+                    activeCount++;
                 }
             }
 
             // Summary log
             logger.info("========================================");
             logger.info("Cleanup completed successfully!");
-            logger.info("Active blocks: {}", activeCount);
+            logger.info("Active approved blocks: {}", activeCount);
             logger.info("Deleted expired blocks: {}", deletedCount);
+            logger.info("Unapproved blocks: {}", unapprovedCount);
+            if (noDateCount > 0) {
+                logger.warn("Approved blocks with missing created_date: {}", noDateCount);
+            }
             logger.info("========================================");
 
         } catch (Exception e) {
@@ -88,9 +102,11 @@ public class ExpiryCleanupService {
     }
 
     /**
-     * MANUAL CLEANUP - Call this from a controller or admin panel
-     * This method can be triggered manually by an admin clicking a button.
-     * Returns the number of blocks deleted.
+     * MANUAL CLEANUP - Call this from a controller or admin panel This method
+     * can be triggered manually by an admin clicking a button. Returns the
+     * number of blocks deleted.
+     *
+     * Only deletes APPROVED blocks that are expired.
      */
     @Transactional
     public int manualCleanup() {
@@ -100,8 +116,15 @@ public class ExpiryCleanupService {
 
         List<Block> allBlocks = blockRepository.findAll();
         int deletedCount = 0;
+        int skippedUnapproved = 0;
 
         for (Block block : allBlocks) {
+            // Only process approved blocks
+            if (!block.isApproved()) {
+                skippedUnapproved++;
+                continue;
+            }
+
             if (block.getCreatedDate() != null && expiryService.isBlockExpired(block)) {
                 logger.info("Deleting expired block: {} (ID: {})", block.getName(), block.getId());
                 blockRepository.delete(block);
@@ -110,7 +133,8 @@ public class ExpiryCleanupService {
         }
 
         logger.info("========================================");
-        logger.info("Manual cleanup completed. Deleted {} block(s)", deletedCount);
+        logger.info("Manual cleanup completed. Deleted {} expired block(s)", deletedCount);
+        logger.info("Skipped {} unapproved block(s)", skippedUnapproved);
         logger.info("========================================");
 
         return deletedCount;
@@ -119,13 +143,18 @@ public class ExpiryCleanupService {
     /**
      * Get count of expired blocks WITHOUT deleting them Useful for dashboards
      * or monitoring
+     *
+     * Only counts APPROVED blocks that are expired.
      */
     public int countExpiredBlocks() {
         List<Block> allBlocks = blockRepository.findAll();
         int expiredCount = 0;
 
         for (Block block : allBlocks) {
-            if (block.getCreatedDate() != null && expiryService.isBlockExpired(block)) {
+            // Only count approved blocks
+            if (block.isApproved()
+                    && block.getCreatedDate() != null
+                    && expiryService.isBlockExpired(block)) {
                 expiredCount++;
             }
         }

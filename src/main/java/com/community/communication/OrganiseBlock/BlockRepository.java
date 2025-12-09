@@ -1,5 +1,7 @@
 package com.community.communication.OrganiseBlock;
 
+import java.util.List;
+
 import com.community.communication.Approved.Block;
 
 public interface BlockRepository {

@@ -40,8 +40,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 rs.getBoolean("approved"),
                 // Added created_date mapping
                 rs.getTimestamp("created_date") != null ? 
-                    rs.getTimestamp("created_date").toLocalDateTime() : 
-                    java.time.LocalDateTime.now()
+                rs.getTimestamp("created_date").toLocalDateTime() : 
+                java.time.LocalDateTime.now()
         );
     }
 

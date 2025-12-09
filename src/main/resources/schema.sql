@@ -17,13 +17,13 @@ CREATE TABLE communities (
     base_colour varchar(10),
     foreground_option smallint,
     foreground_colour varchar(10),
-    font_options varchar(92),
-    font_colour varchar(10),
+    font_options varchar(92) NOT NULL DEFAULT '{"serif":false,"italic":true,"weight":450,"width":85}',
+    font_colour varchar(10) NOT NULL DEFAULT '#e9b36cff',
     main_text varchar(512),
     links_text varchar(256),
     info_text varchar(256),
     promo_text varchar(256),
-    approved BIT NOT NULL DEFAULT 0,
+    approved BOOLEAN NOT NULL DEFAULT FALSE,
     secret_hash varchar(255),
     created_date TIMESTAMP NULL DEFAULT NULL -- Added created_date column & Allow NULL, no default
 )engine=InnoDB;

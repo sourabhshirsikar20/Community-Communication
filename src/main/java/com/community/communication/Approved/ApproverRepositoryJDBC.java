@@ -77,7 +77,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
                 promo_text,
                 approved,
                 created_date
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """;
                 
         jdbc.update(sql, 
@@ -90,8 +90,8 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
             block.getLinksText(),
             block.getInfoText(),
             block.getPromoText(),
-                false,  // Not approved yet
-                null    // NULL created_date - will be set on approval
+            false,  // Not approved yet
+            null    // NULL created_date - will be set on approval
         );
     }
     @Override
