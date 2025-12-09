@@ -24,12 +24,18 @@ public class SecurityController {
 
     URI redirect_url = null;
     if (saved_request != null) {
-      try {
-        redirect_url = new URI(saved_request.getRedirectUrl()); // gets the originally requested URL
-        mav.addObject("manager_url", !SecurityConfig.IsUrlInWhitelists(redirect_url.getPath()));
-      } catch (URISyntaxException e) {
-        mav.addObject("manager_url", false);
-      }
+        try {
+              redirect_url = new URI(saved_request.getRedirectUrl()); // gets the originally requested URL
+              mav.addObject("manager_url", SecurityConfig.IsUrlManager(redirect_url.getPath()));
+        } catch (URISyntaxException e) {
+              mav.addObject("manager_url", false);
+        }
+        try {
+            redirect_url = new URI(saved_request.getRedirectUrl()); // gets the originally requested URL
+            mav.addObject("admin_url", !SecurityConfig.IsUrlInWhitelists(redirect_url.getPath()));
+        } catch (URISyntaxException e) {
+            mav.addObject("admin_url", false);
+        }
     }
 
     return mav;
