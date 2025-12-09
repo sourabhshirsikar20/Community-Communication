@@ -42,15 +42,15 @@ public class PromoRepositoryJDBC implements PromoRepository {
     @Override
     public Map<Integer, Block> getActivePromos() {
         String sql = """
-            SELECT p.position, c.* FROM promos p 
+            SELECT p.promo_position, c.* FROM promos p 
             JOIN communities c ON p.block_id = c.id 
-            ORDER BY p.position ASC
+            ORDER BY p.promo_position ASC
         """;
         
         Map<Integer, Block> promoMap = new HashMap<>();
         
         jdbc.query(sql, (rs) -> {
-            int pos = rs.getInt("position");
+            int pos = rs.getInt("promo_position");
             Block block = blockMapper.mapRow(rs, 0); 
             promoMap.put(pos, block);
         });
@@ -61,13 +61,13 @@ public class PromoRepositoryJDBC implements PromoRepository {
     @Override
     public void setPromo(int blockId, int position) {
         removePromo(position);
-        String sql = "INSERT INTO promos (block_id, position) VALUES (?, ?)";
+        String sql = "INSERT INTO promos (block_id, promo_position) VALUES (?, ?)";
         jdbc.update(sql, blockId, position);
     }
 
     @Override
     public void removePromo(int position) {
-        String sql = "DELETE FROM promos WHERE position = ?";
+        String sql = "DELETE FROM promos WHERE promo_position = ?";
         jdbc.update(sql, position);
     }
 

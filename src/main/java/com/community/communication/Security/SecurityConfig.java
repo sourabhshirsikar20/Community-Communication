@@ -45,7 +45,8 @@ public class SecurityConfig {
 
     private static final String[] MANAGER_WHITELIST = {
             "/Approver",
-            "/approveBlock/**"
+            "/approveBlock/**",
+            "/Promos/**"
     };
 
     public static boolean IsUrlInWhitelists(String url) {
