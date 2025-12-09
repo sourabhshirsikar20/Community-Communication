@@ -71,11 +71,6 @@ public class OrganisationInfoController {
             boolean isManager = auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"));
             mav.addObject("isManager", isManager);
             
-            //Checking if its a manager
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            boolean isManager = auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"));
-            mav.addObject("isManager", isManager);
-
             return mav;
             
         } catch (EmptyResultDataAccessException e) {
