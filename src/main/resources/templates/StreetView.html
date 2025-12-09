@@ -50,19 +50,21 @@
     </div>
 
     <aside class="promo-sidebar">
-            <h3 class="sidebar-title">Local Promos</h3>
-            
-            <div th:if="${promos != null}">
-                <div th:each="i : ${#numbers.sequence(1, 4)}" 
-                     th:if="${promos.containsKey(i)}" 
-                     class="sidebar-promo-card">
-                    
-                    <h4 th:text="${promos.get(i).name}">Block Name</h4>
-                    <p th:text="${promos.get(i).promoText}">Promo text...</p>
-                    <a th:href="@{'/OrganisationInfo/' + ${promos.get(i).address}}" class="promo-link">Visit →</a>
-                </div>
-            </div>
-        </aside>
+        <h3 class="sidebar-title">Local Promos</h3>
+        
+        <div th:if="${promos != null}">
+            <a th:each="i : ${#numbers.sequence(1, 4)}" 
+                 th:if="${promos.containsKey(i)}" 
+                 th:href="@{'/OrganisationInfo/' + ${promos.get(i).address}}"
+                 class="sidebar-promo-card">
+                
+                <h4 th:text="${promos.get(i).name}">Block Name</h4>
+                <p th:text="${promos.get(i).promoText}">Promo text...</p>
+                
+                <span class="promo-link">Visit →</span>
+            </a>
+        </div>
+    </aside>
 
     </div>
     </div>

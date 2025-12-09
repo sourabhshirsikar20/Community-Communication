@@ -1213,7 +1213,11 @@ body.has-navbar .container:first-of-type {
 }
 
 .sidebar-promo-card {
-    background-color: #fff8e1; /* Light yellow background */
+    display: block;          
+    text-decoration: none;   
+    color: inherit;          
+    
+    background-color: #fff8e1; 
     border: 1px solid #ffe082;
     border-radius: 8px;
     padding: 15px;
@@ -1232,6 +1236,10 @@ body.has-navbar .container:first-of-type {
     font-size: 1.1rem;
 }
 
+.sidebar-promo-card:hover .promo-link {
+    text-decoration: underline;
+}
+
 .sidebar-promo-card p {
     font-size: 0.9rem;
     color: #555;
@@ -1243,7 +1251,6 @@ body.has-navbar .container:first-of-type {
     display: inline-block;
     color: #1D2F6F;
     font-weight: bold;
-    text-decoration: none;
     font-size: 0.9rem;
 }
 
