@@ -35,7 +35,7 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
                 rs.getString("promo_text"),
                 rs.getString("secret_hash"),
                 rs.getBoolean("approved"),
-                rs.getString("reportReason")
+                null
         );
     }
 

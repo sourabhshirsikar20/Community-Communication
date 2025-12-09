@@ -38,7 +38,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             rs.getString("promo_text"),
             rs.getString("secret_hash"),
             rs.getBoolean("approved"),
-            rs.getString("reportReason")
+            null
         ); 
     }
 
@@ -59,7 +59,28 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             FROM communities c 
             WHERE c.approved = '0'
             """;
-        return jdbc.query(sql, blockMapper);
+
+            RowMapper<Block> unapprovedMapper = (rs, i) -> new Block(
+            rs.getInt("id"),
+            rs.getString("address"),
+            rs.getString("name"),
+            rs.getInt("roof_option"),
+            rs.getString("roof_colour"),
+            rs.getInt("base_option"),
+            rs.getString("base_colour"),
+            rs.getInt("foreground_option"),
+            rs.getString("foreground_colour"),
+            rs.getString("font_options"),
+            rs.getString("font_colour"),
+            rs.getString("main_text"),
+            rs.getString("links_text"),
+            rs.getString("info_text"),
+            rs.getString("promo_text"),
+            rs.getString("secret_hash"),
+            rs.getBoolean("approved"),
+            rs.getString("reason")
+            );
+        return jdbc.query(sql, unapprovedMapper);
     }
 
     @Override
