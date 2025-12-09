@@ -1,9 +1,9 @@
 -- Clean old data
 DELETE FROM logins_roles;
-DELETE FROM logins_roles;
 DELETE FROM logins;
 DELETE FROM roles;
 DELETE FROM communities;
+DELETE FROM streets;
 
 -- Insert communities
 
@@ -12,16 +12,17 @@ insert into communities (
   roof_option, roof_colour,
   base_option, base_colour,
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text
+  main_text, links_text, info_text, promo_text, approved
   ) values (
-    '00', 'Corner Shop',
+    '01', 'Corner Shop',
     1, '#cc7979',
     1, '#d8c286',
     1, '#f5dfd5ff',
     'Your local corner shop, here for all everyday items! ...',
     '-links text-',
     '-info text-',
-    '-promo text-'
+    '-promo text-',
+    1
   );
 
 insert into communities (
@@ -31,7 +32,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
   ) values (
-    '01', 'Sarah Resturant',
+    '0200', 'Sarah Resturant',
     2, '#be1313ff',
     2, '#ae0fd6ff',
     2, '#4a2d80ff',
@@ -49,7 +50,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text
 ) values (
-  '02', 'The Old Library',
+  '03', 'The Old Library',
   1, '#5D4037',
   1, '#F5F5DC',
   1, '#8D6E63',
@@ -66,7 +67,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '03', 'Tech Startups',
+  '04', 'Tech Startups',
   1, '#263238',
   2, '#ECEFF1',
   2, '#37474F',
@@ -84,7 +85,7 @@ insert into communities (
   foreground_option, foreground_colour,
   main_text, links_text, info_text, promo_text, approved
 ) values (
-  '04', 'Green Gardens',
+  '05', 'Green Gardens',
   2, '#33691E',
   1, '#8D6E63',
   1, '#558B2F',
@@ -100,16 +101,17 @@ insert into communities (
   roof_option, roof_colour,
   base_option, base_colour,
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text
+  main_text, links_text, info_text, promo_text, approved
 ) values (
-  '05', 'Sweet Treats Bakery',
+  '0201', 'Sweet Treats Bakery',
   2, '#E6B8B7',
   1, '#FFF8E1',
   2, '#D7CCC8',
   'Freshly baked bread, cakes, and pastries every morning.',
   'www.sweettreats.com',
   'Open 6am - 4pm daily',
-  'Half-price croissants after 3pm!'
+  'Half-price croissants after 3pm!',
+  1 
 );
 
 insert into communities (
@@ -155,7 +157,7 @@ insert into communities (
   roof_option, roof_colour,
   base_option, base_colour,
   foreground_option, foreground_colour,
-  main_text, links_text, info_text, promo_text
+  main_text, links_text, info_text, promo_text, approved
 ) values (
   '08', 'Paws & Claws',
   1, '#0288D1',
@@ -164,14 +166,16 @@ insert into communities (
   'Everything you need for your furry, feathered, or scaled friends.',
   'Social: @PawsClawsShop',
   'Grooming services available',
-  'Buy 1 get 1 free on dog treats'
+  'Buy 1 get 1 free on dog treats',
+  1
 );
 
 -- SECURITY SETUP
 
 -- Roles
-INSERT INTO roles (role_id, name) VALUES (1, 'MANAGER');
-INSERT INTO roles (role_id, name) VALUES (2, 'USER');
+insert into roles (role_id, name) values (1, 'ADMIN');
+insert into roles (role_id, name) values (2, 'MANAGER');
+insert into roles (role_id, name) values (3, 'USER');
 
 -- Users
 INSERT INTO logins (login_name, password, enabled)
@@ -180,7 +184,24 @@ VALUES ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu
 INSERT INTO logins (login_name, password, enabled)
 VALUES ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
 
+INSERT INTO logins (login_name, password, enabled) -- password: 'admin'
+values ('admin', '$2a$10$32tB/iVRDfqOKNFkpfVZveQUpkD0uE3uA2zCz10IKe69Pic5piA9y', true);
+
 -- Role mapping
-INSERT INTO logins_roles (login_name, role_id) VALUES ('manager', 1);
-INSERT INTO logins_roles (login_name, role_id) VALUES ('manager', 2);
-INSERT INTO logins_roles (login_name, role_id) VALUES ('user', 2);
+insert into logins_roles (login_name, role_id) values ('admin', 1);
+insert into logins_roles (login_name, role_id) values ('admin', 2);
+insert into logins_roles (login_name, role_id) values ('admin', 3);
+insert into logins_roles (login_name, role_id) values ('manager', 2);
+insert into logins_roles (login_name, role_id) values ('manager', 3);
+insert into logins_roles (login_name, role_id) values ('user', 3);
+
+-- Streets
+
+insert into streets (name, address, description) 
+values ('Main Street', 'root', 'Everything starts here, explore your community!');
+
+insert into streets (name, address, description) 
+values ('New Blocks', '00', 'A place to find newly-added blocks');
+
+insert into streets (name, address, description) 
+values ('Food & Drink', '02', 'A home for all retaurants, takeaways, cafes, and more');
