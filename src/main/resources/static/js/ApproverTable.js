@@ -26,7 +26,7 @@ function enableTableInteractions(allEntries) {
                     <div class="details_pane">
                         <h3>${selectedBlock.name}</h3>
                         ${reasonHtml}
-                        <p> <b> Block Address </b> </p>
+                        <p> <b> Main text </b> </p>
                         <p>${selectedBlock.mainText}</p>
                         <p> <b> Block Address </b> </p>
                         <p>${selectedBlock.address}</p>
