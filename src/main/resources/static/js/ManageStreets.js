@@ -95,8 +95,24 @@ async function DisplayStreet(street, attatch_element) {
 
   street_element.getElementById('street-delete').addEventListener('click', () => {
     el = document.getElementById(`street-${street['self']['address']}`);
+    console.log(el);
 
-    alert('This  will remove ...');
+    if (confirm(`Remove street "${street['self']['name']}"? This will also delete any sub streets and blocks.`)) {
+      fetch(`/remove-street/${street['self']['address']}`, {
+        method: 'post',
+      }).then(response => {
+        if (!response.ok)
+          throw new Error('No reponse after removing street.');
+        return response.json();
+      }).then(success => {
+        if(success) {
+          alert('Street removed successfully');
+          location.reload();
+        }
+        else
+          alert('Error removing street.');
+      });
+    }
   });
 
   DisplaySideStreet(street, street_element.getElementById('street-children'));
@@ -104,7 +120,6 @@ async function DisplayStreet(street, attatch_element) {
 }
 
 function AddNewStreet() {
-  console.log('test');
   document.getElementById('add-street-section').classList.remove('hidden');
 }
 

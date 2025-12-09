@@ -95,6 +95,15 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
     }
 
     @Override
+    public void removeStreet(String address) {
+        if (address.equals("root"))
+            throw new IllegalArgumentException("Cannot rmove the root street");
+
+        String sql = "DELETE FROM streets WHERE address = ?";
+        jdbc.update(sql, address);
+    }
+
+    @Override
     public void approve(int id, String secretHash) {
         String sql = "UPDATE communities SET approved = 1, secret_Hash = ? WHERE id = ?";
         jdbc.update(sql,secretHash, id);

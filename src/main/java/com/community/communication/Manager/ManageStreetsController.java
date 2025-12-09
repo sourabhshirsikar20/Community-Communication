@@ -52,6 +52,17 @@ public class ManageStreetsController {
       
     return new ModelAndView("redirect:/ManageStreets");
   }
+
+  @ResponseBody
+  @PostMapping("/remove-street/{street}")
+  public boolean RemoveStreet(@PathVariable String street) {
+    try {
+      ApproverRepository.removeStreet(street);   
+    } catch(Exception e){
+      return false;
+    }
+    return true;
+  }
   
   
 }
