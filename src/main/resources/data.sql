@@ -355,8 +355,9 @@ insert into communities (
 -- SECURITY SETUP
 
 -- Roles
-INSERT INTO roles (role_id, name) VALUES (1, 'MANAGER');
-INSERT INTO roles (role_id, name) VALUES (2, 'USER');
+insert into roles (role_id, name) values (1, 'ADMIN');
+insert into roles (role_id, name) values (2, 'MANAGER');
+insert into roles (role_id, name) values (3, 'USER');
 
 -- Users
 -- Password for 'manager' is: password
@@ -367,10 +368,16 @@ VALUES ('manager', '$2a$10$uXkdCPrB3Adlpw0H2EUWWeoMVWcGwtDroMR.YeZ9BW13Za9fe5chu
 INSERT INTO logins (login_name, password, enabled)
 VALUES ('user', '$2a$10$1T51cvA5jk4d1uu/P9462.rVKfGXOxLB.olz79MpOpa5XYHHOCblS', true);
 
+INSERT INTO logins (login_name, password, enabled) -- password: 'admin'
+values ('admin', '$2a$10$32tB/iVRDfqOKNFkpfVZveQUpkD0uE3uA2zCz10IKe69Pic5piA9y', true);
+
 -- Role mapping
-insert into logins_roles (login_name, role_id) values ('manager', 1);
+insert into logins_roles (login_name, role_id) values ('admin', 1);
+insert into logins_roles (login_name, role_id) values ('admin', 2);
+insert into logins_roles (login_name, role_id) values ('admin', 3);
 insert into logins_roles (login_name, role_id) values ('manager', 2);
-insert into logins_roles (login_name, role_id) values ('user', 2);
+insert into logins_roles (login_name, role_id) values ('manager', 3);
+insert into logins_roles (login_name, role_id) values ('user', 3);
 
 -- Streets
 

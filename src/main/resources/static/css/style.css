@@ -178,7 +178,7 @@ tbody tr:hover {
 }
 
 
-#approve_button {
+#approve_button, #delete_button {
     background: none;
     border: 2px solid transparent;
     border-radius: 50%;
@@ -191,6 +191,7 @@ tbody tr:hover {
     font-weight: bold;
     font-size: 1.2rem;
     transition: all 0.2s ease;
+    
 }
 
 #approve_button {
@@ -200,6 +201,15 @@ tbody tr:hover {
 
 #approve_button:hover {
     background-color: #28a745;
+    color: #FFFFFF;
+}
+#delete_button {
+    color: #d10a0a;
+    border-color: #d10a0a;
+}
+
+#delete_button:hover {
+    background-color: #d10a0a;
     color: #FFFFFF;
 }
 

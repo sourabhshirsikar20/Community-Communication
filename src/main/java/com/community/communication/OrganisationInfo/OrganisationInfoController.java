@@ -5,9 +5,13 @@ import java.util.Map;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.community.communication.Approved.Block;
@@ -72,7 +76,13 @@ public class OrganisationInfoController {
             // Any other error
             mav.setViewName("error");
             mav.addObject("errorMessage", "Error loading block information: " + e.getMessage());
-            return mav;
+        
+    //Checking if its a manager
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    boolean isManager = auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"));
+    mav.addObject("isManager", isManager);
+
+    return mav;
         }
     }
     
@@ -81,4 +91,10 @@ public class OrganisationInfoController {
         ModelAndView mavv = new ModelAndView("Links.html");
         return mavv;
     }
+
+@PostMapping("/OrganisationInfo/report")
+public String reportBlock(@RequestParam int id, @RequestParam String name, @RequestParam String reason) {
+    organisationInfoRepository.reportBlock(id, name, reason);
+    return "redirect:/Index";
+}
 }
