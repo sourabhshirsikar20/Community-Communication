@@ -30,6 +30,7 @@ public class Block {
     String secretHash;
     boolean approved;
     LocalDateTime createdDate;  
+    String reportReason;
 
     public Block() {
         id = -1;
@@ -48,7 +49,8 @@ public class Block {
         infoText = "";
         promoText = "";
         approved = false;
-        createdDate = LocalDateTime.now();  
+        createdDate = LocalDateTime.now(); 
+        reportReason = ""; 
     }
 
     public Block(SubmitBlock submitBlock) {
@@ -68,6 +70,7 @@ public class Block {
         infoText = submitBlock.getInfoText();
         promoText = submitBlock.getPromoText();
         approved = false;
+        reportReason = "";
     }
     // Adding try-catch to handle potential JSON parsing errors. For Manual Database Edits - JSONException → 500 error → ERR_INCOMPLETE_CHUNKED_ENCODING
 

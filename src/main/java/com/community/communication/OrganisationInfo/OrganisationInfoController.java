@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.community.communication.Approved.Block;
 import com.community.communication.Expiry.ExpiryService;
@@ -93,8 +94,9 @@ public class OrganisationInfoController {
     }
 
 @PostMapping("/OrganisationInfo/report")
-public String reportBlock(@RequestParam int id, @RequestParam String name, @RequestParam String reason) {
+public String reportBlock(@RequestParam int id, @RequestParam String name, @RequestParam String reason, RedirectAttributes redirectAttributes) {
     organisationInfoRepository.reportBlock(id, name, reason);
+    redirectAttributes.addFlashAttribute("successMessage", "The block is reported, and it has been moved to the approval page for review.");
     return "redirect:/Index";
 }
 }

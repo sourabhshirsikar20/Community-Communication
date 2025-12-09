@@ -41,7 +41,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 // Added created_date mapping
                 rs.getTimestamp("created_date") != null ? 
                 rs.getTimestamp("created_date").toLocalDateTime() : 
-                java.time.LocalDateTime.now()
+                java.time.LocalDateTime.now(),
+                null
         );
     }
 
