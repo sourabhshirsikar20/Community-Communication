@@ -48,7 +48,7 @@ public class Block {
         infoText = "";
         promoText = "";
         approved = false;
-        reportReason = null;
+        reportReason = "";
     }
 
     public Block(SubmitBlock submitBlock) {
@@ -68,7 +68,7 @@ public class Block {
         infoText = submitBlock.getInfoText();
         promoText = submitBlock.getPromoText();
         approved = false;
-        reportReason = null;
+        reportReason = "";
     }
 
     public boolean ExtractFontSerif() {

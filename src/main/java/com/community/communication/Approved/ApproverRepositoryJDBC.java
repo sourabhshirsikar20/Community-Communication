@@ -37,7 +37,8 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
             rs.getString("info_text"),
             rs.getString("promo_text"),
             rs.getString("secret_hash"),
-            rs.getBoolean("approved")
+            rs.getBoolean("approved"),
+            rs.getString("reportReason")
         ); 
     }
 
@@ -52,7 +53,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
 
     @Override
     public List<Block> getUnapprovedBlocks() {
-        String sql = "SELECT * FROM communities WHERE approved = '0'";
+        String sql = """
+            SELECT c.*, 
+            (SELECT reason FROM reports WHERE blockID = c.id ORDER BY id DESC LIMIT 1) as reason 
+            FROM communities c 
+            WHERE c.approved = '0'
+            """;
         return jdbc.query(sql, blockMapper);
     }
 
