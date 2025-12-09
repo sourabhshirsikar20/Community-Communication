@@ -17,6 +17,10 @@ function enableTableInteractions(allEntries) {
             console.log("Found Block:", selectedBlock);
 
             if (selectedBlock) {
+                // Is there a report?
+                const reasonHtml = selectedBlock.reportReason 
+                    ? `<p> <b> Reason for Report </b> </p><p>${selectedBlock.reportReason}</p>` 
+                    : '';
                 displayBox.innerHTML = `
                     <div class="details_pane">
                         <h3>${selectedBlock.name}</h3>
