@@ -47,6 +47,22 @@
 
         </a>
     </div>
+
+    <aside class="promo-sidebar">
+            <h3 class="sidebar-title">Local Promos</h3>
+            
+            <div th:if="${promos != null}">
+                <div th:each="i : ${#numbers.sequence(1, 4)}" 
+                     th:if="${promos.containsKey(i)}" 
+                     class="sidebar-promo-card">
+                    
+                    <h4 th:text="${promos.get(i).name}">Block Name</h4>
+                    <p th:text="${promos.get(i).promoText}">Promo text...</p>
+                    <a th:href="@{'/OrganisationInfo/' + ${promos.get(i).address}}" class="promo-link">Visit →</a>
+                </div>
+            </div>
+        </aside>
+        
     </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
