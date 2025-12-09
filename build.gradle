@@ -31,6 +31,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-security:'
 	implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
+    // https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind
+    implementation("tools.jackson.core:jackson-databind:3.0.3")
 	// https://mvnrepository.com/artifact/org.jsoup/jsoup for html cleaning
 	implementation 'org.jsoup:jsoup:1.21.2'
 	// https://mvnrepository.com/artifact/org.json/json for font option handling

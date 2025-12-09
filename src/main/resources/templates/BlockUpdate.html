@@ -3,57 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <title>Update</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="has-navbar">
+<div th:replace="~{NavigationBar :: approver-nav}"></div>
+
+<h2 class="form-title">Update Block</h2>
+
 <div th:if="${Block!=null}">
-<form action="/Block/Update" method="post">
-    <input type="hidden" name="Id" th:value="${Block.id}">
-    <label>Address:</label>
-    <input type="text" name="Address" th:value="${Block.address}">
-    <br>
-    <label>Name:</label>
-    <input type="text" name="Name" th:value="${Block.name}">
-    <br>
-    <label>Roof Option:</label>
-    <input type="text" name="RoofOption" th:value="${Block.roofOption}">
-    <br>
-    <label>Roof Colour:</label>
-    <input type="text" name="RoofColour" th:value="${Block.roofColour}">
-    <br>
-    <label>Base Option:</label>
-    <input type="text" name="BaseOption" th:value="${Block.baseOption}">
-    <br>
-    <label>Base Colour:</label>
-    <input type="text" name="BaseColour" th:value="${Block.baseColour}">
-    <br>
-    <label>Foreground Option:</label>
-    <input type="text" name="ForegroundOption" th:value="${Block.foregroundOption}">
-    <br>
-    <label>Foreground Colour:</label>
-    <input type="text" name="ForegroundColour" th:value="${Block.foregroundColour}">
-    <br>
-    <label>Font Options:</label>
-    <input type="text" name="FontOptions" th:value="${Block.fontOptions}">
-    <br>
-    <label>Main Text:</label>
-    <input type="text" name="MainText" th:value="${Block.mainText}">
-    <br>
-    <label>Links Text:</label>
-    <input type="text" name="LinksText" th:value="${Block.linksText}">
-    <br>
-    <label>Info Text:</label>
-    <input type="text" name="InfoText" th:value="${Block.infoText}">
-    <br>
-    <label>Promo Text:</label>
-    <input type="text" name="PromoText" th:value="${Block.promoText}">
-    <br>
-    <button type="submit">Update</button>
-</form>
+    <form action="/Block/Update" method="post" class="form update-form">
+        <input type="hidden" name="Id" th:value="${Block.id}">
+
+        <div class="form-group">
+            <label>Address:</label>
+            <input type="text" name="Address" th:value="${Block.address}" class="form-input">
+            <p th:if="${AddressErr}" class="error-message" th:text="${AddressErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="Name" th:value="${Block.name}" class="form-input">
+            <p th:if="${NameErr}" class="error-message" th:text="${NameErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Roof Option:</label>
+            <input type="text" name="RoofOption" th:value="${Block.roofOption}" class="form-input">
+            <p th:if="${RoofOptionErr}" class="error-message" th:text="${RoofOptionErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Roof Colour:</label>
+            <input type="text" name="RoofColour" th:value="${Block.roofColour}" class="form-input">
+            <p th:if="${RoofColourErr}" class="error-message" th:text="${RoofColourErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Base Option:</label>
+            <input type="text" name="BaseOption" th:value="${Block.baseOption}" class="form-input">
+            <p th:if="${BaseOptionErr}" class="error-message" th:text="${BaseOptionErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Base Colour:</label>
+            <input type="text" name="BaseColour" th:value="${Block.baseColour}" class="form-input">
+            <p th:if="${BaseColourErr}" class="error-message" th:text="${BaseColourErr}"></p>        </div>
+        <div class="form-group">
+            <label>Foreground Option:</label>
+            <input type="text" name="ForegroundOption" th:value="${Block.foregroundOption}" class="form-input">
+            <p th:if="${ForegroundOptionErr}" class="error-message" th:text="${ForegroundOptionErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Foreground Colour:</label>
+            <input type="text" name="ForegroundColour" th:value="${Block.foregroundColour}" class="form-input">
+            <p th:if="${ForegroundColourErr}" class="error-message" th:text="${ForegroundColourErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Font Options:</label>
+            <input type="text" name="FontOptions" th:value="${Block.fontOptions}" class="form-input">
+            <p th:if="${FontOptionsErr}" class="error-message" th:text="${FontOptionsErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Font Colour:</label>
+            <input type="text" name="FontColour" th:value="${Block.fontColour}" class="form-input">
+            <p th:if="${FontColourErr}" class="error-message" th:text="${FontColourErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Main Text:</label>
+            <input type="text" name="MainText" th:value="${Block.mainText}" class="form-input">
+            <p th:if="${MainTextErr}" class="error-message" th:text="${MainTextErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Links Text:</label>
+            <input type="text" name="LinksText" th:value="${Block.linksText}" class="form-input">
+            <p th:if="${LinksTextErr}" class="error-message" th:text="${LinksTextErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Info Text:</label>
+            <input type="text" name="InfoText" th:value="${Block.infoText}" class="form-input">
+            <p th:if="${InfoTextErr}" class="error-message" th:text="${InfoTextErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Promo Text:</label>
+            <input type="text" name="PromoText" th:value="${Block.promoText}" class="form-input">
+            <p th:if="${PromoTextErr}" class="error-message" th:text="${PromoTextErr}"></p>
+        </div>
+        <div class="form-group">
+            <label>Secret Hash:</label>
+            <input type="text" name="SecretHash" th:value="${Block.secretHash}" class="form-input">
+            <p th:if="${SecretHashErr}" class="error-message" th:text="${SecretHashErr}"></p>
+        </div>
+
+        <button type="submit" class="submit-button">Update</button>
+    </form>
 </div>
-<div th:if="${Str!=null}">
+
+<div th:if="${Str!=null}" class="success-message">
     <p th:text="${Str}"></p>
 </div>
-<a href="/Block/Check">Check</a>
-<a href="/Block/View">View</a>
+
+<div class="block-add-links">
+    <a href="/Block/Check">Check</a>
+    <a href="/Block/View">View</a>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:replace="~{NavigationBar :: navbar-js}"></script>
 </body>
 </html>

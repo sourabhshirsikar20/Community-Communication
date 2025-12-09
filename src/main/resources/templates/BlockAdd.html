@@ -3,54 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <title>Add</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-<form action="/Block/Add" method="post">
-    <label>Address:</label>
-    <input type="text" name="Address">
-    <br>
-    <label>Name:</label>
-    <input type="text" name="Name">
-    <br>
-    <label>Roof Option:</label>
-    <input type="text" name="RoofOption">
-    <br>
-    <label>Roof Colour:</label>
-    <input type="text" name="RoofColour">
-    <br>
-    <label>Base Option:</label>
-    <input type="text" name="BaseOption">
-    <br>
-    <label>Base Colour:</label>
-    <input type="text" name="BaseColour">
-    <br>
-    <label>Foreground Option:</label>
-    <input type="text" name="ForegroundOption">
-    <br>
-    <label>Foreground Colour:</label>
-    <input type="text" name="ForegroundColour">
-    <br>
-    <label>Font Options:</label>
-    <input type="text" name="FontOptions">
-    <br>
-    <label>Main Text:</label>
-    <input type="text" name="MainText">
-    <br>
-    <label>Links Text:</label>
-    <input type="text" name="LinksText">
-    <br>
-    <label>Info Text:</label>
-    <input type="text" name="InfoText">
-    <br>
-    <label>Promo Text:</label>
-    <input type="text" name="PromoText">
-    <br>
-    <button type="submit">Add</button>
-</form>
-<div th:if="${Str!=null}">
-    <p th:text="${Str}"></p>
+
+<body class="has-navbar">
+
+<div th:replace="~{NavigationBar :: approver-nav}"></div>
+
+<div class="add-block-container">
+
+    <h2 class="form-title">Add Block</h2>
+
+    <form action="/Block/Add" method="post" class="form">
+
+        <div class="form-group">
+            <label>Address:</label>
+            <input type="text" name="Address" class="form-input"  th:value="${Address}">
+            <p th:if="${AddressErr}" class="error-message" th:text="${AddressErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="Name" class="form-input"  th:value="${Name}">
+            <p th:if="${NameErr}" class="error-message" th:text="${NameErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Roof Option:</label>
+            <input type="text" name="RoofOption" class="form-input" th:value="${RoofOption}">
+            <p th:if="${RoofOptionErr}" class="error-message" th:text="${RoofOptionErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Roof Colour:</label>
+            <input type="text" name="RoofColour" class="form-input"  th:value="${RoofColour}">
+            <p th:if="${RoofColourErr}" class="error-message" th:text="${RoofColourErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Base Option:</label>
+            <input type="text" name="BaseOption" class="form-input" th:value="${BaseOption}">
+            <p th:if="${BaseOptionErr}" class="error-message" th:text="${BaseOptionErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Base Colour:</label>
+            <input type="text" name="BaseColour" class="form-input" th:value="${BaseColour}">
+            <p th:if="${BaseColourErr}" class="error-message" th:text="${BaseColourErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Foreground Option:</label>
+            <input type="text" name="ForegroundOption" class="form-input" th:value="${ForegroundOption}">
+            <p th:if="${ForegroundOptionErr}" class="error-message" th:text="${ForegroundOptionErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Foreground Colour:</label>
+            <input type="text" name="ForegroundColour" class="form-input" th:value="${ForegroundColour}">
+            <p th:if="${ForegroundColourErr}" class="error-message" th:text="${ForegroundColourErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Font Options:</label>
+            <input type="text" name="FontOptions" class="form-input" th:value="${FontOptions}">
+            <p th:if="${FontOptionsErr}" class="error-message" th:text="${FontOptionsErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Font Colour:</label>
+            <input type="text" name="FontColour" class="form-input" th:value="${FontColour}">
+            <p th:if="${FontColourErr}" class="error-message" th:text="${FontColourErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Main Text:</label>
+            <input type="text" name="MainText" class="form-input" th:value="${MainText}">
+            <p th:if="${MainTextErr}" class="error-message" th:text="${MainTextErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Links Text:</label>
+            <input type="text" name="LinksText" class="form-input" th:value="${LinksText}">
+            <p th:if="${LinksTextErr}" class="error-message" th:text="${LinksTextErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Info Text:</label>
+            <input type="text" name="InfoText" class="form-input" th:value="${InfoText}">
+            <p th:if="${InfoTextErr}" class="error-message" th:text="${InfoTextErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Promo Text:</label>
+            <input type="text" name="PromoText" class="form-input" th:value="${PromoText}">
+            <p th:if="${PromoTextErr}" class="error-message" th:text="${PromoTextErr}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Secret Hash:</label>
+            <input type="text" name="SecretHash" class="form-input" th:value="${SecretHash}">
+            <p th:if="${SecretHashErr}" class="error-message" th:text="${SecretHashErr}"></p>
+        </div>
+
+
+        <button type="submit" class="submit-button">Add</button>
+    </form>
+
+    <div th:if="${Str!=null}" class="success-message">
+        <p th:text="${Str}"></p>
+    </div>
+
+    <div class="block-add-links">
+        <a href="/Block/Check">Check</a>
+        <a href="/Block/View">View</a>
+    </div>
+
 </div>
-<a href="/Block/Check">Check</a>
-<a href="/Block/View">View</a>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:replace="~{NavigationBar :: navbar-js}"></script>
+
 </body>
 </html>
