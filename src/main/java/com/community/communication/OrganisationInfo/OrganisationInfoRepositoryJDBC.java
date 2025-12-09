@@ -40,7 +40,7 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
                 // Added created_date mapping
                 rs.getTimestamp("created_date") != null
                 ? rs.getTimestamp("created_date").toLocalDateTime()
-                : LocalDateTime.now()
+                : LocalDateTime.now(),
                 null
         );
     }

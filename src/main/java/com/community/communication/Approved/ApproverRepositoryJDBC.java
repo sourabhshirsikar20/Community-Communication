@@ -41,7 +41,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
                 // Added created_date mapping
                 rs.getTimestamp("created_date") != null ? 
                     rs.getTimestamp("created_date").toLocalDateTime() : 
-                    null // Allow null for unapproved blocks
+                    null, // Allow null for unapproved blocks
                 null
         );
     }
@@ -81,6 +81,9 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
             rs.getString("promo_text"),
             rs.getString("secret_hash"),
             rs.getBoolean("approved"),
+            rs.getTimestamp("created_date") != null ? 
+                    rs.getTimestamp("created_date").toLocalDateTime() : 
+                    null,
             rs.getString("reason")
             );
         return jdbc.query(sql, unapprovedMapper);
