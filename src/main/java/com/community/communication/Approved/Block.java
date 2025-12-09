@@ -29,6 +29,7 @@ public class Block {
 
     String secretHash;
     boolean approved;
+    String reportReason;
 
     public Block() {
         id = -1;
@@ -47,6 +48,7 @@ public class Block {
         infoText = "";
         promoText = "";
         approved = false;
+        reportReason = null;
     }
 
     public Block(SubmitBlock submitBlock) {
@@ -66,6 +68,7 @@ public class Block {
         infoText = submitBlock.getInfoText();
         promoText = submitBlock.getPromoText();
         approved = false;
+        reportReason = null;
     }
 
     public boolean ExtractFontSerif() {
