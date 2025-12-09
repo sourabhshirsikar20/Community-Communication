@@ -65,6 +65,11 @@ public class OrganisationInfoController {
             mav.addObject("hoursRemaining", expiryInfo.get("hoursRemaining"));
             mav.addObject("minutesRemaining", expiryInfo.get("minutesRemaining"));
             mav.addObject("formattedExpiryDate", expiryInfo.get("formattedExpiryDate"));
+
+            //Checking if its a manager
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            boolean isManager = auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MANAGER"));
+            mav.addObject("isManager", isManager);
             
             //Checking if its a manager
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -82,7 +87,6 @@ public class OrganisationInfoController {
             // Any other error
             mav.setViewName("error");
             mav.addObject("errorMessage", "Error loading block information: " + e.getMessage());
-        
 
     return mav;
         }
