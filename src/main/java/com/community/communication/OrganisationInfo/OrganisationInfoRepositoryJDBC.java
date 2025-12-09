@@ -1,5 +1,7 @@
 package com.community.communication.OrganisationInfo;
 
+import java.time.LocalDateTime;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -11,13 +13,13 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
     private JdbcTemplate Jdbc;
     private RowMapper<Block> organisationInfoMapper;
 
-    public OrganisationInfoRepositoryJDBC(JdbcTemplate IJdbc){
+    public OrganisationInfoRepositoryJDBC(JdbcTemplate IJdbc) {
         this.Jdbc = IJdbc;
         setOrganisationInfoMapper();
     }
 
-    public void setOrganisationInfoMapper(){
-        organisationInfoMapper = (rs,i) -> new Block(
+    public void setOrganisationInfoMapper() {
+        organisationInfoMapper = (rs, i) -> new Block(
                 rs.getInt("id"),
                 rs.getString("address"),
                 rs.getString("name"),
@@ -35,6 +37,10 @@ public class OrganisationInfoRepositoryJDBC implements OrganisationInfoRepositor
                 rs.getString("promo_text"),
                 rs.getString("secret_hash"),
                 rs.getBoolean("approved"),
+                // Added created_date mapping
+                rs.getTimestamp("created_date") != null
+                ? rs.getTimestamp("created_date").toLocalDateTime()
+                : LocalDateTime.now()
                 null
         );
     }

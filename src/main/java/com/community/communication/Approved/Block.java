@@ -1,4 +1,5 @@
 package com.community.communication.Approved;
+import java.time.LocalDateTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,9 +27,9 @@ public class Block {
     String linksText;
     String infoText;
     String promoText;
-
     String secretHash;
     boolean approved;
+    LocalDateTime createdDate;  
     String reportReason;
 
     public Block() {
@@ -48,7 +49,8 @@ public class Block {
         infoText = "";
         promoText = "";
         approved = false;
-        reportReason = "";
+        createdDate = LocalDateTime.now(); 
+        reportReason = ""; 
     }
 
     public Block(SubmitBlock submitBlock) {
@@ -70,33 +72,66 @@ public class Block {
         approved = false;
         reportReason = "";
     }
+    // Adding try-catch to handle potential JSON parsing errors. For Manual Database Edits - JSONException → 500 error → ERR_INCOMPLETE_CHUNKED_ENCODING
 
     public boolean ExtractFontSerif() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getBoolean("serif");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return false; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getBoolean("serif");
+        } catch (JSONException e) {
+            return false; // Default on error
+        }
     }
 
     public boolean ExtractFontItalic() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getBoolean("italic");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return true; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getBoolean("italic");
+        } catch (JSONException e) {
+            return true; // Default on error
+        }
     }
 
     public int ExtractFontWeight() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getInt("weight");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return 450; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getInt("weight");
+        } catch (JSONException e) {
+            return 450; // Default on error
+        }
     }
 
     public int ExtractFontWidth() {
-        JSONObject json = new JSONObject(fontOptions);
-        return json.getInt("width");
+        try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return 85; // Default value
+            }
+            JSONObject json = new JSONObject(fontOptions);
+            return json.getInt("width");
+        } catch (JSONException e) {
+            return 85; // Default on error
+        }
     }
 
     public int ExtractFontGrade() {
         try {
+            if (fontOptions == null || fontOptions.isEmpty()) {
+                return 0; // Default value
+            }
             JSONObject json = new JSONObject(fontOptions);
             return json.getInt("grade");
         } catch (JSONException e) {
-            return 0; // grade not found, return neutral value
+            return 0; // Default on error
         }
     }
+    
 }

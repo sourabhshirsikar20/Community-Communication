@@ -39,3 +39,6 @@ out/
 
 ### MacOS ###
 .DS_Store
+
+### Log Files ###
+logs/
