@@ -130,7 +130,8 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
         String sql = "SELECT * FROM communities WHERE " +
                         "approved = '1' AND " +
                         "SUBSTRING(address, 1, ?) = ? AND " +
-                        "LENGTH(address) = ?" ;
+                        "LENGTH(address) = ? "+
+                        "ORDER BY CAST(address AS UNSIGNED)";
         return jdbc.query(sql, blockMapper,  streetAddress.length(), streetAddress, streetAddress.length()+2);
     }
 
