@@ -1,5 +1,7 @@
 package com.community.communication.Approved;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,9 +24,15 @@ public class Block {
     String foregroundColour;
     String fontOptions;
     String fontColour;
+    @NotEmpty(message = "Main text may not be empty")
+    @Size(max = 512, message = "Main text cannot exceed 512 characters")
+    @Size(min = 10, message = "Minimum 10 characters need")
     String mainText;
+    @Size(max = 256, message = "Link text cannot exceed 256 characters")
     String linksText;
+    @Size(max = 256, message = "Contact Information cannot exceed 256 characters")
     String infoText;
+    @Size(max = 256, message = "Promo text cannot exceed 256 characters")
     String promoText;
 
     String secretHash;

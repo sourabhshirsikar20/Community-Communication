@@ -2,11 +2,14 @@ package com.community.communication.BlockAccess;
 
 import com.community.communication.Approved.Block;
 import com.community.communication.OrganiseBlock.BlockRepository;
+import jakarta.validation.Valid;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/BlockAccess")
@@ -69,7 +72,17 @@ public class BlockAccessController {
                                     @RequestParam String mainText,
                                     @RequestParam String linksText,
                                     @RequestParam String infoText,
-                                    @RequestParam String promoText) {
+                                    @RequestParam String promoText,
+                                    @Valid @ModelAttribute("block") Block block,
+                                    BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            ModelAndView mav = new ModelAndView("BlockAccessEdit");
+            mav.addObject("block", block);
+            mav.addObject(BindingResult.MODEL_KEY_PREFIX + "block", bindingResult); // required for Thymeleaf
+            return mav;
+        }
 
         Block current = blockRepository.ById(id);
 
