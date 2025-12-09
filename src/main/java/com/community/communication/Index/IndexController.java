@@ -1,6 +1,7 @@
 package com.community.communication.Index;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,12 +16,17 @@ import com.community.communication.Approved.ApproverRepository;
 import com.community.communication.Approved.Block;
 import com.community.communication.Approved.StreetInfo;
 import com.community.communication.OrganisationInfo.OrganisationInfoRepository;
+import com.community.communication.Promos.PromoRepository;
 
 @Controller
 public class IndexController {
 
     @Autowired
     private ApproverRepository ApproverRepository;
+
+    @Autowired
+    private PromoRepository promoRepository;
+
     @GetMapping("/")
     public String redirectToIndex() {
         return "redirect:/Index";
@@ -34,6 +40,7 @@ public class IndexController {
         ModelAndView mav = new ModelAndView("StreetView.html");
         List<Block> Approved = ApproverRepository.getStreetBlocks("");
         mav.addObject("Approved", Approved);
+        addPromosToView(mav);
         return mav;
     }
     
@@ -46,6 +53,7 @@ public class IndexController {
         
         List<Block> Approved = ApproverRepository.getStreetBlocks(street);
         mav.addObject("Approved", Approved);
+        addPromosToView(mav);
 
         return mav;
     }
@@ -75,6 +83,7 @@ public class IndexController {
         ModelAndView mav = new ModelAndView("StreetView.html");
         List<Block> Approved = ApproverRepository.getSearch(search_value); 
         mav.addObject("Approved", Approved);
+        addPromosToView(mav);
         return mav; 
     }
 
@@ -82,5 +91,10 @@ public class IndexController {
     @ResponseBody
     public List<Block> searchApi(@RequestParam("value") String value) {
         return ApproverRepository.getSearch(value);
+    }
+
+    private void addPromosToView(ModelAndView mav) {
+        Map<Integer, Block> promos = promoRepository.getActivePromos();
+        mav.addObject("promos", promos);
     }
 }
