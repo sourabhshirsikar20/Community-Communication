@@ -1,10 +1,13 @@
 package com.community.communication.OrganiseBlock;
 
-import com.community.communication.Approved.Block;
+import java.util.List;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.community.communication.Approved.Block;
 
 @Repository
 public class BlockRepositoryJDBC implements BlockRepository {
@@ -34,7 +37,11 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 rs.getString("info_text"),
                 rs.getString("promo_text"),
                 rs.getString("secret_hash"),
-                rs.getBoolean("approved")
+                rs.getBoolean("approved"),
+                // Added created_date mapping
+                rs.getTimestamp("created_date") != null ? 
+                rs.getTimestamp("created_date").toLocalDateTime() : 
+                java.time.LocalDateTime.now()
         );
     }
 
@@ -110,5 +117,25 @@ public class BlockRepositoryJDBC implements BlockRepository {
     public void deleteBlock(int blockId) {
         String sql = "DELETE FROM communities WHERE id = ?";
         Jdbc.update(sql, blockId);
+    }
+    //Get all blocks from database.Used by cleanup service to check all blocks for expiry
+    @Override
+    public List<Block> findAll() {
+        String SQL = "SELECT * FROM communities";
+        return Jdbc.query(SQL, rowMapper);
+    }
+    
+    //Delete a block from database.Used by cleanup service to remove expired blocks
+    @Override
+    public void delete(Block block) {
+        String SQL = "DELETE FROM communities WHERE id = ?";
+        Jdbc.update(SQL, block.getId());
+    }
+    
+    // Delete block by ID (alternative method)
+    @Override
+    public void deleteById(int id) {
+        String SQL = "DELETE FROM communities WHERE id = ?";
+        Jdbc.update(SQL, id);
     }
 }
