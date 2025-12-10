@@ -11,23 +11,26 @@
 
     <div class="form-error" th:if="${error}" th:text="${error}"></div>
 
-    <form action="/BlockAccess" method="post" class="form-container">
+    <form id="block-access-form" action="/BlockAccess" method="post" class="form-container">
         <h2 class="form-title">Access Your Block</h2>
         <div class="form-field">
             <label for="address">Block adress</label>
             <input id="address" name="address" class="styled-input"
                    type="text"
                    th:value="${address}">
+            <span id="addressError" class="form-error"></span>
         </div>
 
         <div class="form-field">
             <label for="accessCode">Access Code</label>
             <input id="accessCode" name="accessCode" class="styled-input"
                    type="password" maxlength="20">
+            <span id="accessCodeError" class="form-error"></span>
         </div>
 
-        <button class="submit-button" type="submit" >Next</button>
+        <button class="submit-button" style="margin-top: 20px" type="submit" >Next</button>
     </form>
 </div>
+<script src="/js/BlockAccess.js"></script>
 </body>
 </html>

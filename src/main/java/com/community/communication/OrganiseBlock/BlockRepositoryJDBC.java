@@ -18,7 +18,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
         this.Jdbc = Jdbc;
         setBlockMapper();
     }
-  
+
     private void setBlockMapper() {
         rowMapper = (rs, i) -> new Block(
                 rs.getInt("id"),
@@ -39,8 +39,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 rs.getString("secret_hash"),
                 rs.getBoolean("approved"),
                 // Added created_date mapping
-                rs.getTimestamp("created_date") != null ? 
-                rs.getTimestamp("created_date").toLocalDateTime() : 
+                rs.getTimestamp("created_date") != null ?
+                rs.getTimestamp("created_date").toLocalDateTime() :
                 java.time.LocalDateTime.now(),
                 null
         );
@@ -83,6 +83,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
     public void Update(Block block) {
         String SQL = """
         UPDATE communities SET 
+            address=?, 
             name=?, 
             roof_option=?, 
             roof_colour=?, 
@@ -100,7 +101,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
             secret_hash=?
         WHERE id=?;
     """;
-        Jdbc.update(SQL,
+        Jdbc.update(SQL, block.getAddress(),
                 block.getName(),
                 block.getRoofOption(),
                 block.getRoofColour(),
@@ -128,14 +129,14 @@ public class BlockRepositoryJDBC implements BlockRepository {
         String SQL = "SELECT * FROM communities";
         return Jdbc.query(SQL, rowMapper);
     }
-    
+
     //Delete a block from database.Used by cleanup service to remove expired blocks
     @Override
     public void delete(Block block) {
         String SQL = "DELETE FROM communities WHERE id = ?";
         Jdbc.update(SQL, block.getId());
     }
-    
+
     // Delete block by ID (alternative method)
     @Override
     public void deleteById(int id) {

@@ -2,11 +2,14 @@ package com.community.communication.BlockAccess;
 
 import com.community.communication.Approved.Block;
 import com.community.communication.OrganiseBlock.BlockRepository;
+import jakarta.validation.Valid;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/BlockAccess")
@@ -69,26 +72,37 @@ public class BlockAccessController {
                                     @RequestParam String mainText,
                                     @RequestParam String linksText,
                                     @RequestParam String infoText,
-                                    @RequestParam String promoText) {
+                                    @RequestParam String promoText,
+                                    @Valid @ModelAttribute("block") Block block,
+                                    BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            ModelAndView mav = new ModelAndView("BlockAccessEdit.html");
+            mav.addObject("block", block);
+            mav.addObject("accessCode", accessCode);
+            mav.addObject(BindingResult.MODEL_KEY_PREFIX + "block", bindingResult); // required for Thymeleaf
+            return mav;
+        }
 
         Block current = blockRepository.ById(id);
 
         ModelAndView mav = new ModelAndView("BlockAccessEdit.html");
 
-        if (current == null ||
-                current.getSecretHash() == null ||
-                !passwordEncoder.matches(accessCode, current.getSecretHash())) {
-            mav.addObject("error", "Invalid Access code! Edits will not be saved!");
-            mav.addObject("block", current !=null ? current : new Block());
-            return mav;
-        }
         try {
             Block existing = blockRepository.ByAddress(address);
 
             if (existing != null && existing.getId() != id) {
-                mav.addObject("error", "Address already exists. Changes NOT saved.");
-                mav.addObject("block", current);
+                bindingResult.rejectValue(
+                        "address",
+                        "address.exists",
+                        "Address already exists. Changes NOT saved."
+                );
+                mav.addObject("block", block);
                 mav.addObject("accessCode", accessCode);
+
+                mav.addObject(BindingResult.MODEL_KEY_PREFIX + "block", bindingResult);
+
                 return mav;
             }
 
@@ -119,9 +133,56 @@ public class BlockAccessController {
         mav.addObject("success", "Modifications Saved Successfully!.");
         return mav;
     }
+    @PostMapping("/updateCode")
+    public ModelAndView updateCode(@RequestParam int id,
+                                   @RequestParam(required = false) String newAccessCode,
+                                   @RequestParam(required = false) String confirmAccessCode,
+                                   @RequestParam String accessCode) {
+
+        ModelAndView mav = new ModelAndView("BlockAccessEdit.html");
+        Block current = blockRepository.ById(id);
+
+        mav.addObject("block", current);
+        mav.addObject("accessCode", accessCode);
+
+        if (current == null ||
+                current.getSecretHash() == null ||
+                !passwordEncoder.matches(accessCode, current.getSecretHash())) {
+            mav.addObject("error", "Invalid access code! No changes saved.");
+            return mav;
+        }
+
+        if (newAccessCode == null || newAccessCode.isBlank()) {
+            mav.addObject("success", "Updated (access code unchanged).");
+            return mav;
+        }
+
+        if (!newAccessCode.matches("\\d{4,6}")) {
+            mav.addObject("error", "Code must be 4–6 digits.");
+            return mav;
+        }
+
+        if (!newAccessCode.equals(confirmAccessCode)) {
+            mav.addObject("error", "Codes do NOT match!");
+            return mav;
+        }
+        AccessCodeValidator validator = new AccessCodeValidator();
+        if (!validator.isValid(newAccessCode, confirmAccessCode)) {
+            mav.addObject("error", "Codes must match and contain only 4–6 digits.");
+            return mav;
+        }
+
+        String hash = passwordEncoder.encode(newAccessCode);
+        current.setSecretHash(hash);
+        blockRepository.Update(current);
+
+        mav.addObject("success", "Access code updated successfully!");
+        return mav;
+    }
+
     @GetMapping("/checkAddress")
     @ResponseBody
     public boolean checkAddress(@RequestParam String value) {
-        return blockRepository.Check(value); // true = exists
+        return blockRepository.Check(value);
     }
 }
