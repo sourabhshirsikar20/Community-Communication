@@ -37,60 +37,131 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     (function () {
-        const form = document.getElementById('block-access-form');
+        const form = document.getElementById('block-access-edit-form');
         if (!form) return;
 
-        const address = document.getElementById('address');
-        const accessCode = document.getElementById('accessCode');
+        const mainText = document.getElementById('mainText');
+        const mainTextCount = document.getElementById('mainTextCount');
+        const addressField = document.getElementById('addressField');
         const addressError = document.getElementById('addressError');
-        const accessCodeError = document.getElementById('accessCodeError');
 
-        function validateAddress() {
-            if (!address) return true;
-            const value = address.value.trim();
-            clearError(address, addressError);
+        let mainTextFeedback = null;
+        if (mainText) {
+            const wrapper = mainText.closest('.form-field');
+            if (wrapper) {
+                mainTextFeedback = wrapper.querySelector('.feedback');
+            }
+        }
+
+        const MIN_MAIN = 10;
+        const MAX_MAIN = 512;
+
+        const originalAddress = addressField ? addressField.value.trim() : null;
+
+        function updateMainCount() {
+            if (!mainText || !mainTextCount) return;
+            mainTextCount.textContent = mainText.value.length;
+        }
+
+        function clearMainFeedback() {
+            if (mainText) {
+                mainText.classList.remove('error', 'invalid-field');
+            }
+            if (mainTextFeedback) {
+                mainTextFeedback.textContent = '';
+            }
+        }
+
+        function setMainFeedback(msg) {
+            if (mainText) {
+                mainText.classList.add('error', 'invalid-field');
+            }
+            if (mainTextFeedback) {
+                mainTextFeedback.textContent = msg || '';
+            }
+        }
+
+        function validateMainText() {
+            if (!mainText) return true;
+            const value = mainText.value.trim();
+            clearMainFeedback();
 
             if (value.length === 0) {
-                setError(address, addressError, 'Address is required');
+                setMainFeedback('Main text may not be empty');
                 return false;
             }
-            if (value.length < 3) {
-                setError(address, addressError, 'Address must be at least 3 characters');
+            if (value.length < MIN_MAIN) {
+                setMainFeedback('Minimum 10 characters!');
+                return false;
+            }
+            if (value.length > MAX_MAIN) {
+                setMainFeedback('Main text cannot exceed 512 characters');
                 return false;
             }
             return true;
         }
 
-        function validateAccessCode() {
-            if (!accessCode) return true;
-            const value = accessCode.value.trim();
-            clearError(accessCode, accessCodeError);
+        function validateEditAddress() {
+            if (!addressField) return true;
+            const value = addressField.value.trim();
+            clearError(addressField, addressError);
 
             if (value.length === 0) {
-                setError(accessCode, accessCodeError, 'Access code is required');
-                return false;
-            }
-            if (!/^\d{4,6}$/.test(value)) {
-                setError(accessCode, accessCodeError, 'Code must be 4–6 digits');
+                setError(addressField, addressError, 'Address is required');
                 return false;
             }
             return true;
         }
 
-        address && address.addEventListener('input', validateAddress);
-        accessCode && accessCode.addEventListener('input', validateAccessCode);
+        if (mainText) {
+            mainText.addEventListener('input', function () {
+                updateMainCount();
+                validateMainText();
+            });
+            mainText.addEventListener('blur', validateMainText);
+            updateMainCount();
+        }
+
+        addressField && addressField.addEventListener('input', validateEditAddress);
+        addressField && addressField.addEventListener('blur', validateEditAddress);
 
         form.addEventListener('submit', function (e) {
-            let ok = true;
-            if (!validateAddress()) ok = false;
-            if (!validateAccessCode()) ok = false;
+            e.preventDefault();
+            (async () => {
+                let ok = true;
 
-            if (!ok) {
-                e.preventDefault();
-                scrollToFirstError(form);
-            }
+                if (!validateMainText()) ok = false;
+                if (!validateEditAddress()) ok = false;
+
+                if (ok && addressField) {
+                    const newAddress = addressField.value.trim();
+
+                    if (originalAddress && newAddress !== originalAddress && newAddress.length > 0) {
+                        try {
+                            const resp = await fetch('/BlockAccess/checkAddress?value=' + encodeURIComponent(newAddress));
+                            if (resp.ok) {
+                                const exists = await resp.json(); // true / false
+                                if (exists) {
+                                    setError(addressField, addressError, 'Address already exists. Changes NOT saved.');
+                                    ok = false;
+                                }
+                            }
+                        } catch (err) {
+                        }
+                    }
+                }
+
+                if (!ok) {
+                    scrollToFirstError(form);
+                } else {
+                    form.submit();
+                }
+            })();
         });
+
+        scrollToFirstError(form);
     })();
+
 
     (function () {
         const form = document.getElementById('block-access-edit-form');

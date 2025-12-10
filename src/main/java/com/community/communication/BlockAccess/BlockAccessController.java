@@ -93,9 +93,16 @@ public class BlockAccessController {
             Block existing = blockRepository.ByAddress(address);
 
             if (existing != null && existing.getId() != id) {
-                mav.addObject("error", "Address already exists. Changes NOT saved.");
-                mav.addObject("block", current);
+                bindingResult.rejectValue(
+                        "address",
+                        "address.exists",
+                        "Address already exists. Changes NOT saved."
+                );
+                mav.addObject("block", block);
                 mav.addObject("accessCode", accessCode);
+
+                mav.addObject(BindingResult.MODEL_KEY_PREFIX + "block", bindingResult);
+
                 return mav;
             }
 

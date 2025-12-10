@@ -147,8 +147,9 @@
 
             <div class="form-field">
                 <label>Address</label>
-                <input th:field="*{address}" id="addressField" type="text" class="styled=input">
+                <input th:field="*{address}" id="addressField" type="text" class="styled=input" th:errorclass="invalid-field">
                 <span id="addressError" class="form-error"></span>
+                <span class="form-error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
             </div>
             <button class="submit-button" style="margin: 10px" type="submit">Save</button>
 
