@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streete - Error</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div th:replace="~{NavigationBar :: public-nav}"></div>
+
+  <main class="error-body">
+    <div th:if="${hasError}">
+      <h1>Error - <span th:text="${statusCode}"></span></h1>
+      <div th:switch="${statusCode}">
+
+        <div th:case="403"> 
+          <!-- forbidden -->
+          Forbidden
+        </div>
+
+        <div th:case="404"> 
+          <!-- page not found -->
+          Page not found
+        </div>
+
+        <div th:case="500"> 
+          <!-- internal server error -->
+          Internal server error
+        </div>
+
+        <div th:case="*"> 
+          <!-- catch all -->
+          Other error
+        </div>
+
+      </div>
+    </div>
+    <div th:unless="${hasError}">
+      <h1>Internal Server Error</h1>
+    </div>
+  </main>
+
+  <div th:replace="~{fragments/footer :: footer}"></div>
+  <script th:replace="~{NavigationBar :: navbar-js}"></script>
+</body>
+</html>
