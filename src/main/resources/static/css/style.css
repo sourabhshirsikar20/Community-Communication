@@ -1668,6 +1668,22 @@ body.has-navbar .container:first-of-type {
     max-width: 700px;
     margin: 20px auto;
 }
+
+.center-box {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.message-box {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.new-address-value {
+    font-weight: 700;
+    color: #1D2F6F;
+}
+
 /* Page Layout for Street View + Sidebar */
 .page-wrapper {
     display: flex;
