@@ -35,7 +35,9 @@ public class PromoRepositoryJDBC implements PromoRepository {
                 rs.getString("info_text"),
                 rs.getString("promo_text"),
                 rs.getString("secret_hash"),
-                rs.getBoolean("approved")
+                rs.getBoolean("approved"),
+                rs.getTimestamp("created_date") != null ? rs.getTimestamp("created_date").toLocalDateTime() : null,
+                null
         );
     }
 
