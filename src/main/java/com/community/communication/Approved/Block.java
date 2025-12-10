@@ -26,7 +26,7 @@ public class Block {
     String fontColour;
     @NotEmpty(message = "Main text may not be empty")
     @Size(max = 512, message = "Main text cannot exceed 512 characters")
-    @Size(min = 10, message = "Minimum 10 characters need")
+    @Size(min = 10, message = "Minimum 10 characters!")
     String mainText;
     @Size(max = 256, message = "Link text cannot exceed 256 characters")
     String linksText;

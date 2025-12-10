@@ -78,8 +78,9 @@ public class BlockAccessController {
                                     RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            ModelAndView mav = new ModelAndView("BlockAccessEdit");
+            ModelAndView mav = new ModelAndView("BlockAccessEdit.html");
             mav.addObject("block", block);
+            mav.addObject("accessCode", accessCode);
             mav.addObject(BindingResult.MODEL_KEY_PREFIX + "block", bindingResult); // required for Thymeleaf
             return mav;
         }

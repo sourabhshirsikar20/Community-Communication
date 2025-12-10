@@ -19,7 +19,7 @@
         <div class="form-error" th:if="${error}" th:text="${error}"></div>
         <div class="success-message" th:if="${success}" th:text="${success}"></div>
 
-        <form th:action="@{/BlockAccess/save}" method="post" class="form-container" th:object="${block}">
+        <form id="block-access-edit-form" th:action="@{/BlockAccess/save}" method="post" class="form-container" th:object="${block}">
 
             <input type="hidden" th:field="*{id}">
             <input type="hidden" name="accessCode" th:value="${accessCode}">
@@ -110,13 +110,20 @@
             <!-- Other text fields -->
             <div class="form-field">
                 <label for="mainText">Main Text <span class="required">*</span></label>
+
                 <textarea th:field="*{mainText}"
                           id="mainText"
+                          class="styled-input"
                           rows="6"
                           maxlength="512"
-                          placeholder="Add description here..."></textarea>
+                          placeholder="Add description here..."
+                          th:errorclass="invalid-field"></textarea>
+
                 <div class="char-count"><span id="mainTextCount">0</span>/512</div>
-                <div class="form-error" th:errors="*{mainText}"></div>
+
+                <div class="form-error" th:if="${#fields.hasErrors('mainText')}"
+                     th:errors="*{mainText}">
+                </div>
                 <div class="feedback"></div>
             </div>
 
@@ -140,24 +147,26 @@
                 <input th:field="*{address}" id="addressField" type="text" class="styled=input">
                 <span id="addressError" class="form-error"></span>
             </div>
-            <button class="submit-button" type="submit">Save</button>
+            <button class="submit-button" style="margin: 10px" type="submit">Save</button>
 
         </form>
-        <form th:action="@{/BlockAccess/updateCode}" method="post" style="margin-top: 20px;">
+        <form id = "update-code-form" th:action="@{/BlockAccess/updateCode}" method="post" style="margin-top: 20px;">
             <input type="hidden" name="id" th:value="${block.id}">
             <input type="hidden" name="accessCode" th:value="${accessCode}">
 
             <div class="form-field">
-                <label>New Access Code</label>
-                <input name="newAccessCode" type="password" minlength="4" maxlength="6">
+                <label for="newAccessCode">New Access Code</label>
+                <input id= "newAccessCode" name="newAccessCode" type="password" minlength="4" maxlength="6">
+                <span id="newAccessCodeError" class="form-error"></span>
             </div>
 
             <div class="form-field">
-                <label>Repeat New Code</label>
-                <input name="confirmAccessCode" type="password" minlength="4" maxlength="6">
+                <label for="confirmAccessCode">Repeat New Code</label>
+                <input id="confirmAccessCode" name="confirmAccessCode" type="password" minlength="4" maxlength="6">
+                <span id="confirmAccessCodeError" class="form-error"></span>
             </div>
 
-            <button class="submit-button" type="submit">Change Code</button>
+            <button class="submit-button" style="margin-top: 20px" type="submit">Change Code</button>
         </form>
         <form action="/Block/block/delete" method="post" style="margin-top:20px;">
             <input type="hidden" name="blockId" th:value="${block != null} ? ${block.id} : ${Block.id}">
@@ -175,7 +184,7 @@
 <script th:replace="~{NavigationBar :: navbar-js}"></script>
 <script src="/js/preview.js"></script>
 <script src="/js/AdressCheck.js"></script>
-<script src="/js/validation.js"></script>
+<script src="/js/BlockAccessEditValidations.js"></script>
 <script>
     updatePreview();
 </script>
