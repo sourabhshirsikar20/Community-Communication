@@ -42,7 +42,8 @@ function updatePreview() {
     let roofColour = document.getElementById('roofColour').value;
     let baseColour = document.getElementById('baseColour').value;
     let foregroundColour = document.getElementById('foregroundColour').value;
-    let textColour = document.getElementById('textColour').value;
+    let textColourInput = document.getElementById('textColour').value;
+    let textColour = textColourInput ? textColourInput.value : '#000000';
 
     if (svgs.base[baseOption]) {  
         let container = document.getElementById('preview-base');
@@ -95,7 +96,10 @@ function updatePreview() {
     document.getElementById('roofColourValue').textContent = roofColour.toUpperCase();
     document.getElementById('baseColourValue').textContent = baseColour.toUpperCase();
     document.getElementById('foregroundColourValue').textContent = foregroundColour.toUpperCase();
-    document.getElementById('textColourValue').textContent = textColour.toUpperCase();
+    let textColourValueSpan = document.getElementById('textColourValue');
+    if (textColourValueSpan) {
+        textColourValueSpan.textContent = textColour.toUpperCase();
+    }
 }
 
 function UpdateText() {

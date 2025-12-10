@@ -23,6 +23,9 @@
 
             <input type="hidden" th:field="*{id}">
             <input type="hidden" name="accessCode" th:value="${accessCode}">
+            <input type="hidden" id="textColour" th:value="*{fontColour}">
+            <span id="textColourValue" th:text="*{fontColour}" style="display: none;"></span>
+
 
             <div class="form-field">
                 <label>Block Name <span class="required">*</span></label>

@@ -1182,7 +1182,6 @@ textarea.error,
 input.invalid-field,
 textarea.invalid-field {
     border: 2px solid #e74c3c !important;
-    background-color: #ffe9e9;
 }
 
 .form-error,
