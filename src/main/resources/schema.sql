@@ -1,9 +1,11 @@
 DROP VIEW IF EXISTS login_authorities;
 
+SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS logins_roles;
 DROP TABLE IF EXISTS logins;
 DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS promos;
 DROP TABLE IF EXISTS communities;
 DROP TABLE IF EXISTS pages;
 DROP TABLE IF EXISTS reports;
@@ -19,14 +21,15 @@ CREATE TABLE communities (
     base_colour varchar(10),
     foreground_option smallint,
     foreground_colour varchar(10),
-    font_options varchar(92),
-    font_colour varchar(10),
+    font_options varchar(92) NOT NULL DEFAULT '{"serif":false,"italic":true,"weight":450,"width":85}',
+    font_colour varchar(10) NOT NULL DEFAULT '#e9b36cff',
     main_text varchar(512),
     links_text varchar(256),
     info_text varchar(256),
     promo_text varchar(256),
-    approved BIT NOT NULL DEFAULT 0,
-    secret_hash varchar(255)
+    approved BOOLEAN NOT NULL DEFAULT FALSE,
+    secret_hash varchar(255),
+    created_date TIMESTAMP NULL DEFAULT NULL -- Added created_date column & Allow NULL, no default
 )engine=InnoDB;
 
 CREATE TABLE logins (
@@ -64,7 +67,7 @@ create table if not exists streets (
 ) engine=InnoDB;
 
 --Reports table
-CREATE TABLE reports (
+CREATE TABLE IF NOT EXISTS reports (
     id bigint auto_increment primary key,
     blockID int,
     block_name varchar(128),
@@ -72,4 +75,12 @@ CREATE TABLE reports (
     report_date timestamp default current_timestamp
 ) engine=InnoDB;
 
+-- Promo Table
+CREATE TABLE IF NOT EXISTS promos (
+    id bigint auto_increment primary key,
+    block_id bigint not null,
+    promo_position int not null,
+    CONSTRAINT unique_position UNIQUE (promo_position),
+    FOREIGN KEY (block_id) REFERENCES communities(id) ON DELETE CASCADE
+) engine=InnoDB;
 SET FOREIGN_KEY_CHECKS = 1;

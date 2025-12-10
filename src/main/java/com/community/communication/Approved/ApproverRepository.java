@@ -14,4 +14,5 @@ public interface ApproverRepository {
     Street getStreet(String streetAddress);
     String GenAddr(String StAddress);
     void updateAddress(String OldAddr, String NewAddr);
+    boolean checkStreet(String streetAddress);
 }
