@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Promos</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="has-navbar">
+<div class="main-content">
+    <div th:replace="~{NavigationBar :: organiser-nav}"></div>
+    
+    <div class="container">
+        <h2 class="form-title">Manage Sidebar Promotions</h2>
+
+        <div class="template-grid">
+            <div th:each="i : ${#numbers.sequence(1, 4)}" class="box">
+                <h3 th:text="'Position ' + ${i}">Position</h3>
+                
+                <div th:if="${promos.containsKey(i)}">
+                    <p><strong>Block:</strong> <span th:text="${promos.get(i).name}"></span></p>
+                    <p th:text="${promos.get(i).promoText}"></p>
+                    <form action="/Promos/Remove" method="post">
+                        <input type="hidden" name="position" th:value="${i}">
+                        <button type="submit" class="submit-button" style="background-color: #dc3545; padding: 0.5rem;">Remove</button>
+                    </form>
+                </div>
+                <div th:unless="${promos.containsKey(i)}">
+                    <p>Empty Slot</p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="margin: 2rem 0;">
+
+        <h3>Select a Block to Promote</h3>
+        <div class="table_wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Block Name</th>
+                    <th>Current Promo Text</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="block : ${blocks}">
+                    <td th:text="${block.name}">Name</td>
+                    <td th:text="${block.promoText}">Promo</td>
+                    <td>
+                        <form action="/Promos/Set" method="post" style="display:flex; gap:5px;">
+                            <input type="hidden" name="blockId" th:value="${block.id}">
+                            <select name="position" class="template-select" style="width: auto; padding: 5px;">
+                                <option value="1">Pos 1</option>
+                                <option value="2">Pos 2</option>
+                                <option value="3">Pos 3</option>
+                                <option value="4">Pos 4</option>
+                            </select>
+                            <button type="submit" class="submit-button" style="padding: 0.3rem 1rem;">Set</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:replace="~{NavigationBar :: navbar-js}"></script>
+</body>
+</html>
