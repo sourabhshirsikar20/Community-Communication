@@ -152,7 +152,7 @@ main button:hover {
     content: '';
     background: #2a4494;
     width: 0.25em;
-    height: calc(50% + 1.7em);
+    height: calc(3.5em);
     position: absolute;  
     top: -1.2em;
     left: -1.35em;
