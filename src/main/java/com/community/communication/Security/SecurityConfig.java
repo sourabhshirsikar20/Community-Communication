@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletResponse;
+
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +27,8 @@ public class SecurityConfig {
     private DataSource dataSource;
 
     private static final String[] ENDPOINTS_WHITELIST = {
-            "/css/**" // css is needed for the login page, so must be allowed
+        "/css/**", // css is needed for the login page, so must be allowed
+        "/error"   // similarly, error page should be allowed in order to show "forbidden" messages
     };
 
     private static final String[] USER_WHITELIST = {
@@ -45,7 +49,11 @@ public class SecurityConfig {
 
     private static final String[] MANAGER_WHITELIST = {
             "/Approver",
-            "/approveBlock/**"
+            "/approveBlock/**",
+            "/Promos/**",
+            "/test/expiry-status",
+            "/api/expiry-status",
+            "/api/expired-count",
     };
 
     public static boolean IsUrlInWhitelists(String url) {
@@ -87,6 +95,14 @@ public class SecurityConfig {
                         .anyRequest().hasRole("ADMIN"))
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form.loginPage("/Login"). permitAll());
+
+        http.exceptionHandling(ex -> ex
+            .accessDeniedHandler((request, response, ex2) -> {
+                request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpServletResponse.SC_FORBIDDEN);
+                request.setAttribute(RequestDispatcher.ERROR_MESSAGE, ex2.getMessage());
+                request.getRequestDispatcher("/error").forward(request, response);
+            })
+        );
 
         return http.build();
     }

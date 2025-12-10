@@ -1,10 +1,13 @@
 package com.community.communication.OrganiseBlock;
 
-import com.community.communication.Approved.Block;
+import java.util.List;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.community.communication.Approved.Block;
 
 @Repository
 public class BlockRepositoryJDBC implements BlockRepository {
@@ -34,7 +37,12 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 rs.getString("info_text"),
                 rs.getString("promo_text"),
                 rs.getString("secret_hash"),
-                rs.getBoolean("approved")
+                rs.getBoolean("approved"),
+                // Added created_date mapping
+                rs.getTimestamp("created_date") != null ?
+                rs.getTimestamp("created_date").toLocalDateTime() :
+                java.time.LocalDateTime.now(),
+                null
         );
     }
 
@@ -58,7 +66,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
     }
 
     public void Add(Block block) {
-        String SQL = "INSERT INTO communities (address, name, roof_option, roof_colour, base_option, base_colour, foreground_option, foreground_colour, main_text, links_text, info_text, promo_text,approved, secret_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO communities (address, name, roof_option, roof_colour, base_option, base_colour, foreground_option, foreground_colour, font_options, font_colour, main_text, links_text, info_text, promo_text, approved, secret_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         Jdbc.update(SQL, block.getAddress(), block.getName(),
                 block.getRoofOption(), block.getRoofColour(),
                 block.getBaseOption(), block.getBaseColour(),
@@ -83,6 +91,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
             base_colour=?, 
             foreground_option=?, 
             foreground_colour=?, 
+            font_options=?,
+            font_colour=?,
             main_text=?, 
             links_text=?, 
             info_text=?, 
@@ -99,6 +109,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 block.getBaseColour(),
                 block.getForegroundOption(),
                 block.getForegroundColour(),
+                block.getFontOptions(),
+                block.getFontColour(),
                 block.getMainText(),
                 block.getLinksText(),
                 block.getInfoText(),
@@ -111,7 +123,24 @@ public class BlockRepositoryJDBC implements BlockRepository {
         String sql = "DELETE FROM communities WHERE id = ?";
         Jdbc.update(sql, blockId);
     }
-    public void updateAccessCode(int id, String hash) {
-        Jdbc.update("UPDATE blocks SET accessCodeHash = ? WHERE id = ?", hash, id);
+    //Get all blocks from database.Used by cleanup service to check all blocks for expiry
+    @Override
+    public List<Block> findAll() {
+        String SQL = "SELECT * FROM communities";
+        return Jdbc.query(SQL, rowMapper);
+    }
+
+    //Delete a block from database.Used by cleanup service to remove expired blocks
+    @Override
+    public void delete(Block block) {
+        String SQL = "DELETE FROM communities WHERE id = ?";
+        Jdbc.update(SQL, block.getId());
+    }
+
+    // Delete block by ID (alternative method)
+    @Override
+    public void deleteById(int id) {
+        String SQL = "DELETE FROM communities WHERE id = ?";
+        Jdbc.update(SQL, id);
     }
 }
