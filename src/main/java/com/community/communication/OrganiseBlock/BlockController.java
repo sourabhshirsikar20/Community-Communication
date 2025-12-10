@@ -3,6 +3,8 @@ package com.community.communication.OrganiseBlock;
 import com.community.communication.Approved.ApproverRepository;
 import com.community.communication.Approved.Block;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -210,6 +212,8 @@ public class BlockController {
         }
         Block block = blockRepository.ByAddress(Address);
         ObjectMapper Map = new ObjectMapper();
+        Map.registerModule(new JavaTimeModule());
+        Map.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         String JSON = Map.writerWithDefaultPrettyPrinter().writeValueAsString(block);
         return ResponseEntity.ok().header("Content-Disposition","attachment; filename=\"Block_"+ Address + ".json\"").body(JSON.getBytes());
     }
