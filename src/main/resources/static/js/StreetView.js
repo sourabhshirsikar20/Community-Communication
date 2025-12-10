@@ -141,7 +141,7 @@ async function injectStreets() {
             'afterbegin',
             `
             <a id="street-return" class="house-block" href="/street/${street_info['parent']['address']}">
-                ${await getStreetSVG(svgs['return'])}
+                ${await getStreetSVG('return')}
             </a>
             `
         );
