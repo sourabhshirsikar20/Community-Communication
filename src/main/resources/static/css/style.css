@@ -1445,6 +1445,229 @@ body.has-navbar .container:first-of-type {
     margin-left: 0.5em;
 }
 
+.add-block-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.form-group .form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d2d2d2;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #fafafa;
+}
+
+.add-block-container .submit-button,
+.add-block-container button[type="submit"] {
+    margin-top: 25px;
+}
+
+.add-block-container .success-message,
+.add-block-container .block-add-message {
+    margin-top: 25px;
+}
+
+.block-add-links {
+    margin-top: 28px;
+}
+
+.block-add-links a {
+    margin-right: 20px;
+    color: #4f7cff;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.block-add-links a:hover {
+    text-decoration: underline;
+}
+
+.check-form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.check-result {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.check-result a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #1D2F6F;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.check-result a:hover {
+    color: #F5A623;
+    text-decoration: underline;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #dc3545;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.view-form {
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+.block-details {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.block-details h3 {
+    color: #1D2F6F;
+    border-bottom: 2px solid #F5A623;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.block-details p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.block-details span {
+    font-weight: 500;
+}
+
+.check-result {
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-left: 4px solid #dc3545;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.check-result a {
+    display: inline-block;
+    margin-left: 10px;
+    color: #1D2F6F;
+    text-decoration: underline;
+}
+
+.check-result a:hover {
+    color: #F5A623;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.update-form {
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+.block-add-links {
+    max-width: 700px;
+    margin: 20px auto;
+    display: flex;
+    gap: 15px;
+}
+
+.block-add-links a {
+    color: #1D2F6F;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.block-add-links a:hover {
+    color: #F5A623;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.success-message {
+    max-width: 700px;
+    margin: 20px auto;
+}
 /* Page Layout for Street View + Sidebar */
 .page-wrapper {
     display: flex;

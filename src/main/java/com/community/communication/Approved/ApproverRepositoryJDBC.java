@@ -206,4 +206,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
             return result.get(0);
         return null; // address field is enforced unique, so should never be reached in practice
     }
+    public boolean checkStreet(String streetAddress) {
+        String sql = "SELECT * FROM streets WHERE address = ?";
+        List<Street> result = jdbc.query(sql, streetMapper, streetAddress);
+        if (result.size() == 1) {
+            return true;
+        }
+        return false; // address field is enforced unique, so should never be reached in practice
+    }
 }

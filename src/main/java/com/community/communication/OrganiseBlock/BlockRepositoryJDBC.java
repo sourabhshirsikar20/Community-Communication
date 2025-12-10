@@ -18,7 +18,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
         this.Jdbc = Jdbc;
         setBlockMapper();
     }
-
+  
     private void setBlockMapper() {
         rowMapper = (rs, i) -> new Block(
                 rs.getInt("id"),
@@ -66,7 +66,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
     }
 
     public void Add(Block block) {
-        String SQL = "INSERT INTO communities (address, name, roof_option, roof_colour, base_option, base_colour, foreground_option, foreground_colour, main_text, links_text, info_text, promo_text,approved, secret_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO communities (address, name, roof_option, roof_colour, base_option, base_colour, foreground_option, foreground_colour, font_options, font_colour, main_text, links_text, info_text, promo_text, approved, secret_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         Jdbc.update(SQL, block.getAddress(), block.getName(),
                 block.getRoofOption(), block.getRoofColour(),
                 block.getBaseOption(), block.getBaseColour(),
@@ -83,7 +83,6 @@ public class BlockRepositoryJDBC implements BlockRepository {
     public void Update(Block block) {
         String SQL = """
         UPDATE communities SET 
-            address=?, 
             name=?, 
             roof_option=?, 
             roof_colour=?, 
@@ -91,6 +90,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
             base_colour=?, 
             foreground_option=?, 
             foreground_colour=?, 
+            font_options=?,
+            font_colour=?,
             main_text=?, 
             links_text=?, 
             info_text=?, 
@@ -99,7 +100,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
             secret_hash=?
         WHERE id=?;
     """;
-        Jdbc.update(SQL, block.getAddress(),
+        Jdbc.update(SQL,
                 block.getName(),
                 block.getRoofOption(),
                 block.getRoofColour(),
@@ -107,6 +108,8 @@ public class BlockRepositoryJDBC implements BlockRepository {
                 block.getBaseColour(),
                 block.getForegroundOption(),
                 block.getForegroundColour(),
+                block.getFontOptions(),
+                block.getFontColour(),
                 block.getMainText(),
                 block.getLinksText(),
                 block.getInfoText(),
