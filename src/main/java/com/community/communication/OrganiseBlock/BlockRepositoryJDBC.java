@@ -15,7 +15,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
         this.Jdbc = Jdbc;
         setBlockMapper();
     }
-
+  
     private void setBlockMapper() {
         rowMapper = (rs, i) -> new Block(
                 rs.getInt("id"),

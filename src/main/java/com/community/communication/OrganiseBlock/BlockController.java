@@ -1,7 +1,9 @@
 package com.community.communication.OrganiseBlock;
 
+import com.community.communication.Approved.ApproverRepository;
 import com.community.communication.Approved.Block;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.community.communication.Approved.ApproverRepositoryJDBC;
 
 @Controller
 @RequestMapping("/Block")
@@ -19,7 +22,8 @@ public class BlockController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private BlockRepository blockRepository;
-
+    @Autowired
+    private ApproverRepository approverRepository;
     @GetMapping("/View")
     public ModelAndView ViewBlock(@RequestParam(value = "Address", required = false) String Address){
         ModelAndView mav = new ModelAndView("BlockView");
@@ -69,6 +73,23 @@ public class BlockController {
         mav.addObject("InfoText", InfoText);
         mav.addObject("PromoText", PromoText);
         mav.addObject("SecretHash", SecretHash);
+        Block block = new Block();
+        block.setAddress(Address);
+        block.setName(Name);
+        block.setRoofOption(RoofOption);
+        block.setRoofColour(RoofColour);
+        block.setBaseOption(BaseOption);
+        block.setBaseColour(BaseColour);
+        block.setForegroundOption(ForegroundOption);
+        block.setForegroundColour(ForegroundColour);
+        block.setFontOptions(FontOptions);
+        block.setFontColour(FontColour);
+        block.setMainText(MainText);
+        block.setLinksText(LinksText);
+        block.setInfoText(InfoText);
+        block.setPromoText(PromoText);
+        block.setApproved(false);
+        block.setSecretHash(passwordEncoder.encode(SecretHash));
         boolean CheckEmpty = false;
         if(Address == null || Address.isBlank()){ mav.addObject("AddressErr", "Please Enter Address"); CheckEmpty = true; }
         if(Name == null || Name.isBlank()){ mav.addObject("NameErr", "Please Enter Name"); CheckEmpty = true; }
@@ -85,23 +106,7 @@ public class BlockController {
         if(CheckEmpty){
             return mav;
         }
-        Block block = new Block();
-        block.setAddress(Address);
-        block.setName(Name);
-        block.setRoofOption(RoofOption);
-        block.setRoofColour(RoofColour);
-        block.setBaseOption(BaseOption);
-        block.setBaseColour(BaseColour);
-        block.setForegroundOption(ForegroundOption);
-        block.setForegroundColour(ForegroundColour);
-        block.setFontOptions(FontOptions);
-        block.setFontColour(FontColour);
-        block.setMainText(MainText);
-        block.setLinksText(LinksText);
-        block.setInfoText(InfoText);
-        block.setPromoText(PromoText);
-        block.setSecretHash(passwordEncoder.encode(SecretHash));
-        if(blockRepository.Check(Address)){
+        if(blockRepository.Check(Address) || approverRepository.checkStreet(Address)){
             mav.addObject("Str", "Cannot Add Into Existing Address");
             mav.addObject("Block", null);
             return mav;
@@ -148,7 +153,7 @@ public class BlockController {
             block.setLinksText(LinksText);
             block.setInfoText(InfoText);
             block.setPromoText(PromoText);
-            block.setApproved(Exists.isApproved());
+            block.setApproved(false);
             block.setSecretHash(SecretHash);
             boolean CheckEmpty = false;
             if(Name == null || Name.isBlank()){ mav.addObject("NameErr", "Please Enter Name"); CheckEmpty = true; }
@@ -175,9 +180,13 @@ public class BlockController {
         return mav;
     }
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ModelAndView IntCheck() {
+    public ModelAndView IntCheck(HttpServletRequest Request) {
         ModelAndView mav = new ModelAndView("BlockAdd");
-
+        Request.getParameterMap().forEach((Key, Values) -> {
+            if(Values.length > 0){
+                mav.addObject(Key, Values[0]);
+            }
+        });
         mav.addObject("RoofOptionErr", "Enter Roof Option / Must be a Number");
         mav.addObject("BaseOptionErr", "Enter Base Option / Must be a Number");
         mav.addObject("ForegroundOptionErr", "Enter Foreground Option / Must be a Number");
