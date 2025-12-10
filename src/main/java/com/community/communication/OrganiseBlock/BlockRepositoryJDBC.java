@@ -75,7 +75,6 @@ public class BlockRepositoryJDBC implements BlockRepository {
     public void Update(Block block) {
         String SQL = """
         UPDATE communities SET 
-            address=?, 
             name=?, 
             roof_option=?, 
             roof_colour=?, 
@@ -93,7 +92,7 @@ public class BlockRepositoryJDBC implements BlockRepository {
             secret_hash=?
         WHERE id=?;
     """;
-        Jdbc.update(SQL, block.getAddress(),
+        Jdbc.update(SQL,
                 block.getName(),
                 block.getRoofOption(),
                 block.getRoofColour(),

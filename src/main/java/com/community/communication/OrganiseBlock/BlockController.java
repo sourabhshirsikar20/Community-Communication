@@ -4,6 +4,7 @@ import com.community.communication.Approved.Block;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/Block")
 public class BlockController {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private BlockRepository blockRepository;
 
@@ -97,7 +100,7 @@ public class BlockController {
         block.setLinksText(LinksText);
         block.setInfoText(InfoText);
         block.setPromoText(PromoText);
-        block.setSecretHash(SecretHash);
+        block.setSecretHash(passwordEncoder.encode(SecretHash));
         if(blockRepository.Check(Address)){
             mav.addObject("Str", "Cannot Add Into Existing Address");
             mav.addObject("Block", null);
@@ -148,7 +151,6 @@ public class BlockController {
             block.setApproved(Exists.isApproved());
             block.setSecretHash(SecretHash);
             boolean CheckEmpty = false;
-            if(Address == null || Address.isBlank()){ mav.addObject("AddressErr", "Please Enter Address"); CheckEmpty = true; }
             if(Name == null || Name.isBlank()){ mav.addObject("NameErr", "Please Enter Name"); CheckEmpty = true; }
             if(RoofColour == null || RoofColour.isBlank()){ mav.addObject("RoofColourErr", "Please Enter Roof Colour"); CheckEmpty = true; }
             if(BaseColour == null || BaseColour.isBlank()){ mav.addObject("BaseColourErr", "Please Enter Base Colour"); CheckEmpty = true; }
@@ -164,10 +166,8 @@ public class BlockController {
                 mav.addObject("Block", block);
                 return mav;
             }
-            if(blockRepository.Check(Address)){
-                mav.addObject("Str", "Cannot Update Into Existing Address");
-                mav.addObject("Block", null);
-                return mav;
+            else {
+               block.setSecretHash(passwordEncoder.encode(SecretHash));
             }
             blockRepository.Update(block);
             mav.addObject("Str", "Updated Successfully");

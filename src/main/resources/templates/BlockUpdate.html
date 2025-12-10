@@ -8,16 +8,14 @@
 <body class="has-navbar">
 <div th:replace="~{NavigationBar :: approver-nav}"></div>
 
-<h2 class="form-title">Update Block</h2>
+<h2 class="form-title" th:text="'Update Block ' + ${Block.address}"></h2>
 
 <div th:if="${Block!=null}">
     <form action="/Block/Update" method="post" class="form update-form">
         <input type="hidden" name="Id" th:value="${Block.id}">
 
         <div class="form-group">
-            <label>Address:</label>
-            <input type="text" name="Address" th:value="${Block.address}" class="form-input">
-            <p th:if="${AddressErr}" class="error-message" th:text="${AddressErr}"></p>
+            <input type="hidden" name="Address" th:value="${Block.address}">
         </div>
         <div class="form-group">
             <label>Name:</label>
@@ -84,8 +82,8 @@
             <p th:if="${PromoTextErr}" class="error-message" th:text="${PromoTextErr}"></p>
         </div>
         <div class="form-group">
-            <label>Secret Hash:</label>
-            <input type="text" name="SecretHash" th:value="${Block.secretHash}" class="form-input">
+            <label>Access Code:</label>
+            <input type="text" name="SecretHash" class="form-input">
             <p th:if="${SecretHashErr}" class="error-message" th:text="${SecretHashErr}"></p>
         </div>
 
