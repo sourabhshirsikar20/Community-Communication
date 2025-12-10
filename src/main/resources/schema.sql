@@ -1,5 +1,6 @@
 DROP VIEW IF EXISTS login_authorities;
 
+SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS logins_roles;
 DROP TABLE IF EXISTS logins;
