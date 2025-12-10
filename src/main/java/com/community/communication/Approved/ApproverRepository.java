@@ -7,6 +7,10 @@ public interface ApproverRepository {
     List<Block> getApprovedBlocks();
     List<Block> getUnapprovedBlocks();
     void addNewBlock(Block block);
+    void removeBlock(String address);
+    void moveBlock(String address, String new_address);
+    void addNewStreet(Street street);
+    void removeStreet(String address);
     void approve(int id, String secretHash);
     void deleteBlock(int id);
     List<Block> getSearch(String value);
@@ -14,5 +18,6 @@ public interface ApproverRepository {
     Street getStreet(String streetAddress);
     String GenAddr(String StAddress);
     void updateAddress(String OldAddr, String NewAddr);
+    List<Street> getAllStreets();
     boolean checkStreet(String streetAddress);
 }

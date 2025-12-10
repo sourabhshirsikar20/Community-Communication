@@ -388,4 +388,13 @@ insert into streets (name, address, description)
 values ('New Blocks', '00', 'A place to find newly-added blocks');
 
 insert into streets (name, address, description) 
-values ('Food & Drink', '02', 'A home for all restaurants, takeaways, cafes, and more');
+values ('Food & Drink', '02', 'A home for all retaurants, takeaways, cafes, and more');
+
+insert into streets (name, address, description) 
+values ('Restaurants', '0200', 'Your local places to eat out');
+
+insert into streets (name, address, description) 
+values ('Fast Food', '0202', 'Grab a quick meal here!');
+
+insert into streets (name, address, description) 
+values ('Events', '15', 'Find all local events taking place soon here');

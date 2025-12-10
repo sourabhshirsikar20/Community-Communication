@@ -21,7 +21,7 @@
     <div th:replace="~{fragments/street-nav :: street-nav}"></div>
 
     <div class="page-wrapper">
-    <div class="street-container">
+    <div>
         <form method="get" th:action="@{'/street/'+${street}}" class="size-form">
             <input type="hidden" name="Page" value="1">
             <select name="Size" class="size-select" onchange="this.form.submit()">
@@ -60,7 +60,18 @@
             </div>
 
         </a>
-    </div>
+        </div>
+        <div class="pagination">
+            <a th:if="${CurrentPage >1}" th:href="@{'/street/'+${street}(Page=${CurrentPage - 1},Size=${Size})}">
+                Prev
+            </a>
+            <th:block th:each="i : ${PageNumbers}">
+                <a th:href="@{'/street/'+${street}(Page=${i},Size=${Size})}" th:text="${i}" th:classappend="${i == CurrentPage} ? ' active'"></a>
+            </th:block>
+            <a th:if="${CurrentPage < TotalPages}" th:href="@{'/street/'+${street}(Page=${CurrentPage + 1},Size=${Size})}">
+                Next
+            </a>
+        </div>
     </div>
 
     <aside class="promo-sidebar">
@@ -79,21 +90,8 @@
             </a>
         </div>
     </aside>
+    </div>
 
-    </div>
-        <div class="pagination">
-            <a th:if="${CurrentPage >1}" th:href="@{'/street/'+${street}(Page=${CurrentPage - 1},Size=${Size})}">
-                Prev
-            </a>
-            <th:block th:each="i : ${PageNumbers}">
-                <a th:href="@{'/street/'+${street}(Page=${i},Size=${Size})}" th:text="${i}" th:classappend="${i == CurrentPage} ? ' active'">
-                </a>
-            </th:block>
-            <a th:if="${CurrentPage < TotalPages}" th:href="@{'/street/'+${street}(Page=${CurrentPage + 1},Size=${Size})}">
-                Next
-            </a>
-        </div>
-    </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
 

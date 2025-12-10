@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Streets</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/street-info.css">
+</head>
+<body>
+  <div th:replace="~{NavigationBar :: approver-nav}"></div>
+  <main>
+    <h2>
+      Street Layout
+      <div>
+      <button onclick="AddNewStreet()">Add New Street</button>
+      <button onclick="MoveStreet()">Move Street</button>
+      </div>
+    </h2>
+
+    <section id="add-street-section" class="hidden">
+      <h4>New Street Details</h4>
+      <form id="add-street-form" action="/new-street" method="post" th:object="${newStreet}" onsubmit="return ValidateStreetForm()">
+        <label>
+          Name<br>
+          <input id="add-street-name" size="26" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm()">
+        </label>
+        <label>
+          <div class="form-label"><span>Address</span><span id="addr-error"></span></div>
+          <input id="add-street-addr" size="26" required placeholder="Address" th:field="*{address}" onkeyup="ValidateStreetForm()">
+        </label>
+        <label>
+          Description<br>
+          <input id="add-street-desc" size="52" required maxlength="64" placeholder="Short Description" th:field="*{description}" onkeyup="ValidateStreetForm()">
+        </label>
+        <input type="submit" value="Add Street">
+      </form>
+    </section>
+
+    <section id="move-street-section" class="hidden">
+      <h4>Move Street</h4>
+      <form id="move-street-form" action="/move-street" method="post" th:object="${moveStreet}" onsubmit="return ValidateStreetMoveForm()">
+        <label>
+          <div class="form-label"><span>Current Address</span><span id="old-addr-error"></span></div>
+          <input id="move-street-addr" size="26" required maxlength="64" placeholder="Current Address" th:field="*{currentAddress}" onkeyup="ValidateStreetMoveForm()">
+        </label>
+        <label>
+          <div class="form-label"><span>New Address</span><span id="new-addr-error"></span></div>
+          <input id="move-street-new-addr" size="26" required maxlength="64" placeholder="New Address" th:field="*{newAddress}" onkeyup="ValidateStreetMoveForm()">
+        </label>
+        <input type="submit" value="Move Street" id="move-street-submit">
+      </form>
+    </section>
+
+    <div id="street-root"></div>
+  </main>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+  <template id="street-info-template">
+    <div class="street-info">
+      <h4 id="street-name"></h4>
+      <p  id="street-address"></p>
+      <div class="street-buttons">
+        <button id="street-delete">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 0 16 16" width="16px"><path d="m 5.019531 4 c -0.265625 0 -0.519531 0.105469 -0.707031 0.292969 c -0.390625 0.390625 -0.390625 1.023437 0 1.414062 l 2.292969 2.292969 l -2.292969 2.292969 c -0.390625 0.390625 -0.390625 1.023437 0 1.414062 s 1.023438 0.390625 1.414062 0 l 2.292969 -2.292969 l 2.292969 2.292969 c 0.390625 0.390625 1.023438 0.390625 1.414062 0 c 0.390626 -0.390625 0.390626 -1.023437 0 -1.414062 l -2.292968 -2.292969 l 2.292968 -2.292969 c 0.390626 -0.390625 0.390626 -1.023437 0 -1.414062 c -0.1875 -0.1875 -0.441406 -0.292969 -0.707031 -0.292969 s -0.519531 0.105469 -0.707031 0.292969 l -2.292969 2.292969 l -2.292969 -2.292969 c -0.1875 -0.1875 -0.441406 -0.292969 -0.707031 -0.292969 z m 0 0" fill="currentColor"/></svg>
+        </button>
+        <button id="street-toggle-expand">
+          <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 0 16 16" width="16px"><path d="m 2.289062 10.3125 l 5 -5.019531 c 0.1875 -0.1875 0.445313 -0.292969 0.710938 -0.292969 s 0.519531 0.105469 0.707031 0.292969 l 5 5 c 0.390625 0.390625 0.390625 1.023437 0 1.414062 s -1.023437 0.390625 -1.414062 0 l -4.292969 -4.289062 l -4.292969 4.304687 c -0.386719 0.390625 -1.019531 0.390625 -1.414062 0.003906 c -0.390625 -0.390624 -0.390625 -1.023437 -0.003907 -1.414062 z m 0 0" fill="currentColor" fill-rule="evenodd"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="street-children" class="hidden"></div>
+  </template>
+
+  <template id="block-info-template">
+    <div class="inset-element">
+      <div class="block-info">
+        <p id="block-name"></p>
+        <p id="block-address"></p>
+      </div>
+    </div>
+  </template>
+
+  <script th:replace="~{NavigationBar :: navbar-js}"></script>
+  <script src="/js/ManageStreets.js"></script>
+</body>
+</html>
