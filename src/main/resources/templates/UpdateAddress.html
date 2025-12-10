@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Block Address</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-<div th:if="${Error}">
-    <p th:text="${Error}"></p>
-</div>
-<div th:if="${NewAddress}">
-    <p>Block moved successfully!</p>
+<body class="has-navbar">
+<div th:replace="~{NavigationBar :: approver-nav}"></div>
+<h2 class="form-title">Move Block to Another Street</h2>
+<div th:if="${NewAddress}" class="success-message message-box">
+    <p>Block Moved Successfully!</p>
     <p>New Address: <span th:text="${NewAddress}"></span></p>
 </div>
-<form method="post" th:action="@{/UpdateBlock/Move}">
+<div th:if="${Error}" class="error-message message-box">
+    <p th:text="${Error}"></p>
+</div>
+<form method="post" th:action="@{/UpdateBlock/Move}" class="form check-form center-box">
+    <div class="form-group">
     <label>Address:</label>
-    <input type="text" name="OldAddress" th:value="${Address}" readonly>
+    <input type="text" name="OldAddress" class="form-input readonly-field" th:value="${Address}" readonly>
+    </div>
+    <div class="form-group">
     <label>Choose Street:</label>
-    <select name="Street" required>
+    <select name="Street" class="form-input" required>
         <option value="">Select Street</option>
         <option th:each="Street : ${Streets}"
                 th:value="${Street.address}"
                 th:text="${Street.name}">
         </option>
     </select>
-    <button type="submit">Move</button>
+    </div>
+    <button type="submit" class="submit-button">Move</button>
 </form>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:replace="~{NavigationBar :: navbar-js}"></script>
 </body>
 </html>
