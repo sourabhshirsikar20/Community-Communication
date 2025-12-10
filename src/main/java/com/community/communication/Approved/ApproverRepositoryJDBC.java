@@ -124,6 +124,35 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
             null    // NULL created_date - will be set on approval
         );
     }
+
+    @Override
+    public void removeBlock(String address) {
+        String sql = "DELETE FROM communities WHERE address = ?";
+        jdbc.update(sql, address);
+    }
+
+    @Override
+    public void moveBlock(String address, String new_address) {
+        String sql = "UPDATE communities SET address = ? WHERE address = ?";
+        jdbc.update(sql, new_address, address);
+    }
+
+    @Override
+    public void addNewStreet(Street street) {
+        // id is autoincrementing, so not included
+        String sql = "INSERT INTO streets (name, address, description) VALUES (?,?,?)";
+        jdbc.update(sql, street.getName(), street.getAddress(), street.getDescription());
+    }
+
+    @Override
+    public void removeStreet(String address) {
+        if (address.equals("root"))
+            throw new IllegalArgumentException("Cannot rmove the root street");
+
+        String sql = "DELETE FROM streets WHERE address = ?";
+        jdbc.update(sql, address);
+    }
+
     @Override
     public void approve(int id, String secretHash) {
         int newAddress = 1;
@@ -206,6 +235,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
             return result.get(0);
         return null; // address field is enforced unique, so should never be reached in practice
     }
+
+    public List<Street> getAllStreets() {
+        String sql = "SELECT * FROM streets";
+        return jdbc.query(sql, streetMapper);
+    }
+    
     public boolean checkStreet(String streetAddress) {
         String sql = "SELECT * FROM streets WHERE address = ?";
         List<Street> result = jdbc.query(sql, streetMapper, streetAddress);

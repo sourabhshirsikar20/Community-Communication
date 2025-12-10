@@ -86,7 +86,7 @@ async function injectSvgs() {
 }
 
 function findNextStreetElement(currentAddress) {
-    let currentNum = parseInt(currentAddress); 
+    let currentNum = parseInt(currentAddress.slice(-2)); 
     
     let streetElements = Array.from(document.querySelectorAll('a[data-address]'))
         .map(el => ({
@@ -143,18 +143,24 @@ async function injectStreets() {
 
     // add nodes making sub streets
     for (let i = 0; i < street_info['children'].length; i++) {
-    if(addresses.includes(parseInt(street_info['children'][i].address.slice(-2)))){
-        findNextStreetElement(street_info['children'][i].address).insertAdjacentHTML(
-            'beforebegin',
+        let next_element = findNextStreetElement(street_info['children'][i].address);
+        let mode = 'beforebegin';
+
+        if (next_element == null) {
+            next_element = document.querySelector('.street-container');
+            mode = 'beforeend';
+        }
+        
+        next_element.insertAdjacentHTML(
+            mode,
             `
-            <a id="street-${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
+            <a id="street-${street_info['children'][i]['address']}" data-address="${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
                 ${svgs['street']}
             </a>
             `
         );
 
         document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
-    }
     }
 }
 
