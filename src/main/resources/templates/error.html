@@ -13,6 +13,20 @@
     <div th:if="${hasError}">
       <div th:switch="${statusCode}">
 
+        <div th:case="400"> 
+          <!-- corrupt / malformed request-->
+          <h1>Error 400 😕</h1>
+          <h3>Your browser sent us an incorrect/malformed request</h3>
+          Please speak to a Local Manager or Admin if this issue persists
+        </div>
+
+        <div th:case="401"> 
+          <!-- unauthorised -->
+          <h1>Error 401 😕</h1>
+          <h3>You must login to access this page</h3>
+          Please speak to a Local Manager or admin if you have issues logging in
+        </div>
+
         <div th:case="403"> 
           <!-- forbidden -->
           <h1>Error 403 😕</h1>
@@ -26,12 +40,34 @@
           <h3>We can't find the page you're looking for</h3>
         </div>
 
+        <div th:case="408"> 
+          <!-- timeout -->
+          <h1>Error 408 ⏰</h1>
+          <h3>Your request took too long to reach us</h3>
+          Please check your network connection and try again
+        </div>
+
+        <div th:case="429"> 
+          <!-- too many requests -->
+          <h1>Error 429 🫨</h1>
+          <h3>Your have made too many recent requests to out website</h3>
+          Please try again later
+        </div>
+
         <div th:case="500"> 
           <!-- internal server error -->
           <h1>Error 500 😵</h1>
           <h3>The server encountered an internal error</h3>
           Please try again or speak to a Local Manager or Admin if the issue persists
         </div>
+
+        <div th:case="503"> 
+          <!-- service unavailable -->
+          <h1>Error 503 🫥</h1>
+          <h3>The website is currently unavailable</h3>
+          Please try again later or speak to a Local Manager or Admin if the issue persists
+        </div>
+
 
         <div th:case="*"> 
           <!-- catch all -->
