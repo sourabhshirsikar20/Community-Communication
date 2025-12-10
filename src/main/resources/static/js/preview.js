@@ -95,10 +95,8 @@ function updatePreview() {
     document.getElementById('roofColourValue').textContent = roofColour.toUpperCase();
     document.getElementById('baseColourValue').textContent = baseColour.toUpperCase();
     document.getElementById('foregroundColourValue').textContent = foregroundColour.toUpperCase();
-    let textColourValueSpan = document.getElementById('textColourValue');
-    if (textColourValueSpan) {
-        textColourValueSpan.textContent = textColour.toUpperCase();
-    }
+    document.getElementById('textColourValue').textContent = textColour.toUpperCase();
+    UpdateText();
 }
 
 function UpdateText() {
