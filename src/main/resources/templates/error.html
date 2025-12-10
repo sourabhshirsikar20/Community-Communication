@@ -11,27 +11,32 @@
 
   <main class="error-body">
     <div th:if="${hasError}">
-      <h1>Error <span th:text="${statusCode}"></span></h1>
       <div th:switch="${statusCode}">
 
         <div th:case="403"> 
           <!-- forbidden -->
-          Forbidden
+          <h1>Error 403 😕</h1>
+          <h3>You do not have access to this page</h3>
+          Please speak to a Local Manager or Admin if you think you should
         </div>
 
         <div th:case="404"> 
           <!-- page not found -->
-          Page not found
+          <h1>Error 404 😕</h1>
+          <h3>We can't find the page you're looking for</h3>
         </div>
 
         <div th:case="500"> 
           <!-- internal server error -->
-          Internal server error
+          <h1>Error 500 😵</h1>
+          <h3>The server encountered an internal error</h3>
+          Please try again or speak to a Local Manager or Admin if the issue persists
         </div>
 
         <div th:case="*"> 
           <!-- catch all -->
-          Other error
+          <h1>😵 An unexpected error occured</h1>
+          Please try again or speak to a Local Manager or Admin if the issue persists
         </div>
 
       </div>
