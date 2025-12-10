@@ -10,7 +10,6 @@ public class AccessCodeValidator {
             return false;
         }
 
-        // Только цифры, длина 4-6
         if (!newCode.matches("\\d{4,6}")) {
             return false;
         }
