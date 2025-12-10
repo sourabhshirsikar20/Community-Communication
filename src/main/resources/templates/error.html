@@ -11,7 +11,7 @@
 
   <main class="error-body">
     <div th:if="${hasError}">
-      <h1>Error - <span th:text="${statusCode}"></span></h1>
+      <h1>Error <span th:text="${statusCode}"></span></h1>
       <div th:switch="${statusCode}">
 
         <div th:case="403"> 
