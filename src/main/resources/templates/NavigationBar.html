@@ -34,6 +34,12 @@
             <li class="nav-item">
                 <a href="/Approver" class="nav-link">✅ Approver</a>
             </li>
+            <!-- LOGOUT BUTTON ADDED HERE -->
+            <li class="nav-item">
+                <form method="post" th:action="@{/logout}" style="display: inline;">
+                    <button type="submit" class="nav-link logout-btn">Logout</button>
+                </form>
+            </li>
         </ul>
     </div>
 </nav>
@@ -65,6 +71,12 @@
                     <li><a href="/Block/Check" class="dropdown-link">✓ Check Block</a></li>
                     <li><a href="/Block/Add" class="dropdown-link">➕ Add Block</a></li>
                 </ul>
+            </li>
+            <!-- LOGOUT BUTTON ADDED HERE -->
+            <li class="nav-item">
+                <form method="post" th:action="@{/logout}" style="display: inline;">
+                    <button type="submit" class="nav-link logout-btn">Logout</button>
+                </form>
             </li>
         </ul>
     </div>
@@ -106,6 +118,12 @@
             </li>
             <li>
                 <a href="/ManageStreets" class="nav-link">🛣️ Street Management</a>
+            </li>
+            <!-- LOGOUT BUTTON ADDED HERE -->
+            <li class="nav-item">
+                <form method="post" th:action="@{/logout}" style="display: inline;">
+                    <button type="submit" class="nav-link logout-btn">Logout</button>
+                </form>
             </li>
         </ul>
     </div>

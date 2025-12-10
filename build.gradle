@@ -41,6 +41,8 @@ dependencies {
 	implementation 'joda-time:joda-time:2.12.5'
 	// https://mvnrepository.com/artifact/org.json/json for font option handling
   	implementation 'org.json:json:20250517'
+	// Thymeleaf Security Integration (FOR LOGOUT FUNCTIONALITY)
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
