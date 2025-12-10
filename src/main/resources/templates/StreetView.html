@@ -20,6 +20,8 @@
     <div id="header"></div>
     <div th:replace="~{fragments/street-nav :: street-nav}"></div>
 
+    <div class="page-wrapper">
+    <div class="street-container">
         <form method="get" th:action="@{'/street/'+${street}}" class="size-form">
             <input type="hidden" name="Page" value="1">
             <select name="Size" class="size-select" onchange="this.form.submit()">
@@ -58,6 +60,26 @@
             </div>
 
         </a>
+    </div>
+    </div>
+
+    <aside class="promo-sidebar">
+        <h3 class="sidebar-title">Local Promos</h3>
+        
+        <div th:if="${promos != null}">
+            <a th:each="i : ${#numbers.sequence(1, 4)}" 
+                 th:if="${promos.containsKey(i)}" 
+                 th:href="@{'/OrganisationInfo/' + ${promos.get(i).address}}"
+                 class="sidebar-promo-card">
+                
+                <h4 th:text="${promos.get(i).name}">Block Name</h4>
+                <p th:text="${promos.get(i).promoText}">Promo text...</p>
+                
+                <span class="promo-link">Visit →</span>
+            </a>
+        </div>
+    </aside>
+
     </div>
         <div class="pagination">
             <a th:if="${CurrentPage >1}" th:href="@{'/street/'+${street}(Page=${CurrentPage - 1},Size=${Size})}">

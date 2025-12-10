@@ -46,6 +46,7 @@ public class SecurityConfig {
     private static final String[] MANAGER_WHITELIST = {
             "/Approver",
             "/approveBlock/**",
+            "/Promos/**",
             "/test/expiry-status",
             "/api/expiry-status",
             "/api/expired-count",
