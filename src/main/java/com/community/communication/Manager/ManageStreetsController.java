@@ -29,6 +29,7 @@ public class ManageStreetsController {
   public ModelAndView ManageStreetsPage() {
     ModelAndView mav = new ModelAndView("ManageStreets");
     mav.addObject("newStreet", new NewStreet(null, null, null));
+    mav.addObject("moveStreet", new MoveStreet(null, null));
     return mav;
   }
 
@@ -63,6 +64,31 @@ public class ManageStreetsController {
     }
     return true;
   }
+
+  void MoveStreet(MoveStreet move) {
+    // get street info
+    List<Street> substreets = ApproverRepository.getSubStreets(move.getCurrentAddress());
+    List<Block>  blocks     = ApproverRepository.getStreetBlocks(move.getCurrentAddress());
+    Street       street     = ApproverRepository.getStreet(move.getCurrentAddress());
+
+    street.setAddress(move.getNewAddress());
+
+    // move
+    ApproverRepository.removeStreet(move.getCurrentAddress());
+    ApproverRepository.addNewStreet(street);
+
+    for (Block block : blocks) {
+      ApproverRepository.moveBlock(block.getAddress(), move.getNewAddress() + block.getAddress().substring(block.getAddress().length() - 2));
+    }
+
+    for (Street substreet : substreets) {
+      MoveStreet(new MoveStreet(substreet.getAddress(), substreet.getAddress().substring(substreet.getAddress().length() - 2)));
+    }
+  }
   
-  
+  @PostMapping("/move-street")
+  public ModelAndView MoveStreetPage(@Valid @ModelAttribute("moveStreet") MoveStreet move) {
+    MoveStreet(move);
+    return new ModelAndView("redirect:/ManageStreets");
+  }
 }

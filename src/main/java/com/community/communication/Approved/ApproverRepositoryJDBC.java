@@ -88,6 +88,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
     }
 
     @Override
+    public void moveBlock(String address, String new_address) {
+        String sql = "UPDATE communities SET address = ? WHERE address = ?";
+        jdbc.update(sql, new_address, address);
+    }
+
+    @Override
     public void addNewStreet(Street street) {
         // id is autoincrementing, so not included
         String sql = "INSERT INTO streets (name, address, description) VALUES (?,?,?)";

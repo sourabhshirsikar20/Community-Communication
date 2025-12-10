@@ -13,8 +13,10 @@ main>h2 {
   display: flex;
 }
 
-main>h2>button {
+main>h2>div {
   margin-left: auto;
+  display: flex;
+  gap: 2em;
 }
 
 main button {
@@ -159,7 +161,7 @@ main button:hover {
 .block-info {
   display: grid;
   grid-template-columns: 12em auto;
-  padding-right: 8.5em;
+  padding-right: 6.5em;
 }
 
 #block-address, #street-address {
@@ -173,19 +175,27 @@ main button:hover {
   grid-gap: 1em;
 }
 
-#add-street-section h4 {
+#move-street-form {
+  margin: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+
+#add-street-section h4, #move-street-section h4 {
   color: #2a4494;
   margin-left: 0.5em;
 }
 
-#add-street-form input {
+#add-street-form input, #move-street-form input {
   background: #00000010;
   border: none;
   border-radius: 0.5em;
   padding: 0.5em;
 }
 
-#add-street-form input[type='submit'] {
+#add-street-form input[type='submit'], 
+#move-street-form input[type='submit'] {
   border: 2px solid #2a4494;
   border-radius: 1em;
   background: none;
@@ -197,14 +207,15 @@ main button:hover {
   box-shadow: none;
 }
 
-#add-street-form input[type='submit']:hover {
+#add-street-form input[type='submit']:hover,
+#move-street-form input[type='submit']:hover {
   border-radius: 1em;
   background: #2a4494;
   color: white;
   cursor: pointer;
 }
 
-#add-street-form input.input-error {
+input.input-error {
   color: #ff0000;
 }
 
@@ -212,7 +223,7 @@ main button:hover {
   display: flex;
 }
 
-#addr-error {
+#addr-error, #old-addr-error, #new-addr-error {
   margin-left: auto;
   color: red;
 }

@@ -115,12 +115,17 @@ async function DisplayStreet(street, attatch_element) {
     }
   });
 
+  // recurse
   DisplaySideStreet(street, street_element.getElementById('street-children'));
   attatch_element.appendChild(street_element);
 }
 
 function AddNewStreet() {
   document.getElementById('add-street-section').classList.remove('hidden');
+}
+
+function MoveStreet() {
+  document.getElementById('move-street-section').classList.remove('hidden');
 }
 
 function AddressAvailable(address) {
@@ -135,6 +140,10 @@ function AddressAvailable(address) {
     return false;
 
   return true;
+}
+
+function StreetExists(address) {
+  return document.getElementById(`street-${address}`) != null;
 }
 
 function ValidateStreetForm() {
@@ -173,6 +182,44 @@ function ValidateStreetForm() {
     desc_input.classList.remove('input-error');
 
   return valid;
+}
+
+function ValidateStreetMoveForm() {
+  // get inputs
+  let old_addr = document.getElementById('move-street-addr');
+  let new_addr = document.getElementById('move-street-new-addr');
+
+  valid = true;
+
+  // Old address
+  if (old_addr.value == "" || !StreetExists(old_addr.value) || !/^\d+$/.test(old_addr.value) || old_addr.value.length % 2 != 0) {
+    old_addr.classList.add('input-error');
+    valid = false;
+    if (!StreetExists(old_addr.value)) {
+      document.getElementById('old-addr-error').textContent = "Not found";
+      document.getElementById('move-street-submit').value = 'Move Street';
+    }
+  }
+
+  if (StreetExists(old_addr.value)) {
+    old_addr.classList.remove('input-error');
+    document.getElementById('old-addr-error').textContent = "";  
+    let node = document.querySelector(`#street-${old_addr.value} #street-name`);
+    document.getElementById('move-street-submit').value = `Move ${node.textContent}`;
+  }
+
+  // New address
+  if (new_addr.value == "" || !AddressAvailable(new_addr.value) || !/^\d+$/.test(new_addr.value) || new_addr.value.length % 2 != 0) {
+    new_addr.classList.add('input-error');
+    valid = false;
+    if (!AddressAvailable(new_addr.value))
+      document.getElementById('new-addr-error').textContent = "Not available";
+  }
+  else {
+    new_addr.classList.remove('input-error');
+  }
+  if (AddressAvailable(new_addr.value))
+    document.getElementById('new-addr-error').textContent = "";  
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
