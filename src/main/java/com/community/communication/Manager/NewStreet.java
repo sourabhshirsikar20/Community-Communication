@@ -15,4 +15,7 @@ public class NewStreet {
 
   @Size(max=512, message="street description too large")
   String description;
+
+  @Size(max=64)
+  String img_option;
 }

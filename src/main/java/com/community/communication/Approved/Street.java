@@ -7,6 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class Street {
   int id = -1;
-  String name, address, description;
-  int img_option;
+  String name, address, description, img_option;
 }

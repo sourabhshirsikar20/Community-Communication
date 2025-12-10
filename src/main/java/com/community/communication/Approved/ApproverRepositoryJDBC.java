@@ -51,7 +51,7 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
                 rs.getString("name"),
                 rs.getString("address"),
                 rs.getString("description"),
-                rs.getInt("img_option")
+                rs.getString("img_option")
         );
     }
 
