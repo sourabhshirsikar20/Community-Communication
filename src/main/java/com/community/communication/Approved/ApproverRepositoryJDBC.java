@@ -88,6 +88,12 @@ public class ApproverRepositoryJDBC implements ApproverRepository{
     }
 
     @Override
+    public void removeBlock(String address) {
+        String sql = "DELETE FROM communities WHERE address = ?";
+        jdbc.update(sql, address);
+    }
+
+    @Override
     public void moveBlock(String address, String new_address) {
         String sql = "UPDATE communities SET address = ? WHERE address = ?";
         jdbc.update(sql, new_address, address);

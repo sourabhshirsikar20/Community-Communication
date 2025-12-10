@@ -54,11 +54,26 @@ public class ManageStreetsController {
     return new ModelAndView("redirect:/ManageStreets");
   }
 
+  void RemoveStreet(String street) {
+      List<Street> substreets = ApproverRepository.getSubStreets(street);
+      List<Block>  blocks     = ApproverRepository.getStreetBlocks(street);
+
+      ApproverRepository.removeStreet(street);
+
+      for (Block block : blocks) {
+        ApproverRepository.removeBlock(block.getAddress());
+      }
+
+      for (Street substreet : substreets) {
+        RemoveStreet(substreet.getAddress());
+      }
+  }
+
   @ResponseBody
   @PostMapping("/remove-street/{street}")
-  public boolean RemoveStreet(@PathVariable String street) {
+  public boolean RemoveStreetPage(@PathVariable String street) {
     try {
-      ApproverRepository.removeStreet(street);   
+      RemoveStreet(street);
     } catch(Exception e){
       return false;
     }
@@ -82,7 +97,7 @@ public class ManageStreetsController {
     }
 
     for (Street substreet : substreets) {
-      MoveStreet(new MoveStreet(substreet.getAddress(), substreet.getAddress().substring(substreet.getAddress().length() - 2)));
+      MoveStreet(new MoveStreet(substreet.getAddress(), move.getNewAddress() + substreet.getAddress().substring(substreet.getAddress().length() - 2)));
     }
   }
   
