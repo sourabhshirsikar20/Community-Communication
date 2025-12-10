@@ -102,7 +102,7 @@ function findNextStreetElement(currentAddress) {
 
 async function injectStreets() {
     let street_addresses = document.getElementById("address-range");
-    let addresses = street_addresses.dataset.paginationlist;
+    let addresses = JSON.parse(street_addresses.dataset.paginationlist);
 
     // load svgs
     let response = await fetch(`/svg/street.svg`);
@@ -143,24 +143,27 @@ async function injectStreets() {
 
     // add nodes making sub streets
     for (let i = 0; i < street_info['children'].length; i++) {
-        let next_element = findNextStreetElement(street_info['children'][i].address);
-        let mode = 'beforebegin';
+        let addr_int = parseInt(street_info['children'][i].address.slice(-2));
+        if (addr_int >= addresses[0] && addr_int <= addresses[1]) {
+            let next_element = findNextStreetElement(street_info['children'][i].address);
+            let mode = 'beforebegin';
 
-        if (next_element == null) {
-            next_element = document.querySelector('.street-container');
-            mode = 'beforeend';
+            if (next_element == null) {
+                next_element = document.querySelector('.street-container');
+                mode = 'beforeend';
+            }
+            
+            next_element.insertAdjacentHTML(
+                mode,
+                `
+                <a id="street-${street_info['children'][i]['address']}" data-address="${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
+                    ${svgs['street']}
+                </a>
+                `
+            );
+
+            document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
         }
-        
-        next_element.insertAdjacentHTML(
-            mode,
-            `
-            <a id="street-${street_info['children'][i]['address']}" data-address="${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
-                ${svgs['street']}
-            </a>
-            `
-        );
-
-        document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
     }
 }
 

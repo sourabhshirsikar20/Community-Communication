@@ -1,11 +1,12 @@
 package com.community.communication.Index;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import com.community.communication.Approved.Street;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.community.communication.Approved.ApproverRepository;
 import com.community.communication.Approved.Block;
+import com.community.communication.Approved.Street;
 import com.community.communication.Approved.StreetInfo;
 import com.community.communication.OrganisationInfo.OrganisationInfoRepository;
 import com.community.communication.Promos.PromoRepository;
@@ -52,30 +54,37 @@ public class IndexController {
 
         //mav.addObject("Approved", Approved);
         int Cnt = Approved.size();
-        System.out.println(Cnt);
+        //System.out.println(Cnt);
         List<Street> Streets = ApproverRepository.getSubStreets(street);
         int StrCnt = Streets.size();
-        System.out.println(StrCnt);
+        //System.out.println(StrCnt);
         List<Integer> StreetAddr = Streets.stream().map(E -> {String Addr = E.getAddress(); return Integer.valueOf(Addr.substring(Addr.length()-2, Addr.length()));}).collect(Collectors.toList());
+        List<Integer> BlockAddr  = Approved.stream().map(E -> {String Addr = E.getAddress(); return Integer.valueOf(Addr.substring(Addr.length()-2, Addr.length()));}).collect(Collectors.toList());
+        List<Integer> AllAddr = Stream.concat(StreetAddr.stream(), BlockAddr.stream()).collect(Collectors.toList());
+        Collections.sort(AllAddr);
         Cnt = Cnt + StrCnt;
-        System.out.println(Cnt);
+        //System.out.println(Cnt);
         int Pages = Math.ceilDiv(Cnt, Size);
-        System.out.println(Pages);
+        //System.out.println(Pages);
         List<Integer> PageNumbers = new ArrayList<>();
         if(Pages < 1){
             Pages = 1;
         }
-        System.out.println(Pages);
+        //System.out.println(Pages);
         int First = (Page - 1) * Size;
-        System.out.println(First);
+        //System.out.println(First);
         int Last = First + Size;
-        System.out.println(Last);
+        //System.out.println(Last);
         if(Last > Cnt){
             Last = Cnt;
         }
-        System.out.println(Last);
+        //System.out.println(Last);
         List<Block> Pagination = new ArrayList<>();
-        List<Integer> PaginationLst = new ArrayList<>();
+        List<Integer> PaginationLst;
+        if (!AllAddr.isEmpty())
+            PaginationLst = List.of(AllAddr.get(First), AllAddr.get(Last-1));
+        else
+            PaginationLst = List.of(0,0);
         int BlkIdx = 0;
         for(int i=0; i< First;i++){
             if(!StreetAddr.contains(i)){
@@ -83,14 +92,12 @@ public class IndexController {
             }
         }
         for(int i=First; i < Last; i++){
-            if(!StreetAddr.contains(i)) {
-                Pagination.add(Approved.get(BlkIdx++));
+            if(!StreetAddr.contains(i) && BlkIdx < Approved.size()) {
+                    Pagination.add(Approved.get(BlkIdx++));
             }
-            else{
-                PaginationLst.add(i);
-            }
+            
         }
-        System.out.println(BlkIdx);
+        //System.out.println(BlkIdx);
         for(int i = 1;i<= Pages;i++){
             PageNumbers.add(i);
         }
