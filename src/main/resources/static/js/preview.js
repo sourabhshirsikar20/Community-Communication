@@ -42,8 +42,7 @@ function updatePreview() {
     let roofColour = document.getElementById('roofColour').value;
     let baseColour = document.getElementById('baseColour').value;
     let foregroundColour = document.getElementById('foregroundColour').value;
-    let textColourInput = document.getElementById('textColour').value;
-    let textColour = textColourInput ? textColourInput.value : '#000000';
+    let textColour = document.getElementById('textColour').value;
 
     if (svgs.base[baseOption]) {  
         let container = document.getElementById('preview-base');
