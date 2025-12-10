@@ -8,4 +8,5 @@ import lombok.Data;
 public class Street {
   int id = -1;
   String name, address, description;
+  int img_option;
 }

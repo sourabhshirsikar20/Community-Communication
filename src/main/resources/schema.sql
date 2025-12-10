@@ -63,7 +63,8 @@ create table if not exists streets (
   name        varchar(64),
   address     varchar(126) UNIQUE, -- (block address size - 2)  as doesnt need to cover the last potential address of blocks
                                    -- NULL address is taken to mean the main (root) street
-  description varchar(512)
+  description varchar(512),
+  img_option  smallint default 0
 ) engine=InnoDB;
 
 --Reports table

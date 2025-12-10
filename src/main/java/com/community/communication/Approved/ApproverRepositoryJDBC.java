@@ -50,7 +50,8 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("address"),
-                rs.getString("description")
+                rs.getString("description"),
+                rs.getInt("img_option")
         );
     }
 
@@ -140,8 +141,8 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
     @Override
     public void addNewStreet(Street street) {
         // id is autoincrementing, so not included
-        String sql = "INSERT INTO streets (name, address, description) VALUES (?,?,?)";
-        jdbc.update(sql, street.getName(), street.getAddress(), street.getDescription());
+        String sql = "INSERT INTO streets (name, address, description, img_option) VALUES (?,?,?,?)";
+        jdbc.update(sql, street.getName(), street.getAddress(), street.getDescription(), street.getImg_option());
     }
 
     @Override
