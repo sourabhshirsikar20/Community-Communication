@@ -23,15 +23,21 @@
       <form id="add-street-form" action="/new-street" method="post" th:object="${newStreet}" onsubmit="return ValidateStreetForm()">
         <label>
           Name<br>
-          <input id="add-street-name" size="26" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm()">
+          <input id="add-street-name" size="32" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm()">
         </label>
         <label>
           <div class="form-label"><span>Address</span><span id="addr-error"></span></div>
-          <input id="add-street-addr" size="26" required placeholder="Address" th:field="*{address}" onkeyup="ValidateStreetForm()">
+          <input id="add-street-addr" size="32" required placeholder="Address" th:field="*{address}" onkeyup="ValidateStreetForm()">
         </label>
         <label>
           Description<br>
-          <input id="add-street-desc" size="52" required maxlength="64" placeholder="Short Description" th:field="*{description}" onkeyup="ValidateStreetForm()">
+          <input id="add-street-desc" size="32" required maxlength="64" placeholder="Short Description" th:field="*{description}" onkeyup="ValidateStreetForm()">
+        </label>
+        <label>
+          Image Option<br>
+          <select th:field="*{img_option}">
+            <option th:each="option : ${img_options}" th:value="${option}" th:text="${option}"></option>
+          </select>
         </label>
         <input type="submit" value="Add Street">
       </form>
@@ -42,11 +48,11 @@
       <form id="move-street-form" action="/move-street" method="post" th:object="${moveStreet}" onsubmit="return ValidateStreetMoveForm()">
         <label>
           <div class="form-label"><span>Current Address</span><span id="old-addr-error"></span></div>
-          <input id="move-street-addr" size="26" required maxlength="64" placeholder="Current Address" th:field="*{currentAddress}" onkeyup="ValidateStreetMoveForm()">
+          <input id="move-street-addr" size="32" required maxlength="64" placeholder="Current Address" th:field="*{currentAddress}" onkeyup="ValidateStreetMoveForm()">
         </label>
         <label>
           <div class="form-label"><span>New Address</span><span id="new-addr-error"></span></div>
-          <input id="move-street-new-addr" size="26" required maxlength="64" placeholder="New Address" th:field="*{newAddress}" onkeyup="ValidateStreetMoveForm()">
+          <input id="move-street-new-addr" size="32" required maxlength="64" placeholder="New Address" th:field="*{newAddress}" onkeyup="ValidateStreetMoveForm()">
         </label>
         <input type="submit" value="Move Street" id="move-street-submit">
       </form>

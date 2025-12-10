@@ -30,6 +30,10 @@ public class ManageStreetsController {
     ModelAndView mav = new ModelAndView("ManageStreets");
     mav.addObject("newStreet", new NewStreet(null, null, null,null));
     mav.addObject("moveStreet", new MoveStreet(null, null));
+
+    List<String> img_options = List.of("legacy", "return");
+    mav.addObject("img_options", img_options);
+
     return mav;
   }
 
