@@ -47,6 +47,9 @@ public class SecurityConfig {
             "/Approver",
             "/approveBlock/**",
             "/Promos/**"
+            "/test/expiry-status",
+            "/api/expiry-status",
+            "/api/expired-count",
     };
 
     public static boolean IsUrlInWhitelists(String url) {

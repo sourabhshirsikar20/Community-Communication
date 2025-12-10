@@ -17,11 +17,18 @@ function enableTableInteractions(allEntries) {
             console.log("Found Block:", selectedBlock);
 
             if (selectedBlock) {
+                // Is there a report?
+                const reasonHtml = selectedBlock.reportReason 
+                    ? `<p> <b> Reason for Report </b> </p><p>${selectedBlock.reportReason}</p>` 
+                    : '';
+
                 displayBox.innerHTML = `
                     <div class="details_pane">
                         <h3>${selectedBlock.name}</h3>
+                        ${reasonHtml}
+                        <p> <b> Main text </b> </p>
                         <p>${selectedBlock.mainText}</p>
-                        <p> <b> File location </b> </p>
+                        <p> <b> Block Address </b> </p>
                         <p>${selectedBlock.address}</p>
                         <p> <b> Links and information </b> </p>
                         <p>${selectedBlock.linksText}</p>
