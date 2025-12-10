@@ -12,8 +12,10 @@ public interface ApproverRepository {
     void addNewStreet(Street street);
     void removeStreet(String address);
     void approve(int id, String secretHash);
+    void deleteBlock(int id);
     List<Block> getSearch(String value);
     List<Street> getSubStreets(String streetAddress);
     Street getStreet(String streetAddress);
     List<Street> getAllStreets();
+    boolean checkStreet(String streetAddress);
 }

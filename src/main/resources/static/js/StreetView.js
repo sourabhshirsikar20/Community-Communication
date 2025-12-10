@@ -101,6 +101,9 @@ function findNextStreetElement(currentAddress) {
 }
 
 async function injectStreets() {
+    let street_addresses = document.getElementById("address-range");
+    let addresses = street_addresses.dataset.paginationlist;
+
     // load svgs
     let response = await fetch(`/svg/street.svg`);
     if (!response.ok) throw new Error('svgs unavailable');

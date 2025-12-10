@@ -47,6 +47,12 @@ public class ApprovedController {
 
         return mav;
     }
+    
+    @PostMapping("/deleteBlock")
+    public String deleteBlock(@RequestParam("id") int id) {
+        ApproverRepository.deleteBlock(id);
+        return "redirect:/Approver";
+    }
 
     private String generateCode() {
         int number = 100000 + random.nextInt(900000); // 6 digits

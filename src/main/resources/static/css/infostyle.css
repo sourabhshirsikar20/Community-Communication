@@ -453,3 +453,19 @@ body.has-navbar .container:first-of-type {
     font-size: 0.75rem;
   }
 }
+
+/* Report button */
+#report{
+  margin-top: 20px; 
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
+
+#report h3,.submit-button {
+  color: #dc3545; 
+  font-size: 1.1rem;
+}
+
+#report.submit-button{
+  padding: 0.5rem 1rem;
+}

@@ -96,6 +96,8 @@ function updatePreview() {
     document.getElementById('baseColourValue').textContent = baseColour.toUpperCase();
     document.getElementById('foregroundColourValue').textContent = foregroundColour.toUpperCase();
     document.getElementById('textColourValue').textContent = textColour.toUpperCase();
+
+    UpdateText();
 }
 
 function UpdateText() {
