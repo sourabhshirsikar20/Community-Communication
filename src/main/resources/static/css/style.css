@@ -620,6 +620,8 @@ tbody tr:hover {
     align-items: center;
     height: 70px;
     margin-bottom: 1em;
+    gap: 1.5rem;
+    flex-shrink: 0;
 }
 
 .nav-brand {
@@ -642,6 +644,7 @@ tbody tr:hover {
     gap: 0.5rem;
     margin: 0;
     padding: 0;
+    flex-shrink: 0;
 }
 
 .nav-item {
@@ -651,7 +654,7 @@ tbody tr:hover {
 .nav-link {
     color: #FFFFFF;
     text-decoration: none;
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -1323,12 +1326,14 @@ body.has-navbar .container:first-of-type {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.1); 
+    background: rgba(255, 255, 255, 0.1);
     padding: 5px 5px 5px 15px;
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    margin-right: auto;
-    margin-left: 2rem; 
+    margin-right: 1rem;
+    margin-left: 2rem;
+    max-width: 300px;
+    flex-shrink: 1;
 }
 
 .nav-search-label {
@@ -1345,7 +1350,7 @@ body.has-navbar .container:first-of-type {
     padding: 6px 12px;
     font-size: 0.9rem;
     color: #333;
-    width: 200px; 
+    width: 160px;
     outline: none;
     transition: width 0.3s ease;
 }
