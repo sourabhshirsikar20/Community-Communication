@@ -5,6 +5,13 @@
 </head>
 <body>
 
+<!-- LOGIN NAVIGATION -->
+<nav th:fragment="login-nav" class="navbar">
+    <div class="nav-container">
+        <a href="/Index" class="nav-brand">Streete</a>
+    </div>
+</nav>
+
 <!-- PUBLIC NAVIGATION (Default - for all users) -->
 <nav th:fragment="public-nav" class="navbar">
     <div class="nav-container">
@@ -76,6 +83,9 @@
             <li>
                 <a href="/ManageStreets" class="nav-link">🛣️ Street Management</a>
             </li>
+            <li>
+                <a href="/test/expiry-status" class="nav-link">⏰ Expiry Dashboard</a>
+            </li>
             <!-- LOGOUT BUTTON ADDED HERE -->
             <li class="nav-item">
                 <form method="post" th:action="@{/logout}" style="display: inline;">
@@ -120,6 +130,9 @@
             </li>
             <li>
                 <a href="/ManageStreets" class="nav-link">🛣️ Street Management</a>
+            </li>
+            <li>
+                <a href="/test/expiry-status" class="nav-link">⏰ Expiry Dashboard</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">
