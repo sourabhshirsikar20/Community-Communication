@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.community.communication.OrganiseBlock.BlockRepository;
+import com.community.communication.blockmovenotice.BlockMoveNoticeService;
 import com.community.communication.Approved.ApproverRepositoryJDBC;
-
 @Controller
 @RequestMapping("/Block")
 public class BlockController {
+    @Autowired
+    private BlockMoveNoticeService blockMoveNoticeService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -59,6 +62,10 @@ public class BlockController {
     @PostMapping("/Add")
     public ModelAndView Adding(@RequestParam String Address,@RequestParam String Name,@RequestParam int RoofOption,@RequestParam String RoofColour,@RequestParam int BaseOption,@RequestParam String BaseColour,@RequestParam int ForegroundOption,@RequestParam String ForegroundColour,@RequestParam String FontOptions,@RequestParam String FontColour,@RequestParam String MainText,@RequestParam String LinksText,@RequestParam String InfoText,@RequestParam String PromoText, @RequestParam String SecretHash){
         ModelAndView mav= new ModelAndView("BlockAdd");
+        if (blockMoveNoticeService.isAddressReserved(Address)) {
+            mav.addObject("Str", "Cannot add block: address is reserved");
+            return mav;
+        }
         mav.addObject("Address", Address);
         mav.addObject("Name", Name);
         mav.addObject("RoofOption", RoofOption);
@@ -137,6 +144,13 @@ public class BlockController {
         if(Exists == null){
             mav.addObject("Str", "Cannot Update Does not Exists");
             mav.addObject("Block", null);
+            return mav;
+        }
+        //If the address taken or no
+        if (blockMoveNoticeService.isAddressReserved(Address)
+                && !Address.equals(Exists.getAddress())) {
+            mav.addObject("Str", "Cannot update: address is reserved");
+            mav.addObject("Block", Exists);
             return mav;
         }
             Block block = new Block();

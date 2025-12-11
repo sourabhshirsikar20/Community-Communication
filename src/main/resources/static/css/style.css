@@ -2238,6 +2238,44 @@ textarea.invalid-field {
         transform: translateY(0);
     }
 }
+ .notice-popup {
+     display:none;
+     position:fixed;
+     top:50%;
+     left:50%;
+     transform:translate(-50%, -50%);
+     background:white;
+     padding:20px;
+     border-radius:8px;
+     z-index:1001;
+     box-shadow:0 0 15px rgba(0,0,0,0.4);
+     min-width:260px;
+     text-align:center;
+ }
+.popup-backdrop {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.55);
+    z-index:1000;
+}
+.moved-block {
+    opacity:0.85;
+    position:relative;
+}
+.moved-block::after {
+    content:"Moved";
+    position:absolute;
+    bottom:4px;
+    right:6px;
+    background:#ffcc00;
+    padding:2px 6px;
+    font-size:11px;
+    border-radius:4px;
+}
 /* ========== WORD COUNT STYLING ========== */
 .word-count {
     text-align: right;

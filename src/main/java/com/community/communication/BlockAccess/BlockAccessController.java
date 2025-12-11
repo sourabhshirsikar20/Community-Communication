@@ -2,6 +2,7 @@ package com.community.communication.BlockAccess;
 
 import com.community.communication.Approved.Block;
 import com.community.communication.OrganiseBlock.BlockRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.Valid;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import com.community.communication.blockmovenotice.BlockMoveNoticeService;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -17,6 +20,9 @@ public class BlockAccessController {
 
     private final BlockRepository blockRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private BlockMoveNoticeService blockMoveNoticeService;
 
     public BlockAccessController(BlockRepository blockRepository,
                                  PasswordEncoder passwordEncoder) {
@@ -88,7 +94,7 @@ public class BlockAccessController {
         Block current = blockRepository.ById(id);
 
         ModelAndView mav = new ModelAndView("BlockAccessEdit.html");
-
+        String oldAddress = current.getAddress();
         try {
             Block existing = blockRepository.ByAddress(address);
 
@@ -103,6 +109,12 @@ public class BlockAccessController {
 
                 mav.addObject(BindingResult.MODEL_KEY_PREFIX + "block", bindingResult);
 
+                return mav;
+            }
+            if (blockMoveNoticeService.isAddressReserved(address) && !oldAddress.equals(address)) {
+                mav.addObject("error", "This address is temporarily reserved due to a recent move. Changes NOT saved.");
+                mav.addObject("block", current);
+                mav.addObject("accessCode", accessCode);
                 return mav;
             }
 
@@ -125,6 +137,10 @@ public class BlockAccessController {
 
         updated.setApproved(current.isApproved());
         updated.setSecretHash(current.getSecretHash());
+
+        if (!oldAddress.equals(address)) {
+            blockMoveNoticeService.createNotice(updated, oldAddress);
+        }
 
         blockRepository.Update(updated);
 
@@ -183,6 +199,25 @@ public class BlockAccessController {
     @GetMapping("/checkAddress")
     @ResponseBody
     public boolean checkAddress(@RequestParam String value) {
-        return blockRepository.Check(value);
+        boolean occupiedByBlock = blockRepository.Check(value); // block in the communities
+        boolean reservedByNotice = blockMoveNoticeService.isAddressReserved(value); // ghost
+        return occupiedByBlock || reservedByNotice;
+    }
+
+    @PostMapping("/updateBlock")
+    public String updateBlock(@ModelAttribute("block") Block updatedBlock) {
+
+        Block oldBlock = blockRepository.ById(updatedBlock.getId());
+
+        if (oldBlock != null && !oldBlock.getAddress().equals(updatedBlock.getAddress())) {
+            blockMoveNoticeService.createNotice(updatedBlock, oldBlock.getAddress());
+        }
+        if (blockMoveNoticeService.isAddressReserved(updatedBlock.getAddress())
+                && !oldBlock.getAddress().equals(updatedBlock.getAddress())) {
+        }
+
+        blockRepository.Update(updatedBlock);
+
+        return "redirect:/BlockAccess?id=" + updatedBlock.getId();
     }
 }
