@@ -169,10 +169,26 @@ main button:hover {
 }
 
 #add-street-form {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  width: min-content;
+}
+
+#add-street-form>div {
   margin: 0.5em;
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
+    width: 100%;
+}
+
+#add-street-form svg {
+  width: 9em;
+  height: 9em;
+  background: #00000010;
+  padding: 0.5em;
+  border-radius: 0.5em;
 }
 
 #move-street-form {
@@ -187,11 +203,13 @@ main button:hover {
   margin-left: 0.5em;
 }
 
-#add-street-form input, #move-street-form input {
+#add-street-form input, #move-street-form input,
+#add-street-form select{
   background: #00000010;
   border: none;
   border-radius: 0.5em;
   padding: 0.5em;
+  min-width: 100%;
 }
 
 #add-street-form input[type='submit'], 

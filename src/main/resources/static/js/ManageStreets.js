@@ -122,6 +122,7 @@ async function DisplayStreet(street, attatch_element) {
 
 function AddNewStreet() {
   document.getElementById('add-street-section').classList.remove('hidden');
+  UpdateAddSVG();
 }
 
 function MoveStreet() {
@@ -220,6 +221,30 @@ function ValidateStreetMoveForm() {
   }
   if (AddressAvailable(new_addr.value))
     document.getElementById('new-addr-error').textContent = "";  
+}
+
+streetSVGs = {};
+
+async function UpdateAddSVG() {
+  let box = document.getElementById('add-street-svg');
+  let img_option = document.getElementById('add-img-option').value;
+
+  // load svg
+  let svg = '';
+  if (img_option in streetSVGs) {
+    svg = streetSVGs[img_option];
+  }
+  else {
+    let response = await fetch(`/svg/streets/${img_option}.svg`);
+    if (!response.ok) throw new Error('svgs unavailable');
+    streetSVGs[img_option] = await response.text();
+    svg = streetSVGs[img_option];
+  }
+
+  box.innerHTML = svg;
+
+  // set text
+  box.querySelector('svg text').textContent = document.getElementById('add-street-name').value;
 }
 
 window.addEventListener('DOMContentLoaded', async () => {

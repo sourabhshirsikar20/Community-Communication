@@ -100,18 +100,15 @@ function findNextStreetElement(currentAddress) {
     return streetElements[0] ? streetElements[0].element : null;
 }
 
+async function getStreetSVG(svg_name) {
+    let response = await fetch(`/svg/streets/${svg_name}.svg`);
+    if (!response.ok) throw new Error('street svgs unavailable');
+    return await response.text();
+}
+
 async function injectStreets() {
     let street_addresses = document.getElementById("address-range");
     let addresses = JSON.parse(street_addresses.dataset.paginationlist);
-
-    // load svgs
-    let response = await fetch(`/svg/street.svg`);
-    if (!response.ok) throw new Error('svgs unavailable');
-    svgs['street'] = await response.text();
-
-    response = await fetch(`/svg/street-return.svg`);
-    if (!response.ok) throw new Error('svgs unavailable');
-    svgs['street-return'] = await response.text();
 
     // get street information
     let current_street = window.location.pathname;
@@ -133,7 +130,7 @@ async function injectStreets() {
             'afterbegin',
             `
             <a id="street-return" class="house-block" href="/street/${street_info['parent']['address']}">
-                ${svgs['street-return']}
+                ${await getStreetSVG('return')}
             </a>
             `
         );
@@ -157,7 +154,7 @@ async function injectStreets() {
                 mode,
                 `
                 <a id="street-${street_info['children'][i]['address']}" data-address="${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
-                    ${svgs['street']}
+                    ${await getStreetSVG(street_info['children'][i]['img_option'])}
                 </a>
                 `
             );

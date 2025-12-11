@@ -54,6 +54,14 @@ public class SecurityConfig {
             "/Approver",
             "/approveBlock/**",
             "/Promos/**",
+            "/ManageStreets",
+            "/new-street",
+            "/move-street",
+            "street-blocks/**",
+            "/remove-street/**",
+            "/test/expiry-status",
+            "/api/expiry-status",
+            "/api/expired-count",
     };
 
     public static boolean IsUrlInWhitelists(String url) {
