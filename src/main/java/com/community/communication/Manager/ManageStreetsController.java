@@ -1,8 +1,12 @@
 package com.community.communication.Manager;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +28,22 @@ public class ManageStreetsController {
 
   @Autowired
   private ApproverRepository ApproverRepository;
+
+  private final PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
   
   @GetMapping("/ManageStreets")
-  public ModelAndView ManageStreetsPage() {
+  public ModelAndView ManageStreetsPage() throws IOException {
     ModelAndView mav = new ModelAndView("ManageStreets");
     mav.addObject("newStreet", new NewStreet(null, null, null,null));
     mav.addObject("moveStreet", new MoveStreet(null, null));
 
-    List<String> img_options = List.of("legacy", "return");
+    List<String> img_options = Arrays.stream(resolver.getResources("classpath:/static/svg/streets/*"))
+                                     .map(resource -> {
+                                        String filename = resource.getFilename();
+                                        int dot_loc = filename.lastIndexOf('.');
+                                        return filename.substring(0, dot_loc);
+                                      })
+                                     .collect(Collectors.toList());
     mav.addObject("img_options", img_options);
 
     return mav;
