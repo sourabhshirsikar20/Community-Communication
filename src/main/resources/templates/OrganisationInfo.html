@@ -12,70 +12,6 @@
     <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
     <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
     <div th:replace="~{fragments/street-nav :: street-nav}"></div>
-    <!-- EXPIRED MESSAGE - Shows when block has expired -->
-        <div th:if="${isExpired}" class="expiry-alert expired">
-            <h3>This Block Has Expired</h3>
-            <p>This organisation's listing expired on 
-                <strong th:text="${formattedExpiryDate}">Date</strong>.
-            </p>
-            <p><strong>This listing is no longer active. Please contact the organisation to update their information.</strong></p>
-        </div>
-        
-<!-- 10-DAY URGENT WARNING - Shows when ≤ 10 days remaining -->
-<div th:if="${!isExpired && daysRemaining <= 10}" class="expiry-alert urgent">
-    <h3>⚠️ URGENT: Listing Expiring Soon!</h3>
-    <p class="urgent-message">
-        <strong>Your listing expires in <span th:text="${daysRemaining}">0</span> days!</strong>
-    </p>
-    <p class="urgent-action">
-        Please update your organisation information to keep your listing active.
-    </p>
-    
-    <!-- Still show countdown -->
-    <div class="countdown">
-        <div class="countdown-item">
-            <span class="countdown-value" th:text="${daysRemaining}">0</span>
-            <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-item">
-            <span class="countdown-value" th:text="${hoursRemaining}">0</span>
-            <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-item">
-            <span class="countdown-value" th:text="${minutesRemaining}">0</span>
-            <span class="countdown-label">Minutes</span>
-        </div>
-    </div>
-    
-    <p class="expiry-date">
-        Expires on: <strong th:text="${formattedExpiryDate}">Date</strong>
-    </p>
-</div>
-
-<!-- NORMAL COUNTDOWN - Shows when > 10 days remaining -->
-<div th:if="${!isExpired && daysRemaining > 10}" class="expiry-alert active">
-    <h3>⏰ Time Remaining Until Expiry</h3>
-    
-    <div class="countdown">
-        <div class="countdown-item">
-            <span class="countdown-value" th:text="${daysRemaining}">0</span>
-            <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-item">
-            <span class="countdown-value" th:text="${hoursRemaining}">0</span>
-            <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-item">
-            <span class="countdown-value" th:text="${minutesRemaining}">0</span>
-            <span class="countdown-label">Minutes</span>
-        </div>
-    </div>
-    
-    <p class="expiry-date">
-        This listing expires on: 
-        <strong th:text="${formattedExpiryDate}">Date</strong>
-    </p>
-</div>
 
 <div class="grid">
     <div class="box">
@@ -105,6 +41,72 @@
     </div>
 
     <div class="side">
+    
+        <!-- EXPIRED MESSAGE - Shows when block has expired -->
+        <div th:if="${isExpired}" class="expiry-alert expired">
+            <h3>This Block Has Expired</h3>
+            <p>This organisation's listing expired on 
+                <strong th:text="${formattedExpiryDate}">Date</strong>.
+            </p>
+            <p><strong>This listing is no longer active. Please contact the organisation to update their information.</strong></p>
+        </div>
+                
+        <!-- 10-DAY URGENT WARNING - Shows when ≤ 10 days remaining -->
+        <div th:if="${!isExpired && daysRemaining <= 10}" class="expiry-alert urgent">
+            <h3>⚠️ URGENT: Listing Expiring Soon!</h3>
+            <p class="urgent-message">
+                <strong>Your listing expires in <span th:text="${daysRemaining}">0</span> days!</strong>
+            </p>
+            <p class="urgent-action">
+                Please update your organisation information to keep your listing active.
+            </p>
+            
+            <!-- Still show countdown -->
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${daysRemaining}">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${hoursRemaining}">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${minutesRemaining}">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+            </div>
+            
+            <p class="expiry-date">
+                Expires on: <strong th:text="${formattedExpiryDate}">Date</strong>
+            </p>
+        </div>
+
+        <!-- NORMAL COUNTDOWN - Shows when > 10 days remaining -->
+        <div th:if="${!isExpired && daysRemaining > 10}" class="expiry-alert active">
+            <h3>⏰ Time Remaining Until Expiry</h3>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${daysRemaining}">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${hoursRemaining}">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${minutesRemaining}">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+            </div>
+            
+            <p class="expiry-date">
+                This listing expires on: 
+                <strong th:text="${formattedExpiryDate}">Date</strong>
+            </p>
+        </div>
+
         <div class="box">
             <h3>Visit Us</h3>
             <a th:href="'https://' + ${Info.linksText}" class="button-link">Press Here</a>

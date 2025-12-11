@@ -46,6 +46,7 @@ public class SecurityConfig {
         "/OrganisationInfo",
         "/OrganisationInfo/**",
         "/BlockAccess/**",
+        "Block/block/delete",
         "/search",
         "/live-search"
     };
