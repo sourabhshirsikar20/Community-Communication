@@ -13,17 +13,18 @@ body {
     background-color: #F4F7F6;
     color: #333333;
     line-height: 1.6;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
 }
 
 .main-content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 }
 
 .container {
-    max-width: 1000px;
     margin: 0 auto;
     background: #FFFFFF;
     padding: 20px;
@@ -32,7 +33,6 @@ body {
 }
 
 .container {
-    max-width: 1000px;
     margin: 0 auto;
     background: #FFFFFF;
     padding: 20px;
@@ -57,6 +57,24 @@ body {
     color: inherit;
     transition: transform 0.2s ease;
     cursor: pointer;
+}
+
+.house-block.block-return {
+    margin: 0 auto;
+    height: 80px;
+}
+
+.house-block.block-return:hover {
+    z-index: 10;          
+}
+
+.house-block.block-return svg {
+    height: 80px;
+}
+
+.house-block svg {
+    width: 200px;
+    height: 200px;
 }
 
 .house-block:hover {
@@ -173,7 +191,7 @@ tbody tr:hover {
 }
 
 
-#approve_button {
+#approve_button, #delete_button {
     background: none;
     border: 2px solid transparent;
     border-radius: 50%;
@@ -186,6 +204,7 @@ tbody tr:hover {
     font-weight: bold;
     font-size: 1.2rem;
     transition: all 0.2s ease;
+    
 }
 
 #approve_button {
@@ -195,6 +214,15 @@ tbody tr:hover {
 
 #approve_button:hover {
     background-color: #28a745;
+    color: #FFFFFF;
+}
+#delete_button {
+    color: #d10a0a;
+    border-color: #d10a0a;
+}
+
+#delete_button:hover {
+    background-color: #d10a0a;
     color: #FFFFFF;
 }
 
@@ -243,6 +271,7 @@ tbody tr:hover {
 }
 
 .form-field input[type="text"],
+.form-field input[type="password"],
 .form-field textarea {
     padding: 0.75rem;
     border: 2px solid #e0e0e0;
@@ -339,14 +368,15 @@ tbody tr:hover {
 
 .template-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.75rem;
+    width: 100%;
 }
 
 .template-select {
     width: 100%;
     padding: 0.65rem;
-    border: 2px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
     border-radius: 6px;
     font-size: 0.95rem;
     background-color: white;
@@ -355,42 +385,25 @@ tbody tr:hover {
 }
 
 .template-select:hover {
-    border-color: #1D2F6F;
-}
-
-.template-select:focus {
-    outline: none;
-    border-color: #1D2F6F;
-    box-shadow: 0 0 0 3px rgba(29, 47, 111, 0.1);
-}
-
-.color-control {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 0.25rem;
-}
-
-.color-label {
-    font-size: 0.9rem;
-    color: #555;
-    font-weight: 500;
+    border-color: #47527a;
 }
 
 .color-input-group {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
 }
 
 .color-input-group input[type="color"] {
     width: 50px;
     height: 40px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
+    border: none;
     cursor: pointer;
     padding: 3px;
-    background-color: white;
     transition: border-color 0.3s ease;
 }
 
@@ -398,25 +411,39 @@ tbody tr:hover {
     font-family: 'Courier New', monospace;
     font-size: 0.85rem;
     color: #333;
-    background: white;
-    padding: 0.4rem 0.75rem;
-    border-radius: 5px;
     font-weight: 600;
+    padding-right: 0.5em;
+}
+
+#template-font-group {
+    background: white;
+    padding: 5px;
+    padding-left: 15px;
     border: 1px solid #e0e0e0;
-    min-width: 75px;
-    text-align: center;
+    border-radius: 5px;
+}
+
+#template-font-group input {
+    max-width: 7em;
 }
 
 .template-preview {
     position: relative;
+    height: 100%;
 }
 
 .preview-container {
     background: white;
-    border: 2px solid #1D2F6F;
+    border: 2px solid #3c4978;
     border-radius: 12px;
     padding: 1.25rem;
     width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .preview-box {
@@ -428,10 +455,6 @@ tbody tr:hover {
 
 .preview-layer {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
 }
 
@@ -440,6 +463,16 @@ tbody tr:hover {
     height: 100%;
     display: block;
 }
+
+.preview-layer svg text {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings: "wdth" 80;
+    letter-spacing: 0.1em;
+}
+
 
 .form-actions {
     display: flex;
@@ -474,6 +507,8 @@ tbody tr:hover {
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 #login-form>div {
@@ -592,7 +627,6 @@ tbody tr:hover {
 }
 
 .nav-container {
-    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
@@ -600,6 +634,8 @@ tbody tr:hover {
     align-items: center;
     height: 70px;
     margin-bottom: 1em;
+    gap: 1.5rem;
+    flex-shrink: 0;
 }
 
 .nav-brand {
@@ -622,6 +658,7 @@ tbody tr:hover {
     gap: 0.5rem;
     margin: 0;
     padding: 0;
+    flex-shrink: 0;
 }
 
 .nav-item {
@@ -631,11 +668,11 @@ tbody tr:hover {
 .nav-link {
     color: #FFFFFF;
     text-decoration: none;
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-weight: 500;
+    font-weight: 800;
     font-size: 1rem;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -867,7 +904,6 @@ body.has-navbar .container:first-of-type {
 }
 
 .footer-container {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
     /* slightly smaller padding */
@@ -964,16 +1000,353 @@ body.has-navbar .container:first-of-type {
     }
 }
 
+/* ========================================= */
+/* EXPIRY COUNTDOWN & ALERT STYLES */
+/* ========================================= */
+
+.expiry-alert {
+    margin: 1rem auto;
+    max-width: 500px;
+    padding: 1rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Expired block styling - RED ALERT */
+.expiry-alert.expired {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: 4px solid #bd2130;
+}
+
+.expiry-alert.expired h3 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.expiry-alert.expired p {
+    font-size: 1rem;
+    margin: 0.75rem 0;
+    line-height: 1.6;
+}
+
+/* Active block styling - ORANGE WARNING */
+.expiry-alert.active {
+    background: linear-gradient(135deg, #F5A623 0%, #e09612 100%);
+    color: white;
+    border: 4px solid #d08a0d;
+}
+
+.expiry-alert.active h3 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Countdown timer container */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+/* Individual countdown boxes */
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 1.25rem 1.75rem;
+    border-radius: 10px;
+    min-width: 85px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+}
+
+/* The big number (30, 12, 45) */
+.countdown-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* The label (Days, Hours, Minutes) */
+.countdown-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+/* Expiry date text */
+.expiry-date {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+.expiry-date strong {
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================= */
+/* 10-DAY URGENT WARNING STYLES */
+/* ========================================= */
+
+/* Urgent warning styling - BRIGHT ORANGE/RED */
+.expiry-alert.urgent {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
+    color: white;
+    border: 4px solid #cc3700;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Pulsing animation for urgency */
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 8px 30px rgba(255, 69, 0, 0.6);
+    }
+}
+
+.expiry-alert.urgent h3 {
+    font-size: 1.6rem;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Shake animation for header */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.expiry-alert.urgent .urgent-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.expiry-alert.urgent .urgent-action {
+    font-size: 1rem;
+    margin: 0.75rem 0 1.5rem 0;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+/* Make countdown boxes look more urgent */
+.expiry-alert.urgent .countdown-item {
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================= */
+/* RESPONSIVE DESIGN */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    .expiry-alert {
+        padding: 1.25rem 1.5rem;
+        margin: 1rem;
+        max-width: 95%;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.3rem;
+    }
+
+    .countdown {
+        gap: 1rem;
+    }
+
+    .countdown-item {
+        padding: 1rem 1.25rem;
+        min-width: 70px;
+    }
+
+    .countdown-value {
+        font-size: 2rem;
+    }
+
+    .countdown-label {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    .expiry-alert.urgent h3 {
+        font-size: 1.4rem;
+    }
+
+    .expiry-alert.urgent .urgent-message {
+        font-size: 1.1rem;
+    }
+
+    .expiry-alert.urgent .urgent-action {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .expiry-alert {
+        padding: 1rem;
+        margin: 0.75rem;
+    }
+
+    .countdown {
+        gap: 0.75rem;
+    }
+
+    .countdown-item {
+        padding: 0.75rem 1rem;
+        min-width: 60px;
+    }
+
+    .countdown-value {
+        font-size: 1.75rem;
+    }
+
+    .countdown-label {
+        font-size: 0.75rem;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.15rem;
+    }
+
+    .expiry-alert p,
+    .expiry-alert.expired p {
+        font-size: 0.9rem;
+    }
+
+    .expiry-date {
+        font-size: 0.85rem;
+    }
+}
+.preview-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border: 1px solid #ddd;
+    background: #ffffff;
+}
+
+.preview-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.template-section {
+    margin-top: 25px;
+    padding: 15px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.template-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.template-group {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.template-select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.template-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-container {
+    text-align: center;
+}
+.readonly-field {
+    background-color: #eee;
+    cursor: not-allowed;
+}
 .nav-search-form {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.1); 
     padding: 5px 5px 5px 15px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
     margin-right: auto;
     margin-left: 2rem; 
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 300px;
+    flex-shrink: 1;
 }
 
 .nav-search-label {
@@ -990,7 +1363,7 @@ body.has-navbar .container:first-of-type {
     padding: 6px 12px;
     font-size: 0.9rem;
     color: #333;
-    width: 200px; 
+    width: 160px;
     outline: none;
     transition: width 0.3s ease;
 }
@@ -1006,7 +1379,6 @@ body.has-navbar .container:first-of-type {
     border-radius: 50%; 
     width: 32px;
     height: 32px;
-    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -1039,5 +1411,943 @@ body.has-navbar .container:first-of-type {
 @media (max-width: 600px) {
     .nav-search-form {
         display: none;
+    }
+}
+
+/* Street navigation */
+
+#street-nav-list {
+    display: flex;
+    gap: 0.5em;
+    margin-left: 1em;
+}
+
+#street-nav-list .street-nav-link,
+#street-nav-list .street-nav-final {
+    box-shadow: 0 4px 15px rgba(29, 47, 111, 0.3);
+    border: 3px solid #2a4494;
+    color: white;
+    padding: 0.1em 0.4em 0.1em 0.4em;
+    border-radius: 0.75em;
+}
+
+#street-nav-list a {
+    text-decoration: none; 
+}
+
+#street-nav-list>h5 {
+    scale: 1.5;
+    padding: 0.1em;
+    transform: translateY(0.2em);
+}
+
+#street-nav-list .street-nav-link {
+    color: black;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+#street-nav-list .street-nav-link:hover {
+    background: #2a4494;
+    color: white;
+}
+
+#street-nav-list .street-nav-final {
+    background-color: #2a4494;
+}
+
+.street-nav-desc {
+    transform: translateY(0.1em);
+    font-style: italic;
+    color: grey;
+    margin-left: 0.5em;
+}
+
+.add-block-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.form-group .form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d2d2d2;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #fafafa;
+}
+
+.add-block-container .submit-button,
+.add-block-container button[type="submit"] {
+    margin-top: 25px;
+}
+
+.add-block-container .success-message,
+.add-block-container .block-add-message {
+    margin-top: 25px;
+}
+
+.block-add-links {
+    margin-top: 28px;
+}
+
+.block-add-links a {
+    margin-right: 20px;
+    color: #4f7cff;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.block-add-links a:hover {
+    text-decoration: underline;
+}
+
+.check-form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.check-result {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.check-result a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #1D2F6F;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.check-result a:hover {
+    color: #F5A623;
+    text-decoration: underline;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #dc3545;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.view-form {
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+.block-details {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.block-details h3 {
+    color: #1D2F6F;
+    border-bottom: 2px solid #F5A623;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.block-details p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.block-details span {
+    font-weight: 500;
+}
+
+.check-result {
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-left: 4px solid #dc3545;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.check-result a {
+    display: inline-block;
+    margin-left: 10px;
+    color: #1D2F6F;
+    text-decoration: underline;
+}
+
+.check-result a:hover {
+    color: #F5A623;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.update-form {
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+.block-add-links {
+    max-width: 700px;
+    margin: 20px auto;
+    display: flex;
+    gap: 15px;
+}
+
+.block-add-links a {
+    color: #1D2F6F;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.block-add-links a:hover {
+    color: #F5A623;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.success-message {
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.center-box {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.message-box {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.new-address-value {
+    font-weight: 700;
+    color: #1D2F6F;
+}
+
+/* Page Layout for Street View + Sidebar */
+.page-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+/* Adjust Existing Street Container to take available space */
+.street-container {
+    flex: 1; /* Takes 75% space roughly */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+}
+
+
+/* Sidebar Styles */
+
+.page-wrapper {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.page-wrapper>div {
+    width: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.promo-sidebar {
+    min-width: 250px;
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: -2px 0 15px rgba(29, 47, 111, 0.1);
+    height: fit-content;
+    border-left: 4px solid #F5A623;
+    margin-right: 1em;
+    width: min-content;
+}
+
+.sidebar-title {
+    color: #1D2F6F;
+    border-bottom: 2px solid #F5A623;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar-promo-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+
+    background-color: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease;
+}
+
+.sidebar-promo-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.sidebar-promo-card h4 {
+    color: #d84315;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.sidebar-promo-card:hover .promo-link {
+    text-decoration: underline;
+}
+
+.sidebar-promo-card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.promo-link {
+    display: inline-block;
+    color: #1D2F6F;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.promo-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .page-wrapper {
+        flex-direction: column;
+    }
+
+    .street-container {
+        padding: 20px;
+    }
+
+    .promo-sidebar {
+        width: 100%;
+        max-width: 100%;
+        border-left: none;
+        border-top: 4px solid #F5A623;
+    }
+}
+
+.size-form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 8px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 500;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: 700;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.pagination a[th:selected] {
+    background-color: #007bff;
+    color: white;
+    font-weight: 700;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+form select[name="Size"] {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+form select[name="Size"]:hover {
+    border-color: #007bff;
+}
+
+form select[name="Size"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+
+/* ========================================= */
+/* EXPIRY COUNTDOWN & ALERT STYLES */
+/* ========================================= */
+
+.expiry-alert {
+    margin: 0;
+    max-width: 500px;
+    padding: 1rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12),
+                0 6px 18px rgb(133, 133, 133);
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Expired block styling - RED ALERT */
+.expiry-alert.expired {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: 4px solid #bd2130;
+}
+
+.expiry-alert.expired h3 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.expiry-alert.expired p {
+    font-size: 1rem;
+    margin: 0.75rem 0;
+    line-height: 1.6;
+}
+
+/* Active block styling - ORANGE WARNING */
+.expiry-alert.active {
+    background: linear-gradient(135deg, #F5A623 0%, #e09612 100%);
+    color: white;
+    border: 4px solid #d08a0d;
+}
+
+.expiry-alert.active h3 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Countdown timer container */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+/* Individual countdown boxes */
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 1.25rem 1.75rem;
+    border-radius: 10px;
+    min-width: 85px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+}
+
+/* The big number (30, 12, 45) */
+.countdown-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* The label (Days, Hours, Minutes) */
+.countdown-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+/* Expiry date text */
+.expiry-date {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+.expiry-date strong {
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================= */
+/* 10-DAY URGENT WARNING STYLES */
+/* ========================================= */
+
+/* Urgent warning styling - BRIGHT ORANGE/RED */
+.expiry-alert.urgent {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
+    color: white;
+    border: 4px solid #cc3700;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Pulsing animation for urgency */
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 8px 30px rgba(255, 69, 0, 0.6);
+    }
+}
+
+.expiry-alert.urgent h3 {
+    font-size: 1.6rem;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Shake animation for header */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.expiry-alert.urgent .urgent-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.expiry-alert.urgent .urgent-action {
+    font-size: 1rem;
+    margin: 0.75rem 0 1.5rem 0;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+/* Make countdown boxes look more urgent */
+.expiry-alert.urgent .countdown-item {
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================= */
+/* RESPONSIVE DESIGN */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    .expiry-alert {
+        padding: 1.25rem 1.5rem;
+        margin: 1rem;
+        max-width: 95%;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.3rem;
+    }
+
+    .countdown {
+        gap: 1rem;
+    }
+
+    .countdown-item {
+        padding: 1rem 1.25rem;
+        min-width: 70px;
+    }
+
+    .countdown-value {
+        font-size: 2rem;
+    }
+
+    .countdown-label {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    .expiry-alert.urgent h3 {
+        font-size: 1.4rem;
+    }
+
+    .expiry-alert.urgent .urgent-message {
+        font-size: 1.1rem;
+    }
+
+    .expiry-alert.urgent .urgent-action {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .expiry-alert {
+        padding: 1rem;
+        margin: 0.75rem;
+    }
+
+    .countdown {
+        gap: 0.75rem;
+    }
+
+    .countdown-item {
+        padding: 0.75rem 1rem;
+        min-width: 60px;
+    }
+
+    .countdown-value {
+        font-size: 1.75rem;
+    }
+
+    .countdown-label {
+        font-size: 0.75rem;
+    }
+
+    .expiry-alert h3 {
+        font-size: 1.15rem;
+    }
+
+    .expiry-alert p,
+    .expiry-alert.expired p {
+        font-size: 0.9rem;
+    }
+
+    .expiry-date {
+        font-size: 0.85rem;
+    }
+}
+
+/* Error page */
+
+.error-body {
+    height: 100%;
+    display: flex;
+}
+
+.error-body>div {
+    margin: auto;
+}
+
+.error-body h1 {
+    color: #2a4494;
+}
+.invalid-field {
+    border: 2px solid red !important;
+    background-color: #ffe9e9;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input.error,
+textarea.error,
+input.invalid-field,
+textarea.invalid-field {
+    border: 2px solid #e74c3c !important;
+}
+
+.form-error,
+.feedback {
+    color: #e74c3c;
+    font-size: 0.9rem;
+}
+/* LOGOUT BUTTON */
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem 1.25rem;
+    color: #FFFFFF !important;
+    /* Force white color */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: auto;
+    text-align: center;
+}
+
+/* Hover effect - make it stand out */
+.logout-btn:hover {
+    background-color: rgba(245, 166, 35, 0.2) !important;
+    color: #F5A623 !important;
+}
+
+/* Active/clicked state */
+.logout-btn:active {
+    background-color: rgba(245, 166, 35, 0.3) !important;
+}
+
+/* Ensure form doesn't interfere */
+.nav-item form {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .logout-btn {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        justify-content: center;
+    }
+}
+
+/* LOGOUT SUCCESS MESSAGE STYLING */
+
+.logout-success-message {
+    background-color: #d4edda;
+    border: 2px solid #28a745;
+    color: #155724;
+    padding: 15px 20px;
+    margin: 20px auto 20px auto;
+    border-radius: 8px;
+    max-width: 600px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-in;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+ .notice-popup {
+     display:none;
+     position:fixed;
+     top:50%;
+     left:50%;
+     transform:translate(-50%, -50%);
+     background:white;
+     padding:20px;
+     border-radius:8px;
+     z-index:1001;
+     box-shadow:0 0 15px rgba(0,0,0,0.4);
+     min-width:260px;
+     text-align:center;
+ }
+.popup-backdrop {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.55);
+    z-index:1000;
+}
+.moved-block {
+    opacity:0.85;
+    position:relative;
+}
+.moved-block::after {
+    content:"Moved";
+    position:absolute;
+    bottom:4px;
+    right:6px;
+    background:#ffcc00;
+    padding:2px 6px;
+    font-size:11px;
+    border-radius:4px;
+}
+/* ========== WORD COUNT STYLING ========== */
+.word-count {
+    text-align: right;
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 4px;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.word-count.warning {
+    color: #ff9800;
+    font-weight: 500;
+}
+
+.word-count.warning span {
+    font-weight: 600;
+}
+
+.word-count.danger {
+    color: #f44336;
+    font-weight: 600;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.word-count.danger span {
+    font-weight: 700;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .word-count {
+        font-size: 0.8em;
     }
 }

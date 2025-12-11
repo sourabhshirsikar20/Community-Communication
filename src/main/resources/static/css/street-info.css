@@ -1,0 +1,247 @@
+main {
+  padding: 1em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  min-width: 1000px;
+  margin-left: auto;
+  margin-right:auto;
+}
+
+main>h2 {
+  display: flex;
+}
+
+main>h2>div {
+  margin-left: auto;
+  display: flex;
+  gap: 2em;
+}
+
+main button {
+  width: fit-content;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  transition: 0.2s ease;
+  font-weight: bold;
+  transform: translateY(0.2em);
+  color: #2a4494;
+}
+
+main button:hover {
+  cursor: pointer;
+  scale: 1.1;
+}
+
+.hidden {
+  display: none;
+}
+
+#street-toggle-expand {
+  transition: rotate 0.5s ease;
+}
+
+#street-toggle-expand.active {
+  rotate: 180deg;
+}
+
+.street-info, .block-info, section {
+  gap: 1.5em;
+  margin-top: 1em;  
+  align-items: center;
+  
+  padding: 0.5em 1em.5em 1em;;
+  border-radius: 1.5em;
+  box-shadow: 1px  1px 4px grey;
+  background: white;
+  width: fit-content;
+}
+
+.street-info {
+  display: grid;
+  grid-template-columns: 1em 9.5em auto auto;
+}
+
+.street-info #street-address {
+  margin-right: 1em;
+}
+
+.street-info:before {
+  content: '';
+  background: #2a4494;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 1em
+}
+
+#street-description {
+  color: grey;
+  font-style: italic;
+}
+
+.street-buttons {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.inset-element, .inset-street {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 3em;
+  width: 100%;
+}
+
+.inset-element::after {
+    content: '';
+    background: #2a4494;
+    width: 1.3em;
+    height: 0.25em;
+    position: absolute;  
+    top: calc(50% + 0.375em);
+    left: -1.35em;
+}
+
+.inset-street::after {
+    content: '';
+    background: #2a4494;
+    width: 1.3em;
+    height: 0.25em;
+    position: absolute;  
+    top: calc(2.2em);
+    left: -1.35em;
+}
+
+.inset-element.full::before,
+.inset-street.full::before {
+    content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: 100%;
+    position: absolute;  
+    top: 0;
+    left: -1.35em;
+}
+
+.inset-street.full::before {
+    content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: 100%;
+    position: absolute;  
+    top: 0;
+    left: -1.35em;
+}
+
+.inset-element.final::before {
+    content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: calc(50% + 0.5em);
+    position: absolute;  
+    top: 0;
+    left: -1.35em;
+}
+
+.inset-street.final-street::before {
+    content: '';
+    background: #2a4494;
+    width: 0.25em;
+    height: calc(3.5em);
+    position: absolute;  
+    top: -1.2em;
+    left: -1.35em;
+}
+
+.block-info {
+  display: grid;
+  grid-template-columns: 12em auto;
+  padding-right: 6.5em;
+}
+
+#block-address, #street-address {
+  font-family: 'mono';
+}
+
+#add-street-form {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  width: min-content;
+}
+
+#add-street-form>div {
+  margin: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+    width: 100%;
+}
+
+#add-street-form svg {
+  width: 9em;
+  height: 9em;
+  background: #00000010;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+#move-street-form {
+  margin: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+
+#add-street-section h4, #move-street-section h4 {
+  color: #2a4494;
+  margin-left: 0.5em;
+}
+
+#add-street-form input, #move-street-form input,
+#add-street-form select{
+  background: #00000010;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  min-width: 100%;
+}
+
+#add-street-form input[type='submit'], 
+#move-street-form input[type='submit'] {
+  border: 2px solid #2a4494;
+  border-radius: 1em;
+  background: none;
+  padding: 0.25em;
+  margin: 0;
+  transition: 0.2s ease;
+  font-weight: bold;
+  color: #2a4494;
+  box-shadow: none;
+}
+
+#add-street-form input[type='submit']:hover,
+#move-street-form input[type='submit']:hover {
+  border-radius: 1em;
+  background: #2a4494;
+  color: white;
+  cursor: pointer;
+}
+
+input.input-error {
+  color: #ff0000;
+}
+
+.form-label {
+  display: flex;
+}
+
+#addr-error, #old-addr-error, #new-addr-error {
+  margin-left: auto;
+  color: red;
+}

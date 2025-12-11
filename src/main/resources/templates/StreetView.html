@@ -1,26 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Community Street View</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Font Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wdth,wght,GRAD@0,8..144,50..150,100..900,-50..100;1,8..144,50..150,100..900,-50..100&display=swap" rel="stylesheet">
 </head>
 <body class="has-navbar">
+    <div id="noticePopup" class="notice-popup">
+        <h4>Block Relocation Notice</h4>
+        <p><strong>Old address:</strong> <span id="oldAddress"></span></p>
+        <p><strong>New address:</strong> <span id="newAddress"></span></p>
+        <button onclick="closeNoticePopup()">OK</button>
+    </div>
+<div id="popupBackdrop" class="popup-backdrop" onclick="closeNoticePopup()"></div>
     <div class="main-content">
-    <div th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+    <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
+        <div th:if="${successMessage}" class="success-message">
+            <p th:text="${successMessage}"></p>
+        </div>
     <div id="header"></div>
+    <div th:replace="~{fragments/street-nav :: street-nav}"></div>
 
-    <div class="street-container">
+    <div class="page-wrapper">
+    <div>
+        <form method="get" th:action="@{'/street/'+${street}}" class="size-form">
+            <input type="hidden" name="Page" value="1">
+            <select name="Size" class="size-select" onchange="this.form.submit()">
+                <option th:value="4" th:selected="${Size == 4}">4</option>
+                <option th:value="5" th:selected="${Size == 5}">5</option>
+                <option th:value="6" th:selected="${Size == 6}">6</option>
+                <option th:value="100" th:selected="${Size == 100}">100</option>
+            </select>
+        </form>
+        <div>
+            <span id="address-range" th:attr="data-paginationlist=${PaginationLst}"></span>
+        </div>
+        <div class="street-container">
         <a  class="house-block" 
             th:each="block : ${Approved}" 
-            th:href="@{'/OrganisationInfo/' + ${block.id}}"
-            th:data-id="${block.id}">
+            th:href="@{'/OrganisationInfo/' + ${block.address}}"
+            th:data-id="${block.id}"
+            th:data-address="${block.address}">
             
             <div class="house-layer js-inject-svg"
                  th:data-url="'/svg/base/base-' + ${block.baseOption} + '.svg'"
                  th:data-color="${block.baseColour}"
-                 th:data-text="${block.name}">
+                 th:data-text="${block.name}"
+                 th:data-fontOptions="${block.fontOptions}"
+                 th:data-fontColour="${block.fontColour}">
             </div>
 
             <div class="house-layer js-inject-svg"
@@ -34,12 +70,89 @@
             </div>
 
         </a>
+        <a  class="house-block moved-block"
+            th:each="ghost : ${oldBlocks}"
+            href="#"
+            th:data-block-id="${ghost.id}"
+            th:data-address="${ghost.address}"
+            onclick="showMoveNotice(this); return false;">
+
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/base/base-' + ${ghost.baseOption} + '.svg'"
+                 th:data-color="${ghost.baseColour}"
+                 th:data-text="${ghost.name}"
+                 th:data-fontOptions="${ghost.fontOptions}"
+                 th:data-fontColour="${ghost.fontColour}">
+            </div>
+
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/roof/roof-' + ${ghost.roofOption} + '.svg'"
+                 th:data-color="${ghost.roofColour}">
+            </div>
+
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/foreground/foreground-' + ${ghost.foregroundOption} + '.svg'"
+                 th:data-color="${ghost.foregroundColour}">
+            </div>
+        </a>
+        </div>
+        <div class="pagination">
+            <a th:if="${CurrentPage >1}" th:href="@{'/street/'+${street}(Page=${CurrentPage - 1},Size=${Size})}">
+                Prev
+            </a>
+            <th:block th:each="i : ${PageNumbers}">
+                <a th:href="@{'/street/'+${street}(Page=${i},Size=${Size})}" th:text="${i}" th:classappend="${i == CurrentPage} ? ' active'"></a>
+            </th:block>
+            <a th:if="${CurrentPage < TotalPages}" th:href="@{'/street/'+${street}(Page=${CurrentPage + 1},Size=${Size})}">
+                Next
+            </a>
+        </div>
     </div>
+
+    <aside class="promo-sidebar">
+        <h3 class="sidebar-title">Local Promos</h3>
+
+        <div th:if="${promos != null}">
+            <a th:each="i : ${#numbers.sequence(1, 4)}"
+                 th:if="${promos.containsKey(i)}"
+                 th:href="@{'/OrganisationInfo/' + ${promos.get(i).address}}"
+                 class="sidebar-promo-card">
+
+                <h4 th:text="${promos.get(i).name}">Block Name</h4>
+                <p th:text="${promos.get(i).promoText}">Promo text...</p>
+
+                <span class="promo-link">Visit →</span>
+            </a>
+        </div>
+    </aside>
     </div>
+
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
-    
-    <script src="/js/Header_Footer.js"></script>
+
     <script src="/js/StreetView.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const moveNotices = /*[[${moveNotices}]]*/ [];
+        /*]]>*/
+
+        function showMoveNotice(el) {
+            const blockId = parseInt(el.dataset.blockId);
+            const notice = moveNotices.find(n => n.blockId === blockId);
+            if (!notice) return;
+
+            document.getElementById("oldAddress").innerText = notice.oldAddress;
+            document.getElementById("newAddress").innerText = notice.newAddress;
+
+            document.getElementById("noticePopup").style.display = "block";
+            document.getElementById("popupBackdrop").style.display = "block";
+        }
+
+        function closeNoticePopup() {
+            document.getElementById("noticePopup").style.display = "none";
+            document.getElementById("popupBackdrop").style.display = "none";
+        }
+    </script>
+
 </body>
 </html>

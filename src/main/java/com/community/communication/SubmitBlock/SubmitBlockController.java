@@ -18,7 +18,7 @@ import com.community.communication.Approved.Block;
 import jakarta.validation.Valid;
 
 @Controller
-public class SubmitController {
+public class SubmitBlockController {
 
   @Autowired
   private ApproverRepository approverRepository;
@@ -30,7 +30,7 @@ public class SubmitController {
         mav.addObject("successMessage", model.getAttribute("successMessage"));
     }
     if (!model.containsAttribute("block")) {
-        mav.addObject("block", new Block());
+        mav.addObject("block", new SubmitBlock());
     }
     return mav;
   }
@@ -40,7 +40,7 @@ public class SubmitController {
   }
 
   @PostMapping("/SubmitBlock")
-    public ModelAndView submitForm(@Valid @ModelAttribute("block") Block block,
+    public ModelAndView submitForm(@Valid @ModelAttribute("block") SubmitBlock block,
         BindingResult bindingResult,
         RedirectAttributes redirectAttributes) {
 
@@ -59,7 +59,7 @@ public class SubmitController {
       block.setPromoText(SanitiseString(block.getPromoText()));
 
       // Save block
-      approverRepository.addNewBlock(block);
+      approverRepository.addNewBlock(new Block(block));
 
       redirectAttributes.addFlashAttribute("successMessage", "Block submitted successfully");
       return new ModelAndView("redirect:/SubmitBlock");

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expiry Status Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/block-expiry.css}">
+</head>
+<body>
+    <div th:replace="~{NavigationBar :: manager-nav}"></div>
+    <div th:replace="~{NavigationBar :: navbar-js}"></div>
+    <div class="container">
+        <h1>🕐 Expiry Status Dashboard</h1>
+        
+        <!-- Debug info to see if data is loaded -->
+        <div class="debug-info" id="debugInfo">
+            Loading data...
+        </div>
+        
+        <!-- Summary Cards -->
+        <div class="summary">
+            <div class="summary-card active">
+                <h3 id="totalCount">0</h3>
+                <p>Total Blocks</p>
+            </div>
+            <div class="summary-card" style="background-color: #e8f5e9;">
+                <h3 id="activeCount">0</h3>
+                <p>Active Blocks</p>
+            </div>
+            <div class="summary-card expired" style="background-color: #ffebee;">
+                <h3 id="expiredCount">0</h3>
+                <p>Expired Blocks</p>
+            </div>
+        </div>
+        
+        <div>
+            <button class="btn" onclick="location.reload()">🔄 Refresh</button>
+            <button class="btn btn-danger" onclick="triggerCleanup()">🗑️ Trigger Manual Cleanup</button>
+            <button class="btn" onclick="window.location.href='/api/expiry-status'">📊 View JSON</button>
+        </div>
+        
+        <div id="result"></div>
+        
+        <table id="blocksTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                    <th>Days Remaining</th>
+                    <th>Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Fallback: Direct Thymeleaf rendering if JavaScript fails -->
+                <tr th:each="block : ${blocks}" 
+                    th:class="${block.isExpired} ? 'expired' : (${block.daysRemaining} <= 10 ? 'warning' : 'active')">
+                    <td th:text="${block.id}">-</td>
+                    <td th:text="${block.name}">-</td>
+                    <td th:text="${block.address}">-</td>
+                    <td th:text="${block.createdDate}">-</td>
+                    <td>
+                        <span class="status-badge"
+                              th:classappend="${block.isExpired} ? 'expired' : (${block.daysRemaining} <= 10 ? 'warning' : 'active')"
+                              th:text="${block.isExpired} ? '❌ EXPIRED' : (${block.daysRemaining} <= 10 ? '⚠️ EXPIRING SOON' : '✅ ACTIVE')">
+                        </span>
+                    </td>
+                    <td>
+                        <span th:if="${!block.isExpired}">
+                            <strong th:text="${block.daysRemaining}">0</strong> days, 
+                            <strong th:text="${block.hoursRemaining}">0</strong> hours, 
+                            <strong th:text="${block.minutesRemaining}">0</strong> mins
+                        </span>
+                        <span th:if="${block.isExpired}" style="color: #c62828;">
+                            <strong>EXPIRED</strong>
+                        </span>
+                    </td>
+                    <td th:text="${block.formattedExpiryDate}">-</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #e3f2fd; border-radius: 4px;">
+            <h3>ℹ️ Information</h3>
+            <ul>
+                <li><strong>Automatic Cleanup:</strong> Runs every 2 minutes</li>
+                <li><strong>Expiry Period:</strong> 6 months from creation date</li>
+                <li><strong>Status Colors:</strong>
+                    <ul>
+                        <li><span style="color: #2e7d32;">Green</span> - Active</li>
+                        <li><span style="color: #e65100;">Orange</span> - Warning (≤ 10 days remaining)</li>
+                        <li><span style="color: #c62828;">Red</span> - Expired (will be deleted on next cleanup)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    
+    <!-- JavaScript to calculate summary counts -->
+    <script>
+        // Wait for page to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, calculating counts...');
+            
+            // Get all table rows (excluding header)
+            const rows = document.querySelectorAll('#blocksTable tbody tr');
+            console.log('Found ' + rows.length + ' rows');
+            
+            let totalCount = rows.length;
+            let activeCount = 0;
+            let expiredCount = 0;
+            
+            // Count each status
+            rows.forEach(row => {
+                if (row.classList.contains('expired')) {
+                    expiredCount++;
+                } else {
+                    activeCount++;
+                }
+            });
+            
+            // Update summary cards
+            document.getElementById('totalCount').textContent = totalCount;
+            document.getElementById('activeCount').textContent = activeCount;
+            document.getElementById('expiredCount').textContent = expiredCount;
+            
+            // Update debug info
+            const debugInfo = document.getElementById('debugInfo');
+            debugInfo.innerHTML = `
+                ✅ <strong>Data loaded successfully!</strong><br>
+                Found ${totalCount} blocks: ${activeCount} active, ${expiredCount} expired
+            `;
+            debugInfo.style.background = '#d4edda';
+            debugInfo.style.border = '1px solid #c3e6cb';
+            debugInfo.style.color = '#155724';
+            
+            console.log('Counts updated:', { totalCount, activeCount, expiredCount });
+        });
+        
+        // Cleanup function
+        function triggerCleanup() {
+            if (confirm('Are you sure you want to delete all expired blocks?')) {
+                fetch('/test/trigger-cleanup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.className = 'success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ Cleanup Complete!</strong><br>
+                        ${data.message}
+                    `;
+                    
+                    // Reload after 2 seconds
+                    setTimeout(() => location.reload(), 2000);
+                })
+                .catch(error => {
+                    alert('Error: ' + error.message);
+                });
+            }
+        }
+        
+        // Auto-refresh every 60 seconds
+        setTimeout(() => location.reload(), 60000);
+    </script>
+</body>
+</html>

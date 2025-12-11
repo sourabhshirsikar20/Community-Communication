@@ -1,0 +1,13 @@
+<svg width="1e3" height="300" version="1.1" viewBox="0 0 264.58 79.374" xmlns="http://www.w3.org/2000/svg">
+ <g stroke-linecap="round" stroke-miterlimit="4.7" stroke-width="2.646">
+  <rect x="12.554" y="14.552" width="239.04" height="52.045" ry="10.461" fill="#eeeff3" stroke="#222223" style="paint-order:stroke fill markers"/>
+  <text x="58.580078" y="50.582932" fill="#000000" font-family="Roboto" font-size="31.75px" font-weight="bold" letter-spacing="-.23812px" text-align="left" text-anchor="left" word-spacing="0px" style="paint-order:stroke fill markers" xml:space="preserve"/>
+ </g>
+ <g transform="translate(0 -25.201)" fill="#222223">
+  <path d="m27.984 57.914c-0.73086-6.74e-4 -1.3238 0.5914-1.3242 1.3223-6.74e-4 0.73162 0.59259 1.3249 1.3242 1.3242 2.9311 0 7.5726-0.74042 10.33 2.7422 0.86368 1.0908 1.2875 3.189 1.3848 6 0.09726 2.811-0.07369 2.378 0.03906 6.0989 0.02271 0.73024 0.63304 1.3038 1.3633 1.2812 0.72946-0.02271 1.3027-0.63183 1.2812-1.3613-0.10873-3.5881 0.0643-3.1233-0.03906-6.1106s-0.42403-5.6171-1.9551-7.5508c-3.7642-4.7541-10.058-3.7461-12.404-3.7461z" stop-color="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4.7" style="paint-order:stroke fill markers"/>
+  <g fill-rule="evenodd">
+   <path d="m22.211 59.237 8.5236-4.4467 0.13077 9.4492z" stop-color="#000000"/>
+   <path d="m30.159 53.873-7.9054 4.5694a0.91772 0.91772 90.004 0 0-1.09e-4 1.589l7.9057 4.5709a0.91588 0.91588 150.02 0 0 1.3743-0.79289v-9.1434a0.91603 0.91603 29.986 0 0-1.3744-0.79308zm0.04044 3.1056v4.5184a0.91622 0.91622 150.01 0 1-1.3746 0.79333l-3.9071-2.2574a0.91742 0.91742 89.994 0 1-1.74e-4 -1.5886l3.9075-2.2587a0.91599 0.91599 29.985 0 1 1.3744 0.79303z" stop-color="#000000" style="paint-order:stroke markers fill"/>
+  </g>
+ </g>
+</svg>

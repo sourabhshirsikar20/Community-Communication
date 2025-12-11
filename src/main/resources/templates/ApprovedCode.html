@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Code</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+
+    <h2>Block Approved</h2>
+
+    <p>
+        <strong>Block ID:</strong>
+        <span th:text="${id}"></span>
+    </p>
+
+    <p><strong>Access code(To be handled to the Local Organiser):</strong></p>
+
+    <div style="font-size: 2rem; font-weight: bold; margin: 20px 0;"
+         th:text="${code}">
+    </div>
+
+    <p>
+    This Code will be shown once only. It will be encrypted in DataBase for security reasons
+    </p>
+
+    <a href="/Approver">Back</a>
+
+</div>
+</body>
+</html>

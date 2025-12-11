@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Unapproved Data Blocks</title>
@@ -7,7 +8,8 @@
 </head>
 <body class="has-navbar">
     <div class="main-content">
-    <div th:replace="~{NavigationBar :: approver-nav}"></div>
+    <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+    <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
     <div id="info_display"></div>
     <div class="table_wrapper">
         <table>
@@ -15,6 +17,7 @@
             <tr>
                 <th>Name</th>
                 <th>Approve?</th>
+                <th>Delete?</th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +35,16 @@
                             <input type="hidden" name="id" th:value="${entry.id}" />
                             <button type="submit" id = "approve_button">
                                 ✓
+                            </button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form method="post" th:action="@{/deleteBlock}" 
+                              onsubmit="return confirm('Are you sure you want to delete this block?');">
+                            <input type="hidden" name="id" th:value="${entry.id}" />
+                            <button type="submit"  id = "delete_button">
+                                ✕
                             </button>
                         </form>
                     </td>

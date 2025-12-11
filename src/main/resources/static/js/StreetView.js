@@ -1,5 +1,8 @@
 // renderHeader();
 // renderFooter();
+
+let svgs = {};
+
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -11,7 +14,6 @@ async function injectSvgs() {
 
     for (const container of containers) {
         if (container.querySelector('svg')) continue;
-
         const url = container.getAttribute('data-url');
         const color = container.getAttribute('data-color');
         const textToInject = container.getAttribute('data-text');
@@ -31,8 +33,8 @@ async function injectSvgs() {
             });
 
             if (textToInject) {
+
                 const existingText = svgElement.querySelector('text');
-                
                 if (existingText) {
                     if (searchQuery && textToInject.toLowerCase().includes(searchQuery.toLowerCase())) {
                         
@@ -54,16 +56,140 @@ async function injectSvgs() {
                     } else {
                         existingText.textContent = textToInject;
                     }
+                    existingText.setAttribute('fill', container.getAttribute('data-fontColour'));
+
+                    // set font options
+                    let fontOptions = container.getAttribute('data-fontOptions');
+                    if (fontOptions) {
+                        let style = JSON.parse(fontOptions);
+                        if (style['serif']) {
+                            existingText.style.fontFamily = '"Roboto serif", serif';
+                            existingText.style.fontVariationSettings = `'wght' ${style['weight']}, 'wdth' ${style['width']}, 'GRAD' ${style['grade']}`;
+                        }
+                        else {
+                            existingText.style.fontFamily = '"Roboto", sans-serif';
+                            existingText.style.fontVariationSettings = `'wght' ${style['weight']}, 'wdth' ${style['width']}`;
+                        }
+
+                        existingText.style.fontStyle = style['italic'] ? 'italic' : 'normal';
+                        existingText.style.letterSpacing = `${(style['width']-75)/(25)*(0.15)+0.05}em`;
+                    }
                 } 
             }
+
             container.appendChild(svgElement);
+
         } catch (error) {
             console.error('Error injecting SVG:', error);
         }
     }
 }
 
+function findNextStreetElement(currentAddress) {
+    let currentNum = parseInt(currentAddress.slice(-2)); 
+    
+    let streetElements = Array.from(document.querySelectorAll('a[data-address]'))
+        .map(el => ({
+            element: el,
+            address: el.dataset.address,
+            value: parseInt(el.dataset.address.slice(-2))
+        }))
+        .filter(item => item.value > currentNum) 
+        .sort((a, b) => a.value - b.value); 
+    
+    return streetElements[0] ? streetElements[0].element : null;
+}
+
+async function getStreetSVG(svg_name) {
+    let response = await fetch(`/svg/streets/${svg_name}.svg`);
+    if (!response.ok) throw new Error('street svgs unavailable');
+    return await response.text();
+}
+
+async function injectStreets() {
+    let street_addresses = document.getElementById("address-range");
+    let addresses = JSON.parse(street_addresses.dataset.paginationlist);
+
+    // get street information
+    let current_street = window.location.pathname;
+    let current_address = null;
+
+    if (current_street == "/Index")
+        current_address = "root";
+    else
+        current_address = current_street.split("/").pop();
+
+    // get street information
+    response = await fetch(`/street-info/${current_address}`);
+    if (!response.ok) throw new Error('street information unavailable');
+    let street_info = await response.json();
+    
+    // add node to return to previous street
+    if (street_info['parent'] != null) {
+        document.querySelector('.street-container').insertAdjacentHTML(
+            'beforebegin',
+            `
+            <a id="street-return" class="house-block block-return" href="/street/${street_info['parent']['address']}">
+                ${await getStreetSVG('return')}
+            </a>
+            `
+        );
+
+        document.querySelector(`#street-return text`).textContent = street_info['parent']['name'];
+    }
+
+    // add nodes making sub streets
+    for (let i = 0; i < street_info['children'].length; i++) {
+        let addr_int = parseInt(street_info['children'][i].address.slice(-2));
+        if (addr_int >= addresses[0] && addr_int <= addresses[1]) {
+            let next_element = findNextStreetElement(street_info['children'][i].address);
+            let mode = 'beforebegin';
+
+            if (next_element == null) {
+                next_element = document.querySelector('.street-container');
+                mode = 'beforeend';
+            }
+            
+            next_element.insertAdjacentHTML(
+                mode,
+                `
+                <a id="street-${street_info['children'][i]['address']}" data-address="${street_info['children'][i]['address']}" class="house-block" href="/street/${street_info['children'][i]['address']}">
+                    ${await getStreetSVG(street_info['children'][i]['img_option'])}
+                </a>
+                `
+            );
+
+            document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
+        }
+    }
+    //Puts Ghost blocks by their address number
+    const streetContainer = document.querySelector('.street-container');
+    if (streetContainer) {
+        const ghosts = Array.from(document.querySelectorAll('.house-block.moved-block'));
+        ghosts.forEach(ghost => {
+            const addr = ghost.dataset.address;
+            if (!addr) return;
+
+            const next = findNextStreetElement(addr);
+            if (next && next !== ghost) {
+                //Ghost block have to come after before the first block with greater adress number
+                streetContainer.insertBefore(ghost, next);
+            } else {
+                streetContainer.appendChild(ghost);
+            }
+        });
+    }
+}
+
 injectSvgs();
+setTimeout(() => {
+    const msg = document.querySelector('.success-message');
+    if (msg) {
+        msg.style.transition = "opacity 1s ease";
+        msg.style.opacity = 0;
+        setTimeout(() => msg.remove(), 1000);
+    }
+}, 5000);
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search_value');
@@ -84,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 blocks.forEach(block => {
                     const link = document.createElement('a');
                     link.className = 'house-block';
-                    link.href = `/OrganisationInfo/${block.id}`;
+                    link.href = `/OrganisationInfo/${block.address}`;
                     link.dataset.id = block.id;
 
 
@@ -111,4 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    injectStreets();
 });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>InfoTest</title>
@@ -8,14 +8,105 @@
 </head>
 <body class="has-navbar">
     <div class="main-content">
-    <div th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+    <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
+    <div th:replace="~{fragments/street-nav :: street-nav}"></div>
+
 <div class="grid">
     <div class="box">
         <h2>About the Organisation</h2>
         <p th:text="${Info.mainText}"></p>
+
+        <a th:href="@{'/BlockAccess?address=' + ${Info.address}}"
+           class="button-link"
+           style="margin-top: 15px; display:inline-block;">
+            ✏️ Edit this page
+        </a>
+
+        <div th:if="${isManager}" id = "report">
+            <h3>Manager Actions</h3>
+            <button onclick="reportBlock()" class="submit-button">
+                🚩 Report & Remove Block
+            </button>
+            
+            <form id="reportForm" action="/OrganisationInfo/report" method="post">
+                <input type="hidden" name="id" th:value="${Info.id}">
+                <input type="hidden" name="name" th:value="${Info.name}">
+                <input type="hidden" id="reportReason" name="reason">
+            </form>
+
+            
+        </div>
     </div>
 
     <div class="side">
+    
+        <!-- EXPIRED MESSAGE - Shows when block has expired -->
+        <div th:if="${isExpired}" class="expiry-alert expired">
+            <h3>This Block Has Expired</h3>
+            <p>This organisation's listing expired on 
+                <strong th:text="${formattedExpiryDate}">Date</strong>.
+            </p>
+            <p><strong>This listing is no longer active. Please contact the organisation to update their information.</strong></p>
+        </div>
+                
+        <!-- 10-DAY URGENT WARNING - Shows when ≤ 10 days remaining -->
+        <div th:if="${!isExpired && daysRemaining <= 10}" class="expiry-alert urgent">
+            <h3>⚠️ URGENT: Listing Expiring Soon!</h3>
+            <p class="urgent-message">
+                <strong>Your listing expires in <span th:text="${daysRemaining}">0</span> days!</strong>
+            </p>
+            <p class="urgent-action">
+                Please update your organisation information to keep your listing active.
+            </p>
+            
+            <!-- Still show countdown -->
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${daysRemaining}">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${hoursRemaining}">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${minutesRemaining}">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+            </div>
+            
+            <p class="expiry-date">
+                Expires on: <strong th:text="${formattedExpiryDate}">Date</strong>
+            </p>
+        </div>
+
+        <!-- NORMAL COUNTDOWN - Shows when > 10 days remaining -->
+        <div th:if="${!isExpired && daysRemaining > 10}" class="expiry-alert active">
+            <h3>⏰ Time Remaining Until Expiry</h3>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${daysRemaining}">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${hoursRemaining}">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" th:text="${minutesRemaining}">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+            </div>
+            
+            <p class="expiry-date">
+                This listing expires on: 
+                <strong th:text="${formattedExpiryDate}">Date</strong>
+            </p>
+        </div>
+
         <div class="box">
             <h3>Visit Us</h3>
             <a th:href="'https://' + ${Info.linksText}" class="button-link">Press Here</a>
@@ -35,5 +126,48 @@
 </div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
+    <script>
+        function reportBlock() {
+            let reason = prompt("Please enter the reason for reporting this block.\nThis will clear the address and unapprove the block.");
+            if (reason != null && reason.trim() !== "") {
+                document.getElementById("reportReason").value = reason;
+                document.getElementById("reportForm").submit();
+            }
+        }
+    </script>
+
+    <script th:unless="${isExpired}" th:inline="javascript">
+        // Get expiry date from server (Thymeleaf injects it)
+        const expiryDateStr = /*[[${expiryDate}]]*/ "2025-01-01T00:00:00";
+        const expiryDate = new Date(expiryDateStr);
+        
+        // Function to update countdown every minute
+        function updateCountdown() {
+            const now = new Date();
+            const diff = expiryDate - now;
+            
+            // If expired, reload page to show expired message
+            if (diff <= 0) {
+                location.reload();
+                return;
+            }
+            
+            // Calculate remaining time
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // Update display
+            const countdownValues = document.querySelectorAll('.countdown-value');
+            if (countdownValues.length >= 3) {
+                countdownValues[0].textContent = days;
+                countdownValues[1].textContent = hours;
+                countdownValues[2].textContent = minutes;
+            }
+        }
+        
+        // Update countdown every 60 seconds
+        setInterval(updateCountdown, 60000);
+    </script>
 </body>
 </html>
