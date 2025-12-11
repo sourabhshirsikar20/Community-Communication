@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Community Street View</title>
@@ -13,7 +14,9 @@
 </head>
 <body class="has-navbar">
     <div class="main-content">
-    <div th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+    <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
         <div th:if="${successMessage}" class="success-message">
             <p th:text="${successMessage}"></p>
         </div>

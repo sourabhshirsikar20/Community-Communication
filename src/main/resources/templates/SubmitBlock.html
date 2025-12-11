@@ -13,7 +13,9 @@
 </head>
 <body class="has-navbar">
   <div class="main-content">
-  <div th:replace="~{NavigationBar :: public-nav}"></div>
+  <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+  <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+  <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
   <div class="container">
     <h2 class="form-title">Submit New Block</h2>
     
