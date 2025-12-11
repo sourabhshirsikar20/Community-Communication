@@ -59,6 +59,19 @@ body {
     cursor: pointer;
 }
 
+.house-block.block-return {
+    margin: 0 auto;
+    height: 80px;
+}
+
+.house-block.block-return:hover {
+    z-index: 10;          
+}
+
+.house-block.block-return svg {
+    height: 80px;
+}
+
 .house-block svg {
     width: 200px;
     height: 200px;
