@@ -127,9 +127,9 @@ async function injectStreets() {
     // add node to return to previous street
     if (street_info['parent'] != null) {
         document.querySelector('.street-container').insertAdjacentHTML(
-            'afterbegin',
+            'beforebegin',
             `
-            <a id="street-return" class="house-block" href="/street/${street_info['parent']['address']}">
+            <a id="street-return" class="house-block block-return" href="/street/${street_info['parent']['address']}">
                 ${await getStreetSVG('return')}
             </a>
             `
