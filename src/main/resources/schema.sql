@@ -1,15 +1,17 @@
 DROP VIEW IF EXISTS login_authorities;
 
-SET FOREIGN_KEY_CHECKS = 0;
-
+set foreign_key_checks = 0;
 DROP TABLE IF EXISTS logins_roles;
 DROP TABLE IF EXISTS logins;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS promos;
 DROP TABLE IF EXISTS communities;
 DROP TABLE IF EXISTS pages;
+drop table if exists reports;
+drop table if exists block_move_notice;
 DROP TABLE IF EXISTS reports;
 DROP TABLE IF EXISTS streets;
+set foreign_key_checks=1;
 
 CREATE TABLE communities (
     id bigint auto_increment primary key,
@@ -74,6 +76,14 @@ CREATE TABLE IF NOT EXISTS reports (
     reason varchar(512),
     report_date timestamp default current_timestamp
 ) engine=InnoDB;
+-- Block Address Change notification
+create table block_move_notice (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    block_id    INT           NOT NULL,
+    old_address VARCHAR(128)  NOT NULL,
+    new_address VARCHAR(128)  NOT NULL,
+    expiry_date TIMESTAMP     NOT NULL
+) ENGINE=InnoDB;
 
 -- Promo Table
 CREATE TABLE IF NOT EXISTS promos (

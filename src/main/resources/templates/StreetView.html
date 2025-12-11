@@ -12,6 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wdth,wght,GRAD@0,8..144,50..150,100..900,-50..100;1,8..144,50..150,100..900,-50..100&display=swap" rel="stylesheet">
 </head>
 <body class="has-navbar">
+    <div id="noticePopup" class="notice-popup">
+        <h4>Block Relocation Notice</h4>
+        <p><strong>Old address:</strong> <span id="oldAddress"></span></p>
+        <p><strong>New address:</strong> <span id="newAddress"></span></p>
+        <button onclick="closeNoticePopup()">OK</button>
+    </div>
+<div id="popupBackdrop" class="popup-backdrop" onclick="closeNoticePopup()"></div>
     <div class="main-content">
     <div th:replace="~{NavigationBar :: public-nav}"></div>
         <div th:if="${successMessage}" class="success-message">
@@ -60,6 +67,31 @@
             </div>
 
         </a>
+        <a  class="house-block moved-block"
+            th:each="ghost : ${oldBlocks}"
+            href="#"
+            th:data-block-id="${ghost.id}"
+            th:data-address="${ghost.address}"
+            onclick="showMoveNotice(this); return false;">
+
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/base/base-' + ${ghost.baseOption} + '.svg'"
+                 th:data-color="${ghost.baseColour}"
+                 th:data-text="${ghost.name}"
+                 th:data-fontOptions="${ghost.fontOptions}"
+                 th:data-fontColour="${ghost.fontColour}">
+            </div>
+
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/roof/roof-' + ${ghost.roofOption} + '.svg'"
+                 th:data-color="${ghost.roofColour}">
+            </div>
+
+            <div class="house-layer js-inject-svg"
+                 th:data-url="'/svg/foreground/foreground-' + ${ghost.foregroundOption} + '.svg'"
+                 th:data-color="${ghost.foregroundColour}">
+            </div>
+        </a>
         </div>
         <div class="pagination">
             <a th:if="${CurrentPage >1}" th:href="@{'/street/'+${street}(Page=${CurrentPage - 1},Size=${Size})}">
@@ -76,16 +108,16 @@
 
     <aside class="promo-sidebar">
         <h3 class="sidebar-title">Local Promos</h3>
-        
+
         <div th:if="${promos != null}">
-            <a th:each="i : ${#numbers.sequence(1, 4)}" 
-                 th:if="${promos.containsKey(i)}" 
+            <a th:each="i : ${#numbers.sequence(1, 4)}"
+                 th:if="${promos.containsKey(i)}"
                  th:href="@{'/OrganisationInfo/' + ${promos.get(i).address}}"
                  class="sidebar-promo-card">
-                
+
                 <h4 th:text="${promos.get(i).name}">Block Name</h4>
                 <p th:text="${promos.get(i).promoText}">Promo text...</p>
-                
+
                 <span class="promo-link">Visit →</span>
             </a>
         </div>
@@ -96,5 +128,28 @@
     <script th:replace="~{NavigationBar :: navbar-js}"></script>
 
     <script src="/js/StreetView.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const moveNotices = /*[[${moveNotices}]]*/ [];
+        /*]]>*/
+
+        function showMoveNotice(el) {
+            const blockId = parseInt(el.dataset.blockId);
+            const notice = moveNotices.find(n => n.blockId === blockId);
+            if (!notice) return;
+
+            document.getElementById("oldAddress").innerText = notice.oldAddress;
+            document.getElementById("newAddress").innerText = notice.newAddress;
+
+            document.getElementById("noticePopup").style.display = "block";
+            document.getElementById("popupBackdrop").style.display = "block";
+        }
+
+        function closeNoticePopup() {
+            document.getElementById("noticePopup").style.display = "none";
+            document.getElementById("popupBackdrop").style.display = "none";
+        }
+    </script>
+
 </body>
 </html>
