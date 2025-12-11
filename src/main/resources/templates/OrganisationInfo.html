@@ -8,7 +8,9 @@
 </head>
 <body class="has-navbar">
     <div class="main-content">
-    <div th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+    <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
     <div th:replace="~{fragments/street-nav :: street-nav}"></div>
     <!-- EXPIRED MESSAGE - Shows when block has expired -->
         <div th:if="${isExpired}" class="expiry-alert expired">

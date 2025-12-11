@@ -13,7 +13,9 @@
 </head>
 <body class="has-navbar">
   <div class="main-content">
-  <div th:replace="~{NavigationBar :: public-nav}"></div>
+  <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+  <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+  <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
   <div class="container">
     <h2 class="form-title">Submit New Block</h2>
     
@@ -119,10 +121,9 @@
         <label for="mainText">Main Text <span class="required">*</span></label>
         <textarea th:field="*{mainText}" 
                   id="mainText"
-                  rows="6" 
-                  maxlength="512" 
+                  rows="6"
                   placeholder="Add description here..."></textarea>
-        <div class="char-count"><span id="mainTextCount">0</span>/512</div>
+        <div class="word-count"><span id="mainTextCount">0</span>/512 words</div>
         <div class="form-error" th:errors="*{mainText}"></div>
         <div class="feedback"></div>
       </div>
@@ -132,10 +133,9 @@
         <label for="linksText">Links Text</label>
         <textarea th:field="*{linksText}" 
                   id="linksText"
-                  rows="4" 
-                  maxlength="256" 
+                  rows="4"
                   placeholder="Add links here..."></textarea>
-        <div class="char-count"><span id="linksTextCount">0</span>/256</div>
+        <div class="word-count"><span id="linksTextCount">0</span>/256 words</div>
         <div class="feedback"></div>
       </div>
 
@@ -144,10 +144,9 @@
         <label for="infoText">Info Text</label>
         <textarea th:field="*{infoText}" 
                   id="infoText"
-                  rows="4" 
-                  maxlength="256" 
+                  rows="4"
                   placeholder="Add contact information here..."></textarea>
-        <div class="char-count"><span id="infoTextCount">0</span>/256</div>
+        <div class="word-count"><span id="infoTextCount">0</span>/256 words</div>
         <div class="feedback"></div>
       </div>
 
@@ -156,10 +155,9 @@
         <label for="promoText">Promo Text</label>
         <textarea th:field="*{promoText}" 
                   id="promoText"
-                  rows="4" 
-                  maxlength="256" 
+                  rows="4"
                   placeholder="Add promo information here..."></textarea>
-        <div class="char-count"><span id="promoTextCount">0</span>/256</div>
+        <div class="char-count"><span id="promoTextCount">0</span>/256 words</div>
         <div class="feedback"></div>
       </div>
 

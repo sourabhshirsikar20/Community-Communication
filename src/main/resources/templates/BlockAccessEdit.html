@@ -9,8 +9,9 @@
 <body class="has-navbar">
 
 <div class="main-content">
-
-    <div th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+    <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+    <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
 
     <div class="container">
 
@@ -110,7 +111,7 @@
                 </div>
             </div>
 
-            <!-- Other text fields -->
+            <!-- Main Text - UPDATED FOR WORD COUNT -->
             <div class="form-field">
                 <label for="mainText">Main Text <span class="required">*</span></label>
 
@@ -118,11 +119,10 @@
                           id="mainText"
                           class="styled-input"
                           rows="6"
-                          maxlength="512"
                           placeholder="Add description here..."
                           th:errorclass="invalid-field"></textarea>
 
-                <div class="char-count"><span id="mainTextCount">0</span>/512</div>
+                <div class="word-count"><span id="mainTextCount">0</span> / 512 words</div>
 
                 <div class="form-error" th:if="${#fields.hasErrors('mainText')}"
                      th:errors="*{mainText}">
@@ -131,23 +131,35 @@
             </div>
 
             <div class="form-field">
-                <label>Links</label>
-                <textarea th:field="*{linksText}" rows="4"></textarea>
+                <label for="linksText">Links</label>
+                <textarea th:field="*{linksText}" 
+                          id="linksText"
+                          rows="4"
+                          placeholder="Add links here..."></textarea>
+                <div class="word-count"><span id="linksTextCount">0</span> / 256 words</div>
             </div>
 
             <div class="form-field">
-                <label>Info</label>
-                <textarea th:field="*{infoText}" rows="4"></textarea>
+                <label for="infoText">Info</label>
+                <textarea th:field="*{infoText}" 
+                          id="infoText"
+                          rows="4"
+                          placeholder="Add info here..."></textarea>
+                <div class="word-count"><span id="infoTextCount">0</span> / 256 words</div>
             </div>
 
             <div class="form-field">
-                <label>Promo</label>
-                <textarea th:field="*{promoText}" rows="4"></textarea>
+                <label for="promoText">Promo</label>
+                <textarea th:field="*{promoText}" 
+                          id="promoText"
+                          rows="4"
+                          placeholder="Add promo here..."></textarea>
+                <div class="word-count"><span id="promoTextCount">0</span> / 256 words</div>
             </div>
 
             <div class="form-field">
-                <label>Address</label>
-                <input th:field="*{address}" id="addressField" type="text" class="styled=input" th:errorclass="invalid-field">
+                <label for="addressField">Address</label>
+                <input th:field="*{address}" id="addressField" type="text" class="styled-input" th:errorclass="invalid-field">
                 <span id="addressError" class="form-error"></span>
                 <span class="form-error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
             </div>

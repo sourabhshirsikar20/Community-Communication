@@ -2276,3 +2276,50 @@ textarea.invalid-field {
     font-size:11px;
     border-radius:4px;
 }
+/* ========== WORD COUNT STYLING ========== */
+.word-count {
+    text-align: right;
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 4px;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.word-count.warning {
+    color: #ff9800;
+    font-weight: 500;
+}
+
+.word-count.warning span {
+    font-weight: 600;
+}
+
+.word-count.danger {
+    color: #f44336;
+    font-weight: 600;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.word-count.danger span {
+    font-weight: 700;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .word-count {
+        font-size: 0.8em;
+    }
+}

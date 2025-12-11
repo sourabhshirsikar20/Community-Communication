@@ -1,13 +1,14 @@
 package com.community.communication.Approved;
 import java.time.LocalDateTime;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.community.communication.SubmitBlock.SubmitBlock;
+import com.community.communication.Validation.WordCount;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -26,15 +27,15 @@ public class Block {
     String fontOptions;
     String fontColour;
     @NotEmpty(message = "Main text may not be empty")
-    @Size(max = 512, message = "Main text cannot exceed 512 characters")
-    @Size(min = 10, message = "Minimum 10 characters!")
-    String mainText;
-    @Size(max = 256, message = "Link text cannot exceed 256 characters")
-    String linksText;
-    @Size(max = 256, message = "Contact Information cannot exceed 256 characters")
-    String infoText;
-    @Size(max = 256, message = "Promo text cannot exceed 256 characters")
-    String promoText;
+    @Size(min = 10, message = "Main text must be at least 10 characters")
+    @WordCount(max = 512, message = "Main text cannot exceed 512 words")
+    private String mainText;
+    @WordCount(max = 256, message = "Links text cannot exceed 256 words")
+    private String linksText;
+    @WordCount(max = 256, message = "Info text cannot exceed 256 words")
+    private String infoText;
+    @WordCount(max = 256, message = "Promo text cannot exceed 256 words")
+    private String promoText;
     String secretHash;
     boolean approved;
     LocalDateTime createdDate;  
