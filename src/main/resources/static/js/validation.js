@@ -1,57 +1,112 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('submit-block-form');
     const fields = [
-        { el: document.getElementById('blockName'), min: 3, msg: 'at least 3 characters', required: true },
-        { el: document.getElementById('mainText'), min: 10, msg: 'at least 10 characters', required: true },
-        { el: document.getElementById('linksText'), min: 0, msg: '', required: false },
-        { el: document.getElementById('infoText'), min: 0, msg: '', required: false },
-        { el: document.getElementById('promoText'), min: 0, msg: '', required: false }
+        { 
+            el: document.getElementById('blockName'), 
+            minChars: 3,
+            required: true,
+            type: 'text'
+        },
+        { 
+            el: document.getElementById('mainText'), 
+            minChars: 10,  
+            maxWords: 512, 
+            required: true,
+            type: 'textarea'
+        },
+        { 
+            el: document.getElementById('linksText'), 
+            maxWords: 256,  
+            required: false,
+            type: 'textarea'
+        },
+        { 
+            el: document.getElementById('infoText'), 
+            maxWords: 256,
+            required: false,
+            type: 'textarea'
+        },
+        { 
+            el: document.getElementById('promoText'), 
+            maxWords: 256,
+            required: false,
+            type: 'textarea'
+        }
     ];
 
-    function updateCharCount(field, counterId, maxLength) {
+    function countWords(text) {
+        // Remove extra whitespace and split by spaces
+        const trimmed = text.trim();
+        if (trimmed.length === 0) return 0;
+        return trimmed.split(/\s+/).length;
+    }
+    
+    function updateWordCount(field, counterId, maxWords) {
         const counter = document.getElementById(counterId);
         if (!counter) return;
-        const len = field.value.length;
-        counter.textContent = len;
+        
+        const wordCount = countWords(field.value);
+        counter.textContent = wordCount;
+        
         const parent = counter.parentElement;
         parent.classList.remove('warning', 'danger');
-        if (len > maxLength * 0.9) parent.classList.add('danger');
-        else if (len > maxLength * 0.75) parent.classList.add('warning');
+        
+        // Show warnings at 70% and danger at 100%
+        if (wordCount > maxWords) {
+            parent.classList.add('danger');
+        } else if (wordCount > maxWords * 0.7) {
+            parent.classList.add('warning');
+        }
     }
 
     function validateField(fieldObj) {
         const field = fieldObj.el;
+        if (!field) return true;
+        
         const value = field.value.trim();
-        const minLength = fieldObj.min;
-        const msg = fieldObj.msg;
         const required = fieldObj.required;
-
+        
         let isValid = true;
         let errorMsg = '';
 
-        if (required && value.length < minLength) {
-            isValid = false;
-            errorMsg = `Must be ${msg}`;
+        // CHARACTER-BASED validation (Block Name minimum, Main Text minimum)
+        if (fieldObj.minChars !== undefined) {
+            if (required && value.length < fieldObj.minChars) {
+                isValid = false;
+                errorMsg = `Must be at least ${fieldObj.minChars} characters`;
+            }
+        }
+
+        // WORD-BASED validation (All textareas maximum)
+        if (fieldObj.maxWords !== undefined) {
+            const wordCount = countWords(value);
+            if (wordCount > fieldObj.maxWords) {
+                isValid = false;
+                errorMsg = `Maximum ${fieldObj.maxWords} words allowed (currently ${wordCount} words)`;
+            }
         }
 
         field.classList.remove('error', 'success');
 
-        let feedback = field.nextElementSibling;
-        if (!feedback || !feedback.classList.contains('feedback')) {
+        let feedback = field.closest('.form-field')?.querySelector('.feedback');
+        if (!feedback) {
             feedback = document.createElement('div');
             feedback.className = 'feedback';
-            field.parentNode.insertBefore(feedback, field.nextSibling);
+            const formField = field.closest('.form-field');
+            if (formField) {
+                formField.appendChild(feedback);
+            }
         }
 
-        if (required) {
+        if (required || value.length > 0) {
             if (!isValid) {
                 field.classList.add('error');
-                feedback.textContent = errorMsg;
+                if (feedback) feedback.textContent = errorMsg;
             } else if (value.length > 0) {
                 field.classList.add('success');
-                feedback.textContent = '';
+                if (feedback) feedback.textContent = '';
             } else {
-                feedback.textContent = '';
+                if (feedback) feedback.textContent = '';
             }
         }
 
@@ -61,18 +116,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Attach events
     fields.forEach(f => {
         if (!f.el) return;
-        if (f.el.tagName === 'TEXTAREA') {
-            const maxLen = f.el.getAttribute('maxlength') || 256;
-            f.el.addEventListener('input', () => updateCharCount(f.el, f.el.id + 'Count', maxLen));
-            updateCharCount(f.el, f.el.id + 'Count', maxLen);
+
+        // For textareas, update word count on input
+        if (f.type === 'textarea' && f.maxWords) {
+            f.el.addEventListener('input', () => {
+                updateWordCount(f.el, f.el.id + 'Count', f.maxWords);
+                validateField(f);
+            });
+            // Initialize word count display
+            updateWordCount(f.el, f.el.id + 'Count', f.maxWords);
+        } else {
+            // For text inputs, just validate
+            f.el.addEventListener('input', () => validateField(f));
         }
 
-        f.el.addEventListener('input', () => validateField(f));
         f.el.addEventListener('blur', () => validateField(f));
     });
 
     form.addEventListener('submit', function(e) {
         let allValid = true;
+        
         fields.forEach(f => {
             if (!f.el) return;
             const valid = validateField(f);
@@ -82,7 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!allValid) {
             e.preventDefault();
             const firstError = form.querySelector('.error');
-            if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
     });
 });
