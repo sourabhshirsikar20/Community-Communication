@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 <head>
     <meta charset="UTF-8">
     <title>Expiry Status Dashboard</title>
@@ -118,6 +119,8 @@
     </style>
 </head>
 <body>
+    <div th:replace="~{NavigationBar :: admin-nav}"></div>
+    <div th:replace="~{NavigationBar :: navbar-js}"></div>
     <div class="container">
         <h1>🕐 Expiry Status Dashboard</h1>
         

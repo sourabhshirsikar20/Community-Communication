@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <div th:replace="~{NavigationBar :: public-nav}"></div>
+  <div sec:authorize="!hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: public-nav}"></div>
+  <div sec:authorize="hasRole('ADMIN')" th:replace="~{NavigationBar :: admin-nav}"></div>
+  <div sec:authorize="hasRole('MANAGER') and !hasRole('ADMIN')" th:replace="~{NavigationBar :: manager-nav}"></div>
 
   <main class="error-body">
     <div th:if="${hasError}">

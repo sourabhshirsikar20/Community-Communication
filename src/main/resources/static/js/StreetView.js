@@ -162,6 +162,23 @@ async function injectStreets() {
             document.querySelector(`#street-${street_info['children'][i]['address']} text`).textContent = street_info['children'][i]['name'];
         }
     }
+    //Puts Ghost blocks by their address number
+    const streetContainer = document.querySelector('.street-container');
+    if (streetContainer) {
+        const ghosts = Array.from(document.querySelectorAll('.house-block.moved-block'));
+        ghosts.forEach(ghost => {
+            const addr = ghost.dataset.address;
+            if (!addr) return;
+
+            const next = findNextStreetElement(addr);
+            if (next && next !== ghost) {
+                //Ghost block have to come after before the first block with greater adress number
+                streetContainer.insertBefore(ghost, next);
+            } else {
+                streetContainer.appendChild(ghost);
+            }
+        });
+    }
 }
 
 injectSvgs();
@@ -223,4 +240,3 @@ document.addEventListener('DOMContentLoaded', () => {
     
     injectStreets();
 });
-
