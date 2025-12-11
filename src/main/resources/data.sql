@@ -211,7 +211,7 @@ insert into communities (
   'Grooming services available',
   'Buy 1 get 1 free on dog treats',
   1,
-  DATE_ADD(DATE_SUB(NOW(), INTERVAL 6 MONTH), INTERVAL 3 MINUTE)
+  DATE_ADD(DATE_SUB(NOW(), INTERVAL 6 MONTH), INTERVAL 5 MINUTE)
 );
 
 -- Block 10: Classic Bookstore (Created 7 MONTHS AGO - EXPIRED)
