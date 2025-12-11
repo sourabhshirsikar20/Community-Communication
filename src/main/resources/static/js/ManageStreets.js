@@ -223,14 +223,23 @@ function ValidateStreetMoveForm() {
     document.getElementById('new-addr-error').textContent = "";  
 }
 
+streetSVGs = {};
+
 async function UpdateAddSVG() {
   let box = document.getElementById('add-street-svg');
   let img_option = document.getElementById('add-img-option').value;
 
   // load svg
-  let response = await fetch(`/svg/streets/${img_option}.svg`);
-  if (!response.ok) throw new Error('svgs unavailable');
-  let svg = await response.text();
+  let svg = '';
+  if (img_option in streetSVGs) {
+    svg = streetSVGs[img_option];
+  }
+  else {
+    let response = await fetch(`/svg/streets/${img_option}.svg`);
+    if (!response.ok) throw new Error('svgs unavailable');
+    streetSVGs[img_option] = await response.text();
+    svg = streetSVGs[img_option];
+  }
 
   box.innerHTML = svg;
 
