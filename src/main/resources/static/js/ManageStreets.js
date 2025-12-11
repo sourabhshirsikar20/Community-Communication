@@ -122,6 +122,7 @@ async function DisplayStreet(street, attatch_element) {
 
 function AddNewStreet() {
   document.getElementById('add-street-section').classList.remove('hidden');
+  UpdateAddSVG();
 }
 
 function MoveStreet() {
@@ -232,6 +233,9 @@ async function UpdateAddSVG() {
   let svg = await response.text();
 
   box.innerHTML = svg;
+
+  // set text
+  box.querySelector('svg text').textContent = document.getElementById('add-street-name').value;
 }
 
 window.addEventListener('DOMContentLoaded', async () => {

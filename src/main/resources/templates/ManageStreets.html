@@ -24,7 +24,7 @@
         <div>
           <label>
             Name<br>
-            <input id="add-street-name" size="32" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm()">
+            <input id="add-street-name" size="32" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm(); UpdateAddSVG();">
           </label>
           <label>
             <div class="form-label"><span>Address</span><span id="addr-error"></span></div>
