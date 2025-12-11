@@ -62,8 +62,7 @@ public class ApprovedController {
     @GetMapping("/UpdateBlock")
     public ModelAndView updateBlock(@RequestParam("Address") String Address) {
         ModelAndView mav = new ModelAndView("UpdateAddress.html");
-        List<Street> Streets = ApproverRepository.getSubStreets("");
-        Streets.add(ApproverRepository.getStreet("root"));
+        List<Street> Streets = ApproverRepository.getAllStreets();
         mav.addObject("Streets", Streets);
         mav.addObject("Address", Address);
         return mav;
@@ -71,8 +70,7 @@ public class ApprovedController {
     @PostMapping("/UpdateBlock/Move")
     public ModelAndView moveBlock(@RequestParam("OldAddress") String OldAddress, @RequestParam("Street") String Street){
         ModelAndView mav = new ModelAndView("UpdateAddress");
-        List<Street> Streets = ApproverRepository.getSubStreets("");
-        Streets.add(ApproverRepository.getStreet("root"));
+        List<Street> Streets = ApproverRepository.getAllStreets();
         mav.addObject("Streets", Streets);
         mav.addObject("OldAddress", OldAddress);
         String NewAddress = ApproverRepository.GenAddr(Street);
