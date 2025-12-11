@@ -110,17 +110,6 @@ async function injectStreets() {
     let street_addresses = document.getElementById("address-range");
     let addresses = JSON.parse(street_addresses.dataset.paginationlist);
 
-    // load svgs
-    /*
-    let response = await fetch(`/svg/street.svg`);
-    if (!response.ok) throw new Error('svgs unavailable');
-    svgs['street'] = await response.text();
-
-    response = await fetch(`/svg/street-return.svg`);
-    if (!response.ok) throw new Error('svgs unavailable');
-    svgs['street-return'] = await response.text();
-    */
-
     // get street information
     let current_street = window.location.pathname;
     let current_address = null;

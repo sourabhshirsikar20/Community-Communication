@@ -21,25 +21,28 @@
     <section id="add-street-section" class="hidden">
       <h4>New Street Details</h4>
       <form id="add-street-form" action="/new-street" method="post" th:object="${newStreet}" onsubmit="return ValidateStreetForm()">
-        <label>
-          Name<br>
-          <input id="add-street-name" size="32" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm()">
-        </label>
-        <label>
-          <div class="form-label"><span>Address</span><span id="addr-error"></span></div>
-          <input id="add-street-addr" size="32" required placeholder="Address" th:field="*{address}" onkeyup="ValidateStreetForm()">
-        </label>
-        <label>
-          Description<br>
-          <input id="add-street-desc" size="32" required maxlength="64" placeholder="Short Description" th:field="*{description}" onkeyup="ValidateStreetForm()">
-        </label>
-        <label>
-          Image Option<br>
-          <select th:field="*{img_option}">
-            <option th:each="option : ${img_options}" th:value="${option}" th:text="${option}"></option>
-          </select>
-        </label>
-        <input type="submit" value="Add Street">
+        <div>
+          <label>
+            Name<br>
+            <input id="add-street-name" size="32" required maxlength="64" placeholder="Name" th:field="*{name}" onkeyup="ValidateStreetForm()">
+          </label>
+          <label>
+            <div class="form-label"><span>Address</span><span id="addr-error"></span></div>
+            <input id="add-street-addr" size="32" required placeholder="Address" th:field="*{address}" onkeyup="ValidateStreetForm()">
+          </label>
+          <label>
+            Description<br>
+            <input id="add-street-desc" size="32" required maxlength="64" placeholder="Short Description" th:field="*{description}" onkeyup="ValidateStreetForm()">
+          </label>
+          <label>
+            Image Option<br>
+            <select id="add-img-option" th:field="*{img_option}" onchange="UpdateAddSVG()">
+              <option th:each="option : ${img_options}" th:value="${option}" th:text="${option}"></option>
+            </select>
+          </label>
+          <input type="submit" value="Add Street">
+        </div>
+        <div id="add-street-svg"></div>
       </form>
     </section>
 

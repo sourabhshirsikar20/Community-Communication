@@ -222,6 +222,18 @@ function ValidateStreetMoveForm() {
     document.getElementById('new-addr-error').textContent = "";  
 }
 
+async function UpdateAddSVG() {
+  let box = document.getElementById('add-street-svg');
+  let img_option = document.getElementById('add-img-option').value;
+
+  // load svg
+  let response = await fetch(`/svg/streets/${img_option}.svg`);
+  if (!response.ok) throw new Error('svgs unavailable');
+  let svg = await response.text();
+
+  box.innerHTML = svg;
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
   // start with root and enter recursion for display
   streets = await getStreetInfo('root');
