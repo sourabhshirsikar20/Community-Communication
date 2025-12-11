@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div th:replace="~{NavigationBar :: login-nav}"></div>
 <div class="main-content">
     <!-- LOGOUT MESSAGE - Shows at the top when user clicks logout -->
     <div th:if="${param.logout}" class="logout-success-message">
