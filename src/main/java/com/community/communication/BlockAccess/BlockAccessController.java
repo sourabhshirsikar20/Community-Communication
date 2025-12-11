@@ -94,14 +94,6 @@ public class BlockAccessController {
         Block current = blockRepository.ById(id);
 
         ModelAndView mav = new ModelAndView("BlockAccessEdit.html");
-
-        if (current == null ||
-                current.getSecretHash() == null ||
-                !passwordEncoder.matches(accessCode, current.getSecretHash())) {
-            mav.addObject("error", "Invalid Access code! Edits will not be saved!");
-            mav.addObject("block", current !=null ? current : new Block());
-            return mav;
-        }
         String oldAddress = current.getAddress();
         try {
             Block existing = blockRepository.ByAddress(address);

@@ -5,16 +5,21 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import com.community.communication.blockmovenotice.BlockMoveNoticeRepository;
+import java.time.LocalDateTime;
+
 
 @Repository
 public class ApproverRepositoryJDBC implements ApproverRepository  {
 
     private JdbcTemplate jdbc;
+    private final BlockMoveNoticeRepository blockMoveNoticeRepository;
     private RowMapper<Block> blockMapper;
     private RowMapper<Street> streetMapper;
 
-    public ApproverRepositoryJDBC(JdbcTemplate aJdbc)  {
+    public ApproverRepositoryJDBC(JdbcTemplate aJdbc,BlockMoveNoticeRepository blockMoveNoticeRepository)  {
         this.jdbc = aJdbc;
+        this.blockMoveNoticeRepository = blockMoveNoticeRepository;
         setBlockMapper();
         setStreetMapper();
     }
@@ -156,37 +161,33 @@ public class ApproverRepositoryJDBC implements ApproverRepository  {
     @Override
     public void approve(int id, String secretHash) {
         int newAddress = 1;
-        String newAddressString = "0001";
-        List<Block> NewStreet = getStreetBlocks("00");
-        
-        for (Block block : NewStreet) {
-
-            if (newAddress<10) {
-                newAddressString = "000" + newAddress + "";
-            }else if(newAddress>9) {
-                newAddressString = "00" + newAddress + "";
+        String newAddressString = null;
+        List<Block> newStreet = getStreetBlocks("00");
+        LocalDateTime now = LocalDateTime.now();
+        while (true) {
+            if (newAddress > 99) {
+                System.out.println("No space in the database");
+                return;
             }
-
-            if (block.getAddress().equals(newAddressString)) {
-                newAddress++;
-            }
-        }
-
-        //Check if the database is full 
-        if(newAddress>99){
-            System.out.println("No space in the database");
-        }else{
             //check weather to add 2 or 3 zeros before the address
-            if (newAddress<10) {
-                newAddressString = "000" + newAddress + "";
-            }else if(newAddress>9) {
-                newAddressString = "00" + newAddress + "";
+            final String candidateAddress = (newAddress < 10)
+                    ? "000" + newAddress
+                    : "00" + newAddress;
+            //Check if its occupied by an existing block
+            boolean occupiedByBlock = newStreet.stream()
+                    .anyMatch(block -> candidateAddress.equals(block.getAddress()));
+            //Check if its reserved by a Ghost block
+            boolean reservedByMoveNotice =
+                    blockMoveNoticeRepository.existsByOldAddressAndExpiryDateAfter(candidateAddress, now);
+            if (!occupiedByBlock && !reservedByMoveNotice) {
+                newAddressString = candidateAddress;
+                break;
             }
-            String sql = "UPDATE communities SET approved = 1, address = ?, secret_Hash = ?, created_date = NOW() WHERE id = ?";
-            jdbc.update(sql,newAddressString,secretHash, id);
+            newAddress++;
         }
+        String sql = "UPDATE communities SET approved = 1, address = ?, secret_Hash = ?, created_date = NOW() WHERE id = ?";
+        jdbc.update(sql, newAddressString, secretHash, id);
     }
-    
     @Override
     public void deleteBlock(int id) {
         String sql = "DELETE FROM communities WHERE id = ?";

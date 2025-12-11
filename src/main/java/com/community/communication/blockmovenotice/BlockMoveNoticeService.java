@@ -18,7 +18,7 @@ public class BlockMoveNoticeService {
         notice.setBlockId(block.getId());
         notice.setOldAddress(oldAddress);
         notice.setNewAddress(block.getAddress());
-        notice.setExpiryDate(LocalDateTime.now().plusDays(3));
+        notice.setExpiryDate(LocalDateTime.now().plusMinutes(3));
         repo.save(notice);
     }
     public List<BlockMoveNotice> getActiveNotices() {

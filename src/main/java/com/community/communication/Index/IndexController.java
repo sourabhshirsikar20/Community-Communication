@@ -22,9 +22,16 @@ import com.community.communication.Approved.Street;
 import com.community.communication.Approved.StreetInfo;
 import com.community.communication.OrganisationInfo.OrganisationInfoRepository;
 import com.community.communication.Promos.PromoRepository;
+import com.community.communication.OrganiseBlock.BlockRepository;
+import com.community.communication.blockmovenotice.BlockMoveNotice;
+import com.community.communication.blockmovenotice.BlockMoveNoticeService;
 
 @Controller
 public class IndexController {
+    @Autowired
+    private BlockMoveNoticeService blockMoveNoticeService;
+    @Autowired
+    private BlockRepository blockRepository;
 
     @Autowired
     private ApproverRepository ApproverRepository;
@@ -109,6 +116,10 @@ public class IndexController {
         mav.addObject("TotalPages", Pages);
         mav.addObject("Size", Size);
         mav.addObject("street", street.equals("") ? "root" : street);
+        List<BlockMoveNotice> notices = blockMoveNoticeService.getActiveNotices(); //Moved block Notices
+        List<Block> oldBlocks = buildOldLocationBlocks(notices, street);
+        mav.addObject("moveNotices", notices);
+        mav.addObject("oldBlocks", oldBlocks);
         addPromosToView(mav);
         return mav;
     }
@@ -131,7 +142,53 @@ public class IndexController {
     public String getBlockName(@PathVariable String address) {
         return OrganisationInfoRepository.getInfo(address).getName();
     }
-    
+    private List<Block> buildOldLocationBlocks(List<BlockMoveNotice> notices, String streetAddress) {
+        if (notices == null || notices.isEmpty()) {
+            return List.of();
+        }
+        if (streetAddress == null || streetAddress.equals("root")) {
+            streetAddress = "";
+        }
+        List<Block> result = new ArrayList<>();
+        for (BlockMoveNotice notice : notices) {
+            String oldAddr = notice.getOldAddress();
+            if (oldAddr == null) {
+                continue;
+            }
+            if (!oldAddr.startsWith(streetAddress)) {
+                continue;
+            }
+            if (oldAddr.length() != streetAddress.length() + 2) {
+                continue;
+            }
+            //Getting block
+            Block original = blockRepository.ById(notice.getBlockId());
+            if (original == null) {
+                continue;
+            }
+            //Creating Ghost block at the old address
+            Block ghost = new Block();
+            ghost.setId(original.getId());
+            ghost.setAddress(oldAddr);
+            ghost.setName(original.getName());
+            ghost.setRoofOption(original.getRoofOption());
+            ghost.setRoofColour(original.getRoofColour());
+            ghost.setBaseOption(original.getBaseOption());
+            ghost.setBaseColour(original.getBaseColour());
+            ghost.setForegroundOption(original.getForegroundOption());
+            ghost.setForegroundColour(original.getForegroundColour());
+            ghost.setFontOptions(original.getFontOptions());
+            ghost.setFontColour(original.getFontColour());
+            ghost.setMainText(original.getMainText());
+            ghost.setLinksText(original.getLinksText());
+            ghost.setInfoText(original.getInfoText());
+            ghost.setPromoText(original.getPromoText());
+            ghost.setApproved(original.isApproved());
+            ghost.setSecretHash(original.getSecretHash());
+            result.add(ghost);
+        }
+        return result;
+    }
 
     @GetMapping("/search")
     public ModelAndView submitSearch(@RequestParam("search_value") String search_value) { 

@@ -19,7 +19,7 @@
         <div class="form-error" th:if="${error}" th:text="${error}"></div>
         <div class="success-message" th:if="${success}" th:text="${success}"></div>
 
-        <form th:action="@{/BlockAccess/save}" method="post" class="form-container" th:object="${block}">
+        <form id="block-access-edit-form" th:action="@{/BlockAccess/save}" method="post" class="form-container" th:object="${block}">
 
             <input type="hidden" th:field="*{id}">
             <input type="hidden" name="accessCode" th:value="${accessCode}">
