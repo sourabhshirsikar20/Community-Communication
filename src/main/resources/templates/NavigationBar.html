@@ -31,9 +31,6 @@
             <li class="nav-item">
                 <a href="/SubmitBlock" class="nav-link">📝 Submit Block</a>
             </li>
-            <li class="nav-item">
-                <a href="/Approver" class="nav-link">✅ Approver</a>
-            </li>
             <!-- LOGOUT BUTTON ADDED HERE -->
             <li class="nav-item">
                 <form method="post" th:action="@{/logout}" style="display: inline;">
@@ -44,46 +41,8 @@
     </div>
 </nav>
 
-<!-- ORGANISER NAVIGATION -->
-<nav th:fragment="organiser-nav" class="navbar">
-    <div class="nav-container">
-        <a href="/Index" class="nav-brand">Streete</a>
-        
-        <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <ul class="nav-menu" id="navMenu">
-            <li class="nav-item">
-                <a href="/Index" class="nav-link">🏠 Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="/SubmitBlock" class="nav-link">📝 Submit Block</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">
-                    🏢 Block Management <span class="arrow">▼</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/Block/View" class="dropdown-link">👁️ View Block</a></li>
-                    <li><a href="/Block/Check" class="dropdown-link">✓ Check Block</a></li>
-                    <li><a href="/Block/Add" class="dropdown-link">➕ Add Block</a></li>
-                </ul>
-            </li>
-            <!-- LOGOUT BUTTON ADDED HERE -->
-            <li class="nav-item">
-                <form method="post" th:action="@{/logout}" style="display: inline;">
-                    <button type="submit" class="nav-link logout-btn">Logout</button>
-                </form>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<!-- APPROVER NAVIGATION (Full Access) -->
-<nav th:fragment="approver-nav" class="navbar">
+<!-- MANAGER NAVIGATION -->
+<nav th:fragment="manager-nav" class="navbar">
     <div class="nav-container">
         <a href="/Index" class="nav-brand">Streete</a>
         
@@ -106,6 +65,43 @@
             <li class="nav-item">
                 <a href="/Promos/Manage" class="nav-link">📢 Promos</a>
             </li>
+            <!-- LOGOUT BUTTON ADDED HERE -->
+            <li class="nav-item">
+                <form method="post" th:action="@{/logout}" style="display: inline;">
+                    <button type="submit" class="nav-link logout-btn">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ADMIN NAVIGATION (Full Access) -->
+<nav th:fragment="admin-nav" class="navbar">
+    <div class="nav-container">
+        <a href="/Index" class="nav-brand">Streete</a>
+        
+        <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item">
+                <a href="/Index" class="nav-link">🏠 Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/SubmitBlock" class="nav-link">📝 Submit Block</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Approver" class="nav-link">✅ Approver</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Promos/Manage" class="nav-link">📢 Promos</a>
+            </li>
+            <li>
+                <a href="/ManageStreets" class="nav-link">🛣️ Street Management</a>
+            </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">
                     🏢 Block Management <span class="arrow">▼</span>
@@ -115,9 +111,6 @@
                     <li><a href="/Block/Check" class="dropdown-link">✓ Check Block</a></li>
                     <li><a href="/Block/Add" class="dropdown-link">➕ Add Block</a></li>
                 </ul>
-            </li>
-            <li>
-                <a href="/ManageStreets" class="nav-link">🛣️ Street Management</a>
             </li>
             <!-- LOGOUT BUTTON ADDED HERE -->
             <li class="nav-item">
